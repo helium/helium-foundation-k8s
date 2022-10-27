@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: helium
     server: https://kubernetes.default.svc
-  project: kafka
+  project: helium
   source:
     repoURL: https://github.com/helium/helium-foundation-k8s
     path: argocd/manifests/helium
