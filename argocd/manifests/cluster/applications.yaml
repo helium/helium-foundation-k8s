@@ -12,6 +12,11 @@ spec:
     repoURL: https://github.com/helium/helium-foundation-k8s
     path: argocd/manifests/helium
     targetRevision: HEAD
+    directory:
+      recurse: true
   syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
     syncOptions:
       - CreateNamespace=true
