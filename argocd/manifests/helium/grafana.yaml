@@ -96,6 +96,10 @@ spec:
   - host: grafana.test-helium.com
     http:
       paths:
-      - backend:
-          serviceName: grafana
-          servicePort: 3000
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 3000

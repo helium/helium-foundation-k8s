@@ -10,6 +10,9 @@ spec:
   - host: argo.test-helium.com
     https:
       paths:
-      - backend:
-          serviceName: argocd-server
-          servicePort: 443
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: argocd-server
+            port: 443
