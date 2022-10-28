@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: argo
   namespace: argocd
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: argo.test-helium.com
 spec:
   rules:
   - host: argo.test-helium.com

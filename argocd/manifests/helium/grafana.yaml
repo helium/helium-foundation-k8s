@@ -74,6 +74,8 @@ kind: Service
 metadata:
   name: grafana
   namespace: helium
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: grafana.test-helium.com.
 spec:
   ports:
     - port: 3000
@@ -89,8 +91,6 @@ kind: Ingress
 metadata:
   name: grafana
   namespace: helium
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: grafana.test-helium.com
 spec:
   rules:
   - host: grafana.test-helium.com
