@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: helium
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: grafana.test-helium.com
+spec:
+  rules:
+  - host: grafana.test-helium.com
+    http:
+      paths:
+      - backend:
+          serviceName: grafana
+          servicePort: 3000
+

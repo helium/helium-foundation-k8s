@@ -83,3 +83,19 @@ spec:
     app: grafana
   sessionAffinity: None
   type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: helium
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: grafana.test-helium.com
+spec:
+  rules:
+  - host: grafana.test-helium.com
+    http:
+      paths:
+      - backend:
+          serviceName: grafana
+          servicePort: 3000
