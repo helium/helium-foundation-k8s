@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: argo
   namespace: argocd
+  annotations:
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
   - host: argo.test-helium.com
