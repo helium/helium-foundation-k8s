@@ -7,7 +7,7 @@ spec:
   ingressClassName: nginx
   rules:
   - host: argo.test-helium.com
-    https:
+    http:
       paths:
       - path: /
         pathType: Prefix
@@ -15,4 +15,4 @@ spec:
           service: 
             name: argocd-server
             port: 
-              number: 443
+              number: 80
