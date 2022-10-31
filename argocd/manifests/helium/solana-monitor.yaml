@@ -20,7 +20,7 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
-              name: http-solana-monitor
+              name: http
               protocol: TCP
           env:
             - name: HNT_MINT
@@ -76,7 +76,7 @@ spec:
   ports:
     - port: 8082
       protocol: TCP
-      targetPort: http-solana-monitor
+      targetPort: http
   selector:
     app: solana-monitor
   sessionAffinity: None
