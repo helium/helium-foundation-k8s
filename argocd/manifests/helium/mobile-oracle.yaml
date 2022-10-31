@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mobile-oracle
-          image: 848739503602.dkr.ecr.us-east-1.amazonaws.com/mobile-oracle:0.0.1
+          image: 848739503602.dkr.ecr.us-east-1.amazonaws.com/distributor-oracle:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -34,10 +34,10 @@ spec:
                   name: globals
                   key: solana_url
             - name: ORACLE_KEYPAIR_PATH
-              value: /usr/src/app/keypair.json
+              value: /usr/src/app/keys/keypair.json
           volumeMounts:
             - name: oracle-keypair
-              mountPath: /usr/src/app
+              mountPath: /usr/src/app/keys
               readOnly: true
           readinessProbe:
             failureThreshold: 3
@@ -91,7 +91,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: mobile-oracle
-  namespace: monitoring
+  namespace: helium
 spec:
   ingressClassName: nginx
   rules:
