@@ -36,9 +36,9 @@ spec:
             - name: ORACLE_KEYPAIR_PATH
               value: /usr/src/app/keypair.json
           volumeMounts:
-            name: oracle-keypair
-            mountPath: /usr/src/app/keypair.json
-            readOnly: true
+            - name: oracle-keypair
+              mountPath: /usr/src/app
+              readOnly: true
           readinessProbe:
             failureThreshold: 3
             httpGet:
@@ -64,12 +64,13 @@ spec:
             limits:
               cpu: 500m
               memory: 750Mi
-      volume:
+      volumes:
         - name: oracle-keypair
-          secretName: oracle-keypair
-          items:
-            - key: keypair.json
-              path: /keypair.json
+          secret:
+            secretName: oracle-keypair
+            items:
+              - key: keypair.json
+                path: keypair.json
 ---
 apiVersion: v1
 kind: Service
