@@ -17,7 +17,7 @@ kind: ConfigMap
 metadata:
   name: grafana-datasources
   namespace: monitoring
-  
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -89,7 +89,6 @@ spec:
           configMap:
               defaultMode: 420
               name: grafana-dashboards
-      volumes:
         - name: grafana-pv
           persistentVolumeClaim:
             claimName: grafana-pvc
