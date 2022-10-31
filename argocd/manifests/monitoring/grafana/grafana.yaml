@@ -39,6 +39,9 @@ spec:
             - containerPort: 3000
               name: http-grafana
               protocol: TCP
+          env:
+            - name: GF_PATHS_PROVISIONING
+              value: /etc/grafana/provisioning
           readinessProbe:
             failureThreshold: 3
             httpGet:
@@ -64,10 +67,10 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/grafana
               name: grafana-pv
-            - mountPath: /usr/share/grafana/conf/provisioning/datasources
+            - mountPath:/etc/grafana/provisioning/provisioning/datasources
               name: grafana-datasources
               readOnly: false
-            - mountPath: /usr/share/grafana/conf/provisioning/dashboards
+            - mountPath:/etc/grafana/provisioning/provisioning/dashboards
               name: grafana-dashboards
               readOnly: true
       volumes:
