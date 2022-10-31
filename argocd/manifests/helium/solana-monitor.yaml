@@ -32,7 +32,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: globals
-                  key: hnt_mint
+                  key: mobile_mint
             - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:
