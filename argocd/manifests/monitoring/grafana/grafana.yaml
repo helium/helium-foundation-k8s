@@ -3,13 +3,21 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: grafana-pvc
-  namespace: helium
+  namespace: monitoring
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: monitoring
+  
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -17,7 +25,7 @@ metadata:
   labels:
     app: grafana
   name: grafana
-  namespace: helium
+  namespace: monitoring
 spec:
   selector:
     matchLabels:
@@ -64,6 +72,23 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/grafana
               name: grafana-pv
+            - mountPath: /etc/grafana/provisioning/datasources
+              name: grafana-datasources
+              readOnly: false
+            - mountPath: /etc/grafana/provisioning/dashboards
+              name: grafana-dashboards
+              readOnly: true
+      volumes:
+        - name: grafana-storage
+          emptyDir: {}
+        - name: grafana-datasources
+          configMap:
+              defaultMode: 420
+              name: grafana-datasources
+        - name: grafana-dashboards
+          configMap:
+              defaultMode: 420
+              name: grafana-dashboards
       volumes:
         - name: grafana-pv
           persistentVolumeClaim:
@@ -73,8 +98,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grafana
-  namespace: helium
+  namespace: monitoring
   annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '9090'
     external-dns.alpha.kubernetes.io/hostname: grafana.test-helium.com
 spec:
   ports:
@@ -90,7 +117,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: grafana
-  namespace: helium
+  namespace: monitoring
 spec:
   ingressClassName: nginx
   rules:

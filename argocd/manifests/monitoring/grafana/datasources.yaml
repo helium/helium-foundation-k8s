@@ -1,0 +1,7 @@
+datasources:
+  name: prometheus
+  access: proxy
+  orgId: 1
+  editable: false
+  url: http://prometheus-service.monitoring.svc:8080
+  version: 1
