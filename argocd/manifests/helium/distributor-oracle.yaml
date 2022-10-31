@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: distributor-oracle
+  name: distributor-oracle
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: distributor-oracle
+  template:
+    metadata:
+      labels:
+        app: distributor-oracle
+    spec:
+      containers:
+        - name: distributor-oracle
+          image: 848739503602.dkr.ecr.us-east-1.amazonaws.com/distributor-oracle:0.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          env:
+            - name: EPOCH_MAX_REWARDS
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: mobile_rewards
+            - name: ANCHOR_PROVIDER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: solana_url
+            - name: ORACLE_KEYPAIR_PATH
+              value: /usr/src/app/keypair.json
+          volumeMounts:
+            name: oracle-keypair
+            mountPath: /usr/src/app/keypair.json
+            readOnly: true
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+            limits:
+              cpu: 500m
+              memory: 750Mi
+      volume:
+        - name: oracle-keypair
+          secretName: oracle-keypair
+          items:
+            - key: keypair.json
+              path: /keypair.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: distributor-oracle
+  namespace: helium
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: distributor-oracle
+  sessionAffinity: None
+  type: LoadBalancer
