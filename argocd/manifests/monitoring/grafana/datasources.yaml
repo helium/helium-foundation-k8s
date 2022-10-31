@@ -1,6 +1,8 @@
 datasources:
   - name: prometheus
     access: proxy
+    type: prometheus
+    isDefault: true
     orgId: 1
     editable: false
     url: http://prometheus-service.monitoring.svc:8080
