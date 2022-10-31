@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: distributor-oracle
-  name: distributor-oracle
+    app: mobile-oracle
+  name: mobile-oracle
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: distributor-oracle
+      app: mobile-oracle
   template:
     metadata:
       labels:
-        app: distributor-oracle
+        app: mobile-oracle
     spec:
       containers:
-        - name: distributor-oracle
-          image: 848739503602.dkr.ecr.us-east-1.amazonaws.com/distributor-oracle:0.0.1
+        - name: mobile-oracle
+          image: 848739503602.dkr.ecr.us-east-1.amazonaws.com/mobile-oracle:0.0.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -75,7 +75,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: distributor-oracle
+  name: mobile-oracle
   namespace: helium
 spec:
   ports:
@@ -83,6 +83,25 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: distributor-oracle
+    app: mobile-oracle
   sessionAffinity: None
   type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mobile-oracle
+  namespace: monitoring
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: mobile-oracle.test-helium.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mobile-oracle
+            port:
+              number: 8080
