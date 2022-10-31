@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: solana-monitor
+  name: solana-monitor
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: solana-monitor
+  template:
+    metadata:
+      labels:
+        app: solana-monitor
+    spec:
+      containers:
+        - name: solana-monitor
+          image:  848739503602.dkr.ecr.us-east-1.amazonaws.com/monitor-service:0.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8082
+              name: http-solana-monitor
+              protocol: TCP
+          env:
+            - name: HNT_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: hnt_mint
+            - name: MOBILE_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: hnt_mint
+            - name: SOLANA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: solana_url
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /metrics
+              port: 8082
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8082
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+            limits:
+              cpu: 500m
+              memory: 750Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: solana-monitor
+  namespace: helium
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '8082'
+spec:
+  ports:
+    - port: 8082
+      protocol: TCP
+      targetPort: http-solana-monitor
+  selector:
+    app: solana-monitor
+  sessionAffinity: None
+  type: LoadBalancer

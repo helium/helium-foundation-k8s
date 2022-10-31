@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: globals
+  namespace: helium
+data:
+  solana_url: "https://api.devnet.solana.com"
+  mobile_mint: "tQZvstjC1JTvNuMQXwQ43YHk56Zwj4A8NmcvKm1cgkd"
+  hnt_mint: "tQoQSWCksW199sUpAU3uBPAVMvLEh5E7iCYvW6ioTPb"
+  dc_mint: "t9zJFQE7HSYmxBiUmNwgDvjSvMumPN9HtkVsfSeWmeL"
