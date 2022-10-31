@@ -109,6 +109,9 @@ kind: Ingress
 metadata:
   name: grafana
   namespace: monitoring
+annotations:
+  nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  nginx.ingress.kubernetes.io/ssl-passthrough: "false"
 spec:
   ingressClassName: nginx
   rules:
