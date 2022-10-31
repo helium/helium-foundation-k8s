@@ -10,4 +10,4 @@ configMapGenerator:
 - name: grafana-dashboards
   files:
     - dashboards/dashboard.yaml
-    - dashboards/solana.yaml
+    - dashboards/solana.json

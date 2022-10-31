@@ -67,10 +67,10 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/grafana
               name: grafana-pv
-            - mountPath:/etc/grafana/provisioning/provisioning/datasources
+            - mountPath: /etc/grafana/provisioning/datasources
               name: grafana-datasources
               readOnly: false
-            - mountPath:/etc/grafana/provisioning/provisioning/dashboards
+            - mountPath: /etc/grafana/provisioning/dashboards
               name: grafana-dashboards
               readOnly: true
       volumes:
@@ -78,11 +78,9 @@ spec:
           emptyDir: {}
         - name: grafana-datasources
           configMap:
-              defaultMode: 420
               name: grafana-datasources
         - name: grafana-dashboards
           configMap:
-              defaultMode: 420
               name: grafana-dashboards
         - name: grafana-pv
           persistentVolumeClaim:
