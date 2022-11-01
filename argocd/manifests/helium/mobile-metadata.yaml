@@ -25,7 +25,7 @@ spec:
           env:
             - name: COLLECTION_SYMBOL
               value: MOBILE
-            - DNT_MINT
+            - name: DNT_MINT
               valueFrom:
                 configMapKeyRef:
                   name: globals
