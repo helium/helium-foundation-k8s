@@ -23,6 +23,8 @@ spec:
               name: http
               protocol: TCP
           env:
+            - name: COLLECTION_SYMBOL
+              value: MOBILE
             - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:

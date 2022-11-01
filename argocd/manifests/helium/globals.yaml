@@ -5,7 +5,7 @@ metadata:
   namespace: helium
 data:
   solana_url: "https://api.devnet.solana.com"
-  mobile_mint: "CKuwd2oB8be14g9Y94NuM87nZZzq9HXDBeEe6N3QXZdN"
-  hnt_mint: "9PT9Um19m1JKc1sbWETxD9NySjinnNoxv7xYmvBXUqyx"
-  dc_mint: "2SyDxfawpkdg2EojMv1ZTUiqCefYFksNXjsBZivu5dpG"
+  mobile_mint: "FPKgDamvsNjfmYqjUwkFREXeKGoLFmD4NcQ68kRtSxrs"
+  hnt_mint: "CD9XaohcmnM3Xc95VvK5w1jm5ZuQ6wovy4uAYQ39jS2S"
+  dc_mint: "4R2prERdggRzHw9boXqmbff1fzjzXW5aX7pNtjMdYNrr"
   mobile_rewards: "50"
