@@ -25,6 +25,11 @@ spec:
           env:
             - name: COLLECTION_SYMBOL
               value: MOBILE
+            - DNT_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: mobile_mint
             - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:
