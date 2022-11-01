@@ -3,23 +3,52 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "HNT"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 3,
@@ -30,48 +59,57 @@
       "interval": "",
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
-          "calcs": ["lastNotNull"],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "HNT"
-          },
-          "overrides": [],
-          "values": false
-        },
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "auto"
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "pluginVersion": "6.7.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_account_balance{name=\"mobile_treasury\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Mobile Treasury Balance",
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "MOBILE"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 3,
@@ -82,48 +120,53 @@
       "interval": "",
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
-          "calcs": ["lastNotNull"],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "MOBILE"
-          },
-          "overrides": [],
-          "values": false
-        },
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "auto"
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "pluginVersion": "6.7.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_account_balance{name=\"mobile_rewards_escrow\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Mobile Rewards Escrow",
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "MOBILE"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 5,
@@ -134,44 +177,53 @@
       "interval": "",
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
-          "calcs": ["lastNotNull"],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "MOBILE"
-          },
-          "overrides": [],
-          "values": false
-        },
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "auto"
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "pluginVersion": "6.7.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_mint_supply{name=\"mobile\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Mobile Supply",
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "HNT"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 7,
@@ -182,44 +234,53 @@
       "interval": "",
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
-          "calcs": ["lastNotNull"],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "HNT"
-          },
-          "overrides": [],
-          "values": false
-        },
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "auto"
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "pluginVersion": "6.7.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_mint_supply{name=\"hnt\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "HNT Supply",
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "DC"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 6,
@@ -230,39 +291,29 @@
       "interval": "",
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
-          "calcs": ["lastNotNull"],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "DC"
-          },
-          "overrides": [],
-          "values": false
-        },
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "auto"
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "pluginVersion": "6.7.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_mint_supply{name=\"dc\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "DC Supply",
       "type": "stat"
     },
@@ -271,7 +322,16 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -295,9 +355,10 @@
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "9.1.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -312,12 +373,20 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_circuit_breaker_level{name=\"mobile_treasury\"}",
           "interval": "",
           "legendFormat": "level",
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_circuit_breaker_limit{name=\"mobile_treasury\"}",
           "interval": "",
           "legendFormat": "limit",
@@ -325,9 +394,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Mobile Treasury Breaker",
       "tooltip": {
         "shared": true,
@@ -336,33 +403,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -370,7 +428,16 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -394,9 +461,10 @@
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "9.1.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -411,12 +479,20 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_circuit_breaker_level{name=\"hnt_mint\"}",
           "interval": "",
           "legendFormat": "level",
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_circuit_breaker_limit{name=\"hnt_mint\"}",
           "interval": "",
           "legendFormat": "limit",
@@ -424,9 +500,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "HNT Mint Breaker",
       "tooltip": {
         "shared": true,
@@ -435,33 +509,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -469,7 +534,16 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -493,9 +567,10 @@
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "9.1.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -510,12 +585,20 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_circuit_breaker_level{name=\"dc_mint\"}",
           "interval": "",
           "legendFormat": "level",
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_circuit_breaker_limit{name=\"dc_mint\"}",
           "interval": "",
           "legendFormat": "limit",
@@ -523,9 +606,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "DC Mint Breaker",
       "tooltip": {
         "shared": true,
@@ -534,33 +615,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -568,7 +640,16 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -592,9 +673,10 @@
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "9.1.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -609,12 +691,20 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_circuit_breaker_level{name=\"mobile_rewards_escrow\"}",
           "interval": "",
           "legendFormat": "level",
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_circuit_breaker_limit{name=\"mobile_rewards_escrow\"}",
           "interval": "",
           "legendFormat": "limit",
@@ -622,9 +712,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Mobile Escrow Breaker",
       "tooltip": {
         "shared": true,
@@ -633,33 +721,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -667,7 +746,16 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -691,9 +779,10 @@
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "9.1.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -708,12 +797,20 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_circuit_breaker_level{name=\"mobile_mint\"}",
           "interval": "",
           "legendFormat": "level",
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
           "expr": "solana_circuit_breaker_limit{name=\"mobile_mint\"}",
           "interval": "",
           "legendFormat": "limit",
@@ -721,9 +818,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Mobile Mint Breaker",
       "tooltip": {
         "shared": true,
@@ -732,37 +827,29 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     }
   ],
-  "schemaVersion": 22,
+  "refresh": "5s",
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -789,8 +876,6 @@
   "timezone": "",
   "title": "Helium Solana Dash",
   "uid": "ge5UzzN4k",
-  "variables": {
-    "list": []
-  },
-  "version": 9
+  "version": 1,
+  "weekStart": ""
 }
