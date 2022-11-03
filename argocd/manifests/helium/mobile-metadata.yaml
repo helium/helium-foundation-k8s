@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mobile-metadata
-          image: 848739503602.dkr.ecr.us-east-1.amazonaws.com/metadata-service:0.0.3
+          image: 848739503602.dkr.ecr.us-east-1.amazonaws.com/metadata-service:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
