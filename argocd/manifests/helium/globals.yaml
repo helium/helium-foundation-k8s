@@ -5,7 +5,7 @@ metadata:
   namespace: helium
 data:
   solana_url: "https://monke8127d577985245538ac648fe0969201d.xyz2.hyperplane.dev/"
-  mobile_mint: "6TR9fVX4NSB774cNAhShxdsx3MMVaCn2aoerZ7J47BMq"
-  hnt_mint: "EN1yLvjyFrHAWnHkb2WPagZ4pZh15GHnZTGfP5NDNbBP"
-  dc_mint: "GDFcdntstJxxpTqPptdpJXSgeoFjdpRbK49agWkgTaCr"
+  mobile_mint: "FsPsgurAdfo3zMFcyB4BggW92vs47swRoUX3xoDr6xjE"
+  hnt_mint: "3n1cc2BRJ9V5CojYGmU7a2eT8LycQWER6QyrnA6FWBXJ"
+  dc_mint: "A4VavGWfB5cWeYdrGTcgTCn5pqMSJ7ATGaT5m7HzUMBG"
   mobile_rewards: "50"
