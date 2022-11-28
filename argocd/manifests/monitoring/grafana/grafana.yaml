@@ -112,7 +112,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: grafana.test-helium.com
+  - host: grafana.oracle.test-helium.com
     http:
       paths:
       - path: /
