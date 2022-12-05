@@ -4,6 +4,9 @@ variable "cluster_name" {
   default = "helium"
 }
 
+variable "env" {
+  default = "prod"
+}
 
 variable "zone_id" {
   description = "Route53 zone ID"
