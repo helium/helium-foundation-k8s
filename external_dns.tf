@@ -1,9 +1,9 @@
 locals {
-  oidc_url = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
+  oidc_url = replace(data.aws_eks_cluster.eks.cluster_oidc_issuer_url, "https://", "")
 }
 
 resource "aws_iam_role" "external_dns" {
-  name  = "${module.eks.cluster_id}-external-dns"
+  name  = "${data.aws_eks_cluster.eks.cluster_id}-external-dns"
 
   assume_role_policy = <<EOF
 {
@@ -27,7 +27,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "external_dns" {
-  name_prefix = "${module.eks.cluster_id}-external-dns"
+  name_prefix = "${data.aws_eks_cluster.eks.cluster_id}-external-dns"
   role        = aws_iam_role.external_dns.name
   policy      = file("${path.module}/policies/external-dns-iam-policy.json")
 }

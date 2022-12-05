@@ -1,5 +1,6 @@
 locals {
-  lb_role_name = "${module.eks.cluster_id}-aws-load-balancer-controller"
+  lb_role_name = "${data.aws_eks_cluster.eks.cluster_id}-aws-load-balancer-controller"
+  oidc_url     = data.aws_eks_cluster.eks.identity.oidc.issuer
 }
 
 
