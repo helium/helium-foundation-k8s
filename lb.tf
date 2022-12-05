@@ -1,5 +1,5 @@
 locals {
-  lb_role_name = "${data.aws_eks_cluster.eks.cluster_name}-aws-load-balancer-controller"
+  lb_role_name = "${local.cluster_name}-aws-load-balancer-controller"
 }
 
 
