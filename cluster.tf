@@ -10,6 +10,7 @@ data "aws_eks_cluster_auth" "eks" {
   name = local.cluster_name
 }
 
+data "aws_caller_identity" "current" {}
 
 provider "helm" {
   kubernetes {
