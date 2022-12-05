@@ -6,6 +6,6 @@ metadata:
 data:
   solana_url: "https://mplx-devnet.genesysgo.net"
   mobile_mint: "FsPsgurAdfo3zMFcyB4BggW92vs47swRoUX3xoDr6xjE"
-  hnt_mint: "3n1cc2BRJ9V5CojYGmU7a2eT8LycQWER6QyrnA6FWBXJ"
-  dc_mint: "A4VavGWfB5cWeYdrGTcgTCn5pqMSJ7ATGaT5m7HzUMBG"
+  hnt_mint: "AhoZmESdFByYgftUHoLEoPfpuc7U5DKfzeNvm4v4YY1Q"
+  dc_mint: "6AmrRaUQ5qditSk11MNwocoBCK3VjFkQBL5tRK4Hdqbc"
   mobile_rewards: "50"
