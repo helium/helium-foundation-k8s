@@ -1,15 +1,21 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  creationTimestamp: null
-  name: oracle-keypair
-  namespace: helium
-spec:
-  encryptedData:
-    keypair.json: AgAGPNK2GfkxvdF/aaP8N81iQBx07IVJif4OdyUYtuKLuL9L14uFuVSYzrlqc5Sd7BxKgR9m8TWXQNM05BzP6qIxuW4SImldHPk6S7TAUytrwxiCm00z/02Pfv97+xL48ywO0NnykFyWRnW7jLGcjx2Kz6v8E00MeRzVV0XOEfAAkWRtk6lHtAQE3pxfc7qI1kQCkaYleEpz4oIFkTaa51Og9bHy6/GLIsEiLPUotoavjiyS22Jp67M+jXOrHO6aK5yZS+FZeXvscDdPgaNmPhHor4JEm/JaLLXzDfObmlf1xe+Nf/bvg+w0sffzAbH69SWmLwt9IrB7g7agJXQPEqKLDCJa/lBb1fe+1uYbpIkV08klKq8x8335n7XYGYwaufjsyEA4U5n/TgJ4BRWbXuIFZ+kYmEyoBb7V9xHEarXsAyiIwEMFa0+IHRX8OxBV5smhYMTJN7RCsUAJdoEK6Vw3wyDajESTmXAb+lv6CsGzOZsbRU2QRAPUsGZNoiYbRYYTAgBw1xuyUN0txb6Fa1nmdRGoSBk2BWEk7S/1tWWw6fHyvTX8lCiNH2iKqozkL5XRkxbRajnPylociRlUQ1olWhKQJ9xvWVEjMuIYMHBbhxkT+UYexpuAxyuUFiCXHonzoidCS56Oivej981wnYBlsw/7nwD7VYuh71k6Jp4GgFkLvYAbwYTmYsLF0VUML4S6hgQFjzMUsNt4UENTE5iFxxaPPx2os2dhvVbf+CNFUr8N+1WookSN7roMlZnDt6A0IDAm9hjzAG11a3NKbn68GD8nQk+FUjhyxyQGiuyJ0qPiZ+bEM9BP4OngCVmmwp3kKMzAbe9S09CosLTXBaLHdsZaxi/6cELHW+pnZh576ZQb8o0BTD5t0CdSlHGhQlXAxdIW7XhWLPYbekfkmFAfDlDJJtznKwdksv5AnorAnpRZvmZj4BsRAICo2jYuXKTW4vZryhP+Gt7VEoM4yXGBqF4hLEECIN3Busl13y+qS+WB90MQku4=
-  template:
-    metadata:
-      creationTimestamp: null
-      name: oracle-keypair
-      namespace: helium
-
+{
+  "kind": "SealedSecret",
+  "apiVersion": "bitnami.com/v1alpha1",
+  "metadata": {
+    "name": "oracle-keypair",
+    "namespace": "default",
+    "creationTimestamp": null
+  },
+  "spec": {
+    "template": {
+      "metadata": {
+        "name": "oracle-keypair",
+        "namespace": "default",
+        "creationTimestamp": null
+      }
+    },
+    "encryptedData": {
+      "keypair.json": "AgARIshg991ug5UCgYgKVi1Zbo3jCCPMznYT0DjsuBn+qauiDCxftnM3FFhlXv6paxOr4WwUiLJ2qoS74CzTdi9ib0OMzKdKVJtuO6tGT1bUI1hPDaiFLCwBFreOuRuOHm4AibbQmvqnKXbvrQR9DlyTSEftlzNP9PJjFgBJNB+rfG/eF9jBPfoCdD2j18Pj/7+Q2fwYPpv6b0UemcLzeLm/zK7jpDC37YLBB2dKiZqaqz0qJdDZD/CMsbJsWLnTrN/g5oQtna97ttNyaf/VTWwwq8oaZpwFHxChgX7nJEJ3Gc1PWlD5XlQM1Vgn8Vz8lUPQEL6WVFloDcobxn+4x6o0Iq11JPbOE0bxtUh3SGecOmx1EXjLWNFNKpJUjWHE3xs3/lNRqJDPqfgpvd/jfHd5iESC7M0qbckK+SyvLS0VmFxkoiO7rjT7TUZ8rZZZ31Kzrv1NPlK62oBbnEdFVWUGi+B9ECUhUqnZC3MaAdValv6KrO1KWYw0Rx1aH9h8RU0KChAZj+uej5O6g0tExK/7SGI92lNLNP96vfl1G7XKbea7kSICJC7dKtkgZEnn4ZUDQjdBcz1/qm4rs3rgrfcn+6bW8eZp613R1wu+GyyS3Rq1UpLD9muZlXCLgGVla7BZqAaQoibWvEZy8FHNkFeR32O6BVZTzcachXswo2vjBhVqEHdynDynDYWzXiIduTgvn37/REJAYw8hT52Vny3+H5ju6vT/qiAEkb1YRNw78HoqaCd0lEO9w7YAJnqLsmYeu+h/PpUweLp6qsRpo/j1opF9Y53FNHifa4CvHPS8l6iXXM0R7Gf5pFS1JgtBs5gz9lvJfwA0DvwbS3q/K0ItZwd3nKg8EfyZzXmLL9sBy8lE87TLVdFLP9hAHJhUpmbLQkkGXMG1ADIZWokNLz0HNNYb41tz4J2QGfJ5pLo8kY+2+f8xWEPVH9w0aSiw4uOEa/1Qo/CE72XJiXDt9ZAhJOF6b0qaBRIMDeOyTVzi3McPC/2d/Bw="
+    }
+  }
+}
