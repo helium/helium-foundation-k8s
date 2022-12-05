@@ -1,5 +1,5 @@
 locals {
-  oidc_url = replace(data.aws_eks_cluster.eks.cluster_oidc_issuer_url, "https://", "")
+  oidc_url = replace(data.aws_eks_cluster.eks.identity.oidc.issuer, "https://", "")
 }
 
 resource "aws_iam_role" "external_dns" {
