@@ -4,7 +4,7 @@ metadata:
   name: globals
   namespace: helium
 data:
-  solana_url: "https://monke8127d577985245538ac648fe0969201d.xyz2.hyperplane.dev/"
+  solana_url: "https://mplx-devnet.genesysgo.net"
   mobile_mint: "FsPsgurAdfo3zMFcyB4BggW92vs47swRoUX3xoDr6xjE"
   hnt_mint: "3n1cc2BRJ9V5CojYGmU7a2eT8LycQWER6QyrnA6FWBXJ"
   dc_mint: "A4VavGWfB5cWeYdrGTcgTCn5pqMSJ7ATGaT5m7HzUMBG"
