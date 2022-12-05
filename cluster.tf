@@ -1,9 +1,13 @@
+locals {
+  cluster_name = "${var.cluster_name}-${var.env}"
+}
+
 data "aws_eks_cluster" "eks" {
-  name = var.cluster_name
+  name = local.cluster_name
 }
 
 data "aws_eks_cluster_auth" "eks" {
-  name = var.cluster_name
+  name = local.cluster_name
 }
 
 
