@@ -1,21 +1,15 @@
-{
-  "kind": "SealedSecret",
-  "apiVersion": "bitnami.com/v1alpha1",
-  "metadata": {
-    "name": "oracle-keypair",
-    "namespace": "default",
-    "creationTimestamp": null
-  },
-  "spec": {
-    "template": {
-      "metadata": {
-        "name": "oracle-keypair",
-        "namespace": "default",
-        "creationTimestamp": null
-      }
-    },
-    "encryptedData": {
-      "keypair.json": "AgARIshg991ug5UCgYgKVi1Zbo3jCCPMznYT0DjsuBn+qauiDCxftnM3FFhlXv6paxOr4WwUiLJ2qoS74CzTdi9ib0OMzKdKVJtuO6tGT1bUI1hPDaiFLCwBFreOuRuOHm4AibbQmvqnKXbvrQR9DlyTSEftlzNP9PJjFgBJNB+rfG/eF9jBPfoCdD2j18Pj/7+Q2fwYPpv6b0UemcLzeLm/zK7jpDC37YLBB2dKiZqaqz0qJdDZD/CMsbJsWLnTrN/g5oQtna97ttNyaf/VTWwwq8oaZpwFHxChgX7nJEJ3Gc1PWlD5XlQM1Vgn8Vz8lUPQEL6WVFloDcobxn+4x6o0Iq11JPbOE0bxtUh3SGecOmx1EXjLWNFNKpJUjWHE3xs3/lNRqJDPqfgpvd/jfHd5iESC7M0qbckK+SyvLS0VmFxkoiO7rjT7TUZ8rZZZ31Kzrv1NPlK62oBbnEdFVWUGi+B9ECUhUqnZC3MaAdValv6KrO1KWYw0Rx1aH9h8RU0KChAZj+uej5O6g0tExK/7SGI92lNLNP96vfl1G7XKbea7kSICJC7dKtkgZEnn4ZUDQjdBcz1/qm4rs3rgrfcn+6bW8eZp613R1wu+GyyS3Rq1UpLD9muZlXCLgGVla7BZqAaQoibWvEZy8FHNkFeR32O6BVZTzcachXswo2vjBhVqEHdynDynDYWzXiIduTgvn37/REJAYw8hT52Vny3+H5ju6vT/qiAEkb1YRNw78HoqaCd0lEO9w7YAJnqLsmYeu+h/PpUweLp6qsRpo/j1opF9Y53FNHifa4CvHPS8l6iXXM0R7Gf5pFS1JgtBs5gz9lvJfwA0DvwbS3q/K0ItZwd3nKg8EfyZzXmLL9sBy8lE87TLVdFLP9hAHJhUpmbLQkkGXMG1ADIZWokNLz0HNNYb41tz4J2QGfJ5pLo8kY+2+f8xWEPVH9w0aSiw4uOEa/1Qo/CE72XJiXDt9ZAhJOF6b0qaBRIMDeOyTVzi3McPC/2d/Bw="
-    }
-  }
-}
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: oracle-keypair
+  namespace: default
+spec:
+  encryptedData:
+    keypair.json: AgCVWDTxopv/wSlDqOXOJnUzWbRqX9Asp5o0ojVDgZGznEx7c+6L6Rwj4j2mYWGwsgJxZQLFJ3/wzV4aPiiCFQMAIKvWJcXLDcolMJyNq+yj9yj3TG9RX5JXSSSxi5SaN6EmFtaisX3rket8mxkF6YA6hnPN+HpXB/uyI1UuT+OqMesuW1sFLNCBTuhaoSoutYXaJujcFZnrw0NaYiRUFe0WbqwG+6Zl0JyapE3lX9gW1nMvW0Fl41QAckqmf7u8wP3arSyLK4Xzdgr6MwCXf6f6ZCgH/+EHDS98Iap3ZEsmyT+QEvafV8Jof7TXmbsMX6yjfQ/gDmnwV0El+P+YFD6UV6Dl4PyU/F6+K3ENTraL/9PjuH+zTAuobM0Zqe1n3o2+pWS+LNWEce6OafTDxVd/b9WWsoL9n4r+y+35kY/wZD+TfyKEyD2vr43yfVrhEfptOpisIq/wTWedbq9gzma3lv3MqGF0iLgECz3Iv2ood6hMwWKGw5xZRrAtuz/SONrByVmBRFg8rRB7oMOiHJYK84KVv/TFXSKFb3aAeBZo5Jl+54mlh6Kh55wgaDP1m9Oq9yHormY4719qcnnyRoH/NZ4kq9khHhguLaVm7oVixiyH9RuIFvv6CyL+w/TJRy+x4tkCD3/dl/DHabiKn8rGzjP8Qy1nYy0eveVs3SGRdJA3pe4hW43VVBrHqXRdLZdXRX+v2VMtbOqSpgqT5LxRFZv3G1KP+AJ4bhkiq6VFglxcRg2qKeZ41oxMU4GLiGerabsD3LDXn7Nyl/4rkc1YESXJ9IoBXZKgGuFABDVrEXSzhPSwiFG0Ah2U+5sOYqjqwWuRBBH4n0wXrwb2iYGFclQ/lFPHqiVjs2IaYWQAmvsb+EfChabaP24CGjECPAvpVG7SLsX8loaTDB40wErDdRkyLN1i4RyLj9T43bOu8FakNlwoAd9Iz/n/xaZs/58/hEzDHgV03gWnWhP6+YQXkhsYqEv3kN+nOB2kFalvQiuMJeekL6M=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: oracle-keypair
+      namespace: default
+
