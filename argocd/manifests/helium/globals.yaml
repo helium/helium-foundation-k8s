@@ -5,7 +5,7 @@ metadata:
   namespace: helium
 data:
   solana_url: "https://mplx-devnet.genesysgo.net"
-  mobile_mint: "FsPsgurAdfo3zMFcyB4BggW92vs47swRoUX3xoDr6xjE"
-  hnt_mint: "AhoZmESdFByYgftUHoLEoPfpuc7U5DKfzeNvm4v4YY1Q"
-  dc_mint: "6AmrRaUQ5qditSk11MNwocoBCK3VjFkQBL5tRK4Hdqbc"
+  mobile_mint: "4RFxp35ijn9QzGV2GAWRnJmMp1kcZ5YgZuBwk3WWZzYf"
+  hnt_mint: "5Ts6pmWMsqsz9sxyZ6BRVMZtxhU8Pizf2F4cHZEeJiuv"
+  dc_mint: "FyKCf3SQ3DNzfWRoueVcQFicU6QTj16sC6nrmQ2KYnjk"
   mobile_rewards: "50"

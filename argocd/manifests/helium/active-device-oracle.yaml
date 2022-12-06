@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: active-device-oracle
+  name: active-device-oracle
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: active-device-oracle
+  template:
+    metadata:
+      labels:
+        app: active-device-oracle
+    spec:
+      containers:
+        - name: active-device-oracle
+          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/active-device-oracle:0.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+              name: http
+              protocol: TCP
+          env:
+            - name: COLLECTION_SYMBOL
+              value: MOBILE
+            - name: DNT_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: mobile_mint
+            - name: SOLANA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: solana_url
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8081
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+            limits:
+              cpu: 500m
+              memory: 750Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: active-device-oracle
+  namespace: helium
+spec:
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: active-device-oracle
+  sessionAffinity: None
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: active-device-oracle
+  namespace: helium
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: active-device.oracle.test-helium.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: active-device-oracle
+            port:
+              number: 8081
