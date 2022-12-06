@@ -84,7 +84,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: active-device.oracle.test-helium.com
+  - host: active-devices.oracle.test-helium.com
     http:
       paths:
       - path: /
