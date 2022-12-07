@@ -20,6 +20,10 @@ data "kubectl_path_documents" "application" {
   pattern = "./argocd/application.yaml"
 }
 
-data "aws_iam_role" "rds_hf_user_access_role" {
-  name = "rds_hf_user_access_role" 
+data "aws_iam_role" "rds_mobile_oracle_user_access_role" {
+  name = "rds_mobile_oracle_user_access_role" 
+}
+
+data "aws_iam_role" "rds_active_device_oracle_user_access_role" {
+  name = "rds_active_device_oracle_user_access_role" 
 }

@@ -14,7 +14,7 @@ spec:
       labels:
         app: mobile-oracle
     spec:
-      serviceAccountName: app
+      serviceAccountName: rds_mobile_oracle_user_access
       containers:
         - name: mobile-oracle
           image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/distributor-oracle:0.0.2
