@@ -2,16 +2,6 @@ locals {
   cluster_name = "${var.cluster_name}-${var.env}"
 }
 
-data "aws_eks_cluster" "eks" {
-  name = local.cluster_name
-}
-
-data "aws_eks_cluster_auth" "eks" {
-  name = local.cluster_name
-}
-
-data "aws_caller_identity" "current" {}
-
 provider "helm" {
   kubernetes {
     host                   = data.aws_eks_cluster.eks.endpoint
