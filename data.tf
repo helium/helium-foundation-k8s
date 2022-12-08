@@ -21,9 +21,9 @@ data "kubectl_path_documents" "application" {
 }
 
 data "aws_iam_role" "rds_mobile_oracle_user_access_role" {
-  name = "rds_mobile_oracle_user_access_role" 
+  name = "rds-mobile-oracle-user-access-role" 
 }
 
 data "aws_iam_role" "rds_active_device_oracle_user_access_role" {
-  name = "rds_active_device_oracle_user_access_role" 
+  name = "rds-active-device-oracle-user-access-role" 
 }

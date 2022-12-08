@@ -16,7 +16,7 @@ resource "kubernetes_service_account" "lb" {
 
 resource "kubernetes_service_account" "rds_mobile_oracle_user_access" {
   metadata {
-    name        = "rds_mobile_oracle_user_access"
+    name        = "rds-mobile-oracle-user-access"
     namespace   = "default"
     annotations = {
       "eks.amazonaws.com/role-arn" = data.aws_iam_role.rds_mobile_oracle_user_access_role.arn,
@@ -26,7 +26,7 @@ resource "kubernetes_service_account" "rds_mobile_oracle_user_access" {
 
 resource "kubernetes_service_account" "rds_active_device_oracle_user_access" {
   metadata {
-    name        = "rds_active_device_oracle_user_access"
+    name        = "rds-active-device-oracle-user-access"
     namespace   = "default"
     annotations = {
       "eks.amazonaws.com/role-arn" = data.aws_iam_role.rds_active_device_oracle_user_access_role.arn,
