@@ -14,10 +14,21 @@ resource "kubernetes_service_account" "lb" {
   automount_service_account_token = true
 }
 
+resource "kubernetes_service_account" "external_dns" {
+  metadata {
+    name      = "external-dns"
+    namespace = "kube-system"
+    annotations = {
+      "eks.amazonaws.com/role-arn" = aws_iam_role.external_dns.arn
+    }
+  }
+  automount_service_account_token = true
+}
+
 resource "kubernetes_service_account" "rds_mobile_oracle_user_access" {
   metadata {
     name        = "rds-mobile-oracle-user-access"
-    namespace   = "default"
+    namespace   = "helium"
     annotations = {
       "eks.amazonaws.com/role-arn" = data.aws_iam_role.rds_mobile_oracle_user_access_role.arn,
     }
@@ -27,7 +38,7 @@ resource "kubernetes_service_account" "rds_mobile_oracle_user_access" {
 resource "kubernetes_service_account" "rds_active_device_oracle_user_access" {
   metadata {
     name        = "rds-active-device-oracle-user-access"
-    namespace   = "default"
+    namespace   = "helium"
     annotations = {
       "eks.amazonaws.com/role-arn" = data.aws_iam_role.rds_active_device_oracle_user_access_role.arn,
     }

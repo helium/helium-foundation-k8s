@@ -32,17 +32,6 @@ resource "aws_iam_role_policy" "external_dns" {
   policy      = file("${path.module}/policies/external-dns-iam-policy.json")
 }
 
-resource "kubernetes_service_account" "external_dns" {
-  metadata {
-    name      = "external-dns"
-    namespace = "kube-system"
-    annotations = {
-      "eks.amazonaws.com/role-arn" = aws_iam_role.external_dns.arn
-    }
-  }
-  automount_service_account_token = true
-}
-
 resource "kubernetes_cluster_role" "external_dns" {
   metadata {
     name = "external-dns"

@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: mobile-oracle
+        security-group: rds-access
     spec:
       serviceAccountName: rds-mobile-oracle-user-access
       containers:

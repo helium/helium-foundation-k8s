@@ -36,7 +36,7 @@ resource "helm_release" "lbc" {
   name             = "aws-load-balancer-controller"
   chart            = "aws-load-balancer-controller"
   version          = "1.4.5"
-  namespace = "default"
+  namespace        = "default"
   repository       = "https://aws.github.io/eks-charts"
   create_namespace = true
   cleanup_on_fail  = true
