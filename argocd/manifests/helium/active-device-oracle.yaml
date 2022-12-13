@@ -13,7 +13,9 @@ spec:
     metadata:
       labels:
         app: active-device-oracle
+        security-group: rds-access
     spec:
+      serviceAccountName: rds-active-device-oracle-user-access
       containers:
         - name: active-device-oracle
           image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/active-device-oracle:0.0.1

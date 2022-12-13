@@ -2,7 +2,6 @@ locals {
   lb_role_name = "${local.cluster_name}-aws-load-balancer-controller"
 }
 
-
 resource "aws_iam_role" "lb" {
   name  = local.lb_role_name
 
@@ -33,27 +32,11 @@ resource "aws_iam_role_policy" "lb" {
   policy      = file("${path.module}/policies/lb.json")
 }
 
-resource "kubernetes_service_account" "lb" {
-  metadata {
-    name      = "lb"
-    namespace = "default"
-    annotations = {
-      "eks.amazonaws.com/role-arn" = aws_iam_role.lb.arn,
-      "meta.helm.sh/release-name" = "aws-load-balancer-controller",
-      "meta.helm.sh/release-namespace" = "default",
-    }
-    labels = {
-      "app.kubernetes.io/managed-by" = "Helm",
-    }
-  }
-  automount_service_account_token = true
-}
-
 resource "helm_release" "lbc" {
   name             = "aws-load-balancer-controller"
   chart            = "aws-load-balancer-controller"
   version          = "1.4.5"
-  namespace = "default"
+  namespace        = "default"
   repository       = "https://aws.github.io/eks-charts"
   create_namespace = true
   cleanup_on_fail  = true
@@ -65,14 +48,6 @@ resource "helm_release" "lbc" {
     name = "serviceAccount.name"
     value = "lb"
   }
-}
-
-data "kubectl_path_documents" "nginx" {
-    pattern = "./lb/ingress-nginx.yaml"
-    vars = {
-      cert = var.zone_cert
-      cidr = var.cidr_block
-    }
 }
 
 resource "kubectl_manifest" "nginx" {

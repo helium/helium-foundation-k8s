@@ -43,10 +43,6 @@ resource "helm_release" "argocd" {
   }
 }
 
-data "kubectl_path_documents" "application" {
-    pattern = "./argocd/application.yaml"
-}
-
 resource "kubectl_manifest" "argocd" {
   depends_on = [helm_release.argocd]
   count      = length(data.kubectl_path_documents.application.documents)
