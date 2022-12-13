@@ -4,8 +4,9 @@ metadata:
   name: globals
   namespace: helium
 data:
-  solana_url: "https://mplx-devnet.genesysgo.net"
-  mobile_mint: "4RFxp35ijn9QzGV2GAWRnJmMp1kcZ5YgZuBwk3WWZzYf"
-  hnt_mint: "5Ts6pmWMsqsz9sxyZ6BRVMZtxhU8Pizf2F4cHZEeJiuv"
-  dc_mint: "FyKCf3SQ3DNzfWRoueVcQFicU6QTj16sC6nrmQ2KYnjk"
+  solana_url: "https://rpc-devnet.aws.metaplex.com"
+  mobile_mint: "75WKFwaxQEcQjbnqBn2KUqE2t667KD7wtTwee3ei3gbd"
+  iot_mint: "75WKFwaxQEcQjbnqBn2KUqE2t667KD7wtTwee3ei3gbd"
+  hnt_mint: "BuCHRp4QZyF2ydr4Tve2pqR5q2tfW36iNTi63TWF3i1H"
+  dc_mint: "FA66EEy6p4s4vvpHkfuDsaJu9k4X1UucyqKyD6WjEof"
   mobile_rewards: "50"

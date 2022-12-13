@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: onboarding-server
+  name: onboarding-server
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: onboarding-server
+  template:
+    metadata:
+      labels:
+        app: onboarding-server
+        security-group: rds-access
+    spec:
+      serviceAccountName: rds-active-device-oracle-user-access
+      containers:
+        - name: onboarding-server
+          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/onboarding-server:0.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3002
+              name: http
+              protocol: TCP
+          env:
+            - name: HEROKU_POSTGRESQL_COPPER_URL
+              value: postgres://postgres:postgres@oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com:5432/onboarding?sslmode=require
+            - name: SOLANA_ENABLED
+              value: "true"
+            - name: IOT_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: iot_mint
+            - name: SOLANA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: solana_url
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+            limits:
+              cpu: 500m
+              memory: 750Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: onboarding-server
+  namespace: helium
+spec:
+  ports:
+    - port: 3002
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: onboarding-server
+  sessionAffinity: None
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: onboarding-server
+  namespace: helium
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: onboarding.oracle.test-helium.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: onboarding-server
+            port:
+              number: 3002
