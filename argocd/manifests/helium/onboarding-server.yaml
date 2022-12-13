@@ -28,7 +28,7 @@ spec:
             - name: HEROKU_POSTGRESQL_COPPER_URL
               value: postgres://postgres:postgres@oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com:5432/onboarding?sslmode=require
             - name: DEBUG
-              value: "*""
+              value: "*"
             - name: SOLANA_ENABLED
               value: "true"
             - name: KEYRING
