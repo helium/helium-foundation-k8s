@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-active-device-oracle-user-access
       containers:
         - name: onboarding-server
-          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/onboarding-server:0.0.4
+          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/onboarding-server:0.0.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3002
@@ -26,8 +26,8 @@ spec:
               protocol: TCP
           env:
             - name: NODE_ENV
-              value: production
-            - name: HEROKU_POSTGRESQL_COPPER_URL
+              value: staging
+            - name: POSTGRES_URL
               value: postgres://postgres:postgres@oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com:5432/onboarding?sslmode=require
             - name: DEBUG
               value: "*"
