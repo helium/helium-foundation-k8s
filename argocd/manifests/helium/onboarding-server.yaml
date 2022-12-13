@@ -28,7 +28,7 @@ spec:
             - name: NODE_ENV
               value: staging
             - name: POSTGRES_URL
-              value: postgres://postgres:postgres@oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com:5432/onboarding?sslmode=require
+              value: postgres://postgres:postgres@oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com:5432/onboarding?sslmode=no-verify
             - name: DEBUG
               value: "*"
             - name: SOLANA_ENABLED
