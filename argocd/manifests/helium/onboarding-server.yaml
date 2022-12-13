@@ -29,6 +29,10 @@ spec:
               value: postgres://postgres:postgres@oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com:5432/onboarding?sslmode=require
             - name: SOLANA_ENABLED
               value: "true"
+            - name: KEYRING
+              value: '{ "1": "eAyFrtRlX/x53EFpVJRH2Q2dnVhmNXqz5/Sx7ZBzUhM=" }'
+            - name: KEYRING_SALT
+              value: ki+iui9UiK53aEZxfoGEisUwSqtlNX4XaENxvKa8SRA=
             - name: IOT_MINT
               valueFrom:
                 configMapKeyRef:
