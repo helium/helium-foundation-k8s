@@ -31,7 +31,7 @@ spec:
               value: postgres://postgres:postgres@oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com:5432/onboarding?sslmode=no-verify
             - name: DEBUG
               value: "*"
-            - name: SOLANA_ENABLED
+            - name: ENABLE_SOLANA
               value: "true"
             - name: KEYRING
               value: '{"1":"uDiMcWVNTuz//naQ88sOcN+E40CyBRGzGTT7OkoBS6M="}'
