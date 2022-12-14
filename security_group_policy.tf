@@ -12,6 +12,6 @@ spec:
   securityGroups:
     groupIds:
       - "${data.aws_security_group.rds_access_security_group.id}"
-      - "${data.aws_eks_cluster.eks.vpc_config.cluster_security_group_id}"
+      - "${data.aws_eks_cluster.eks.vpc_config[0].cluster_security_group_id}"
 YAML
 }
