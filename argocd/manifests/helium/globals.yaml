@@ -4,7 +4,7 @@ metadata:
   name: globals
   namespace: helium
 data:
-  solana_url: "https://rpc-devnet.aws.metaplex.com"
+  solana_url: "https://api.devnet.solana.com"
   mobile_mint: "DhcnGAfUhrYW2vyXf8fw93pYuqHA8T3j3kSXbQnKd7LM"
   iot_mint: "22mUMf3ZNeH6emrtymbcr1kAkAZuppXiPwVvDYEg9B1W"
   hnt_mint: "DuQRoQvwR8E3BHtvhqUWWASGY2Z9JM71VQ6SNAcMX2mW"
