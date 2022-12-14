@@ -5,8 +5,9 @@ metadata:
   namespace: helium
 data:
   solana_url: "https://api.devnet.solana.com"
-  mobile_mint: "DhcnGAfUhrYW2vyXf8fw93pYuqHA8T3j3kSXbQnKd7LM"
-  iot_mint: "22mUMf3ZNeH6emrtymbcr1kAkAZuppXiPwVvDYEg9B1W"
-  hnt_mint: "DuQRoQvwR8E3BHtvhqUWWASGY2Z9JM71VQ6SNAcMX2mW"
-  dc_mint: "4MAoTvNH5jLoWsB9NoPCWDkZx4DzGt8nnGhmR4UsJmEj"
+  asset_api_url: "https://rpc-devnet.aws.metaplex.com/"
+  mobile_mint: "HgYkoPFPQu2RDAKjWY1Dfr2YbYEAnfUwXEZ4Foec3LN4"
+  iot_mint: "AJv1iWmUf3w3zcTsDajZBf5vkyRR7BZNZoYYHfSqQPU3"
+  hnt_mint: "F7bbdS6Npbdq5goka58WnGjmCFm8h5Z8D7B6tqKJ4dMR"
+  dc_mint: "FFvAixZ5xrhdPmXt57MV71eVkGhrRvRJNhrQubZjGHvP"
   mobile_rewards: "50"
