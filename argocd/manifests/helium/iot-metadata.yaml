@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: mobile-metadata
-  name: mobile-metadata
+    app: iot-metadata
+  name: iot-metadata
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: mobile-metadata
+      app: iot-metadata
   template:
     metadata:
       labels:
-        app: mobile-metadata
+        app: iot-metadata
     spec:
       containers:
-        - name: mobile-metadata
+        - name: iot-metadata
           image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/metadata-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
@@ -24,12 +24,12 @@ spec:
               protocol: TCP
           env:
             - name: COLLECTION_SYMBOL
-              value: MOBILE
+              value: IOT
             - name: DNT_MINT
               valueFrom:
                 configMapKeyRef:
                   name: globals
-                  key: mobile_mint
+                  key: iot_mint
             - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:
@@ -64,7 +64,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mobile-metadata
+  name: iot-metadata
   namespace: helium
 spec:
   ports:
@@ -72,25 +72,25 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: mobile-metadata
+    app: iot-metadata
   sessionAffinity: None
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mobile-metadata
+  name: iot-metadata
   namespace: helium
 spec:
   ingressClassName: nginx
   rules:
-  - host: mobile-metadata.oracle.test-helium.com
+  - host: iot-metadata.oracle.test-helium.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: mobile-metadata
+            name: iot-metadata
             port:
               number: 8081
