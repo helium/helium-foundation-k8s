@@ -6,8 +6,8 @@ metadata:
 data:
   solana_url: "https://api.devnet.solana.com"
   asset_api_url: "https://rpc-devnet.aws.metaplex.com/"
-  mobile_mint: "HgYkoPFPQu2RDAKjWY1Dfr2YbYEAnfUwXEZ4Foec3LN4"
-  iot_mint: "AJv1iWmUf3w3zcTsDajZBf5vkyRR7BZNZoYYHfSqQPU3"
-  hnt_mint: "F7bbdS6Npbdq5goka58WnGjmCFm8h5Z8D7B6tqKJ4dMR"
-  dc_mint: "FFvAixZ5xrhdPmXt57MV71eVkGhrRvRJNhrQubZjGHvP"
+  mobile_mint: "7NU39idAXhxZCx3R8dgzwzH57Sb8YKTfCbV4B6SHU4RB"
+  iot_mint: "9NKNQDCW7xhJ9Snnqa7P6wK3RoBYKBk5h8ruGTcz3KbG"
+  hnt_mint: "HbnHh5zHCPfz1T8y1mP2qrCFHF4E2uQNMw7P3hoew4xU"
+  dc_mint: "8n9eSJpypQ7iZzUNSdLihUzue48HHqZtEmNJzpBvmm3u"
   mobile_rewards: "50"

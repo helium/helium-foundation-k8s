@@ -37,6 +37,8 @@ spec:
               value: '{"1":"uDiMcWVNTuz//naQ88sOcN+E40CyBRGzGTT7OkoBS6M="}'
             - name: KEYRING_SALT
               value: development_salt
+            - name: RATE_LIMIT_MAX
+              value: "100"
             - name: IOT_MINT
               valueFrom:
                 configMapKeyRef:
