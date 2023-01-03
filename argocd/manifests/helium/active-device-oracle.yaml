@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: active-device-oracle
+        security-group: rds-access
     spec:
       containers:
         - name: active-device-oracle
