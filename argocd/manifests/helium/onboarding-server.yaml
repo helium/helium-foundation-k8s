@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-active-device-oracle-user-access
       containers:
         - name: onboarding-server
-          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/onboarding-server:0.0.19
+          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/onboarding-server:0.0.20
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3002
@@ -44,6 +44,16 @@ spec:
                 configMapKeyRef:
                   name: globals
                   key: iot_mint
+            - name: HNT_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: hnt_mint
+            - name: MOBILE_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: mobile_mint
             - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:
