@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-active-device-oracle-user-access
       containers:
         - name: onboarding-server
-          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/onboarding-server:0.0.21
+          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/onboarding-server:0.0.22
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3002
@@ -29,8 +29,6 @@ spec:
               value: staging
             - name: POSTGRES_URL
               value: "postgres://oracle_admin:password@oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com:5432/onboarding?sslmode=no-verify"
-            - name: DEBUG
-              value: "*"
             - name: ENABLE_SOLANA
               value: "true"
             - name: KEYRING
