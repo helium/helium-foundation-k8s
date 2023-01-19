@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: iot-metadata
-  name: iot-metadata
+    app: metadata
+  name: metadata
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: iot-metadata
+      app: metadata
   template:
     metadata:
       labels:
-        app: iot-metadata
+        app: metadata
     spec:
       containers:
-        - name: iot-metadata
+        - name: metadata
           image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/metadata-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
@@ -64,7 +64,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: iot-metadata
+  name: metadata
   namespace: helium
 spec:
   ports:
@@ -72,14 +72,14 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: iot-metadata
+    app: metadata
   sessionAffinity: None
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: iot-metadata
+  name: metadata
   namespace: helium
 spec:
   ingressClassName: nginx
@@ -91,6 +91,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: iot-metadata
+            name: metadata
             port:
               number: 8081
