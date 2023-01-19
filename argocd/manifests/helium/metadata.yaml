@@ -84,7 +84,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: iot-metadata.oracle.test-helium.com
+  - host: metadata.oracle.test-helium.com
     http:
       paths:
       - path: /
