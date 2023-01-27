@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-mobile-oracle-user-access
       containers:
         - name: mobile-oracle
-          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/distributor-oracle:0.0.3
+          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/distributor-oracle:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
