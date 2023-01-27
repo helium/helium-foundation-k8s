@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: solana-monitor
-          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/monitor-service:0.0.2
+          image: 177106435319.dkr.ecr.us-east-1.amazonaws.com/monitor-service:0.0.3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
