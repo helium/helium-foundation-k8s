@@ -9,8 +9,8 @@ spec:
     server: https://kubernetes.default.svc
   project: helium
   source:
-    repoURL: https://github.com/helium/k8s-web
-    path: argocd/manifests/helium
+    repoURL: https://github.com/helium/helium-foundation-k8s
+    path: manifests/web-clister/sdlc/helium
     targetRevision: HEAD
     directory:
       recurse: true
@@ -32,8 +32,8 @@ spec:
     server: https://kubernetes.default.svc
   project: monitoring
   source:
-    repoURL: https://github.com/helium/k8s-web
-    path: argocd/manifests/monitoring
+    repoURL: https://github.com/helium/helium-foundation-k8s
+    path: manifests/web-clister/sdlc/monitoring
     targetRevision: HEAD
     directory:
       recurse: false
