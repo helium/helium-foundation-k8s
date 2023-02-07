@@ -10,7 +10,7 @@ spec:
   project: helium
   source:
     repoURL: https://github.com/helium/helium-foundation-k8s
-    path: manifests/web-clister/sdlc/helium
+    path: manifests/web-cluster/sdlc/helium
     targetRevision: HEAD
     directory:
       recurse: true
@@ -33,7 +33,7 @@ spec:
   project: monitoring
   source:
     repoURL: https://github.com/helium/helium-foundation-k8s
-    path: manifests/web-clister/sdlc/monitoring
+    path: manifests/web-cluster/sdlc/monitoring
     targetRevision: HEAD
     directory:
       recurse: false
