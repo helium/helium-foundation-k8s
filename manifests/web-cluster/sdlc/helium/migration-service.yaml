@@ -21,7 +21,7 @@ spec:
           image: public.ecr.aws/v0j6k5v6/migration-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3002
+            - containerPort: 8081
               name: http
               protocol: TCP
           env:
@@ -55,7 +55,7 @@ metadata:
   namespace: helium
 spec:
   ports:
-    - port: 3002
+    - port: 8081
       protocol: TCP
       targetPort: http
   selector:
@@ -80,4 +80,4 @@ spec:
           service:
             name: migration-service
             port:
-              number: 3002
+              number: 8081
