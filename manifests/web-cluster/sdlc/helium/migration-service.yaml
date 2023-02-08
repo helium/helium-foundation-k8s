@@ -25,6 +25,8 @@ spec:
               name: http
               protocol: TCP
           env:
+            - name: NAME
+              value: devnethelium4
             - name: NODE_ENV
               value: staging
             - name: PGUSER
