@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-mobile-oracle-user-access
       containers:
         - name: mobile-oracle
-          image: public.ecr.aws/j4f9f0n7/distributor-oracle:0.0.2
+          image: public.ecr.aws/j4f9f0n7/distributor-oracle:0.0.3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -40,6 +40,11 @@ spec:
               value: mobile_oracle
             - name: AWS_REGION
               value: us-west-2
+            - name: ASSET_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: asset_api_url
           volumeMounts:
             - name: oracle-keypair
               mountPath: /usr/src/app/keys
