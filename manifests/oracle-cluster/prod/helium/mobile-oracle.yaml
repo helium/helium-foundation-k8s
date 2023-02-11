@@ -35,7 +35,7 @@ spec:
             - name: PGHOST
               value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
             - name: PGPORT
-              value: 5432
+              value: "5432"
             - name: PGUSER
               value: mobile_oracle
             - name: AWS_REGION
