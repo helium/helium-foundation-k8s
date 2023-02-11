@@ -100,7 +100,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: mobile-oracle.oracle.test-helium.com
+  - host: mobile-rewards.oracle.helium.io
     http:
       paths:
       - path: /
