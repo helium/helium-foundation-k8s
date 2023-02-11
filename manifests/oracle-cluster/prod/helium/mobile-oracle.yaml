@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-mobile-oracle-user-access
       containers:
         - name: mobile-oracle
-          image: public.ecr.aws/j4f9f0n7/distributor-oracle:0.0.4
+          image: public.ecr.aws/j4f9f0n7/distributor-oracle:0.0.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -32,6 +32,8 @@ spec:
                   key: solana_url
             - name: ORACLE_KEYPAIR_PATH
               value: /usr/src/app/keys/keypair.json
+            - name: PGDATABASE
+              value: mobile_index
             - name: PGHOST
               value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
             - name: PGPORT
