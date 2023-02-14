@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: solana-monitor
-          image: public.ecr.aws/v0j6k5v6/solana-monitor:0.0.1
+          image: public.ecr.aws/v0j6k5v6/solana-monitor:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
@@ -33,6 +33,11 @@ spec:
                 configMapKeyRef:
                   name: globals
                   key: mobile_mint
+            - name: IOT_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: iot_mint
             - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:
