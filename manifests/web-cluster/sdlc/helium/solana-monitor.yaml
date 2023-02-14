@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: solana-monitor
-          image: public.ecr.aws/v0j6k5v6/solana-monitor:0.0.2
+          image: public.ecr.aws/v0j6k5v6/solana-monitor:0.0.3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
