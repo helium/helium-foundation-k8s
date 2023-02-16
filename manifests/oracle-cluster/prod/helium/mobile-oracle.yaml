@@ -47,6 +47,11 @@ spec:
                 configMapKeyRef:
                   name: globals
                   key: asset_api_url
+            - name: DNT_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: mobile_mint
           volumeMounts:
             - name: oracle-keypair
               mountPath: /usr/src/app/keys
