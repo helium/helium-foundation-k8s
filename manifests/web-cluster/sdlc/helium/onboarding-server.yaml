@@ -36,7 +36,7 @@ spec:
             - name: PGUSER
               value: web
             - name: AWS_REGION
-              value: us-east-2
+              value: us-east-1
             - name: ENABLE_SOLANA
               value: "true"
             - name: KEYRING
