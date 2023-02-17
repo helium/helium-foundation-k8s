@@ -26,17 +26,9 @@ spec:
               protocol: TCP
           env:
             - name: NODE_ENV
-              value: production
-            - name: PGDATABASE
-              value: onboarding
-            - name: PGHOST
-              value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
-            - name: PGPORT
-              value: "5432"
-            - name: PGUSER
-              value: web
-            - name: AWS_REGION
-              value: us-east-2
+              value: staging
+            - name: POSTGRES_URL
+              value: "postgres://web_admin:password@web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com:5432/onboarding?sslmode=no-verify"
             - name: ENABLE_SOLANA
               value: "true"
             - name: KEYRING
@@ -101,7 +93,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: onboarding.web.test-helium.com
+  - host: onboarding.web.helium.io
     http:
       paths:
       - path: /

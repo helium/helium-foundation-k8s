@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: migration-service
+  name: migration-service
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: migration-service
+  template:
+    metadata:
+      labels:
+        app: migration-service
+        security-group: rds-access
+    spec:
+      serviceAccountName: rds-web-user-access
+      containers:
+        - name: migration-service
+          image: public.ecr.aws/v0j6k5v6/migration-service:0.0.3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+              name: http
+              protocol: TCP
+          env:
+            - name: NAME
+              value: devnethelium5
+            - name: NODE_ENV
+              value: staging
+            - name: PGUSER
+              value: web_admin
+            - name: PGDATABASE
+              value: migration
+            - name: PGSSLMODE
+              value: no-verify
+            - name: PGHOST
+              value: "web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com"
+            - name: SOLANA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: solana_url
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+            limits:
+              cpu: 500m
+              memory: 750Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: migration-service
+  namespace: helium
+spec:
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: migration-service
+  sessionAffinity: None
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: migration-service
+  namespace: helium
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: migration.web.helium.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: migration-service
+            port:
+              number: 8081
