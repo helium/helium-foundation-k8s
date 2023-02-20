@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-web-user-access
       containers:
         - name: migration-service
-          image: public.ecr.aws/v0j6k5v6/migration-service:0.0.3
+          image: public.ecr.aws/v0j6k5v6/migration-service:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -29,8 +29,14 @@ spec:
               value: devnethelium5
             - name: NODE_ENV
               value: staging
+            - name: PGHOST
+              value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+            - name: PGPORT
+              value: "5432"
             - name: PGUSER
-              value: web_admin
+              value: web
+            - name: AWS_REGION
+              value: us-east-1
             - name: PGDATABASE
               value: migration
             - name: PGSSLMODE
