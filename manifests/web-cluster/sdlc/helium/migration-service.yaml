@@ -41,8 +41,6 @@ spec:
               value: migration
             - name: PGSSLMODE
               value: no-verify
-            - name: PGHOST
-              value: "web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com"
             - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:
