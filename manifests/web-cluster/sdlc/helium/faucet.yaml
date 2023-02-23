@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: faucet
+  name: faucet
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: faucet
+  template:
+    metadata:
+      labels:
+        app: faucet
+    spec:
+      containers:
+        - name: faucet
+          image: public.ecr.aws/v0j6k5v6/faucet-service:0.0.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          env:
+            - name: ANCHOR_WALLET
+              value: /usr/src/app/keys/keypair.json
+            - name: MOBILE_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: mobile_mint
+            - name: HNT_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: hnt_mint
+            - name: SOLANA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: solana_url
+            
+          volumeMounts:
+            - name: faucet-keypair
+              mountPath: /usr/src/app/keys
+              readOnly: true
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 3000
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+            limits:
+              cpu: 500m
+              memory: 750Mi
+      volumes:
+        - name: faucet-keypair
+          secret:
+            secretName: faucet-keypair
+            items:
+              - key: keypair.json
+                path: keypair.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: faucet
+  namespace: helium
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: faucet
+  sessionAffinity: None
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: faucet
+  namespace: helium
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: faucet.web.test-helium.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: faucet
+            port:
+              number: 3000
