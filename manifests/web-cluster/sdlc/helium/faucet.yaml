@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: faucet
-          image: public.ecr.aws/v0j6k5v6/faucet-service:0.0.3
+          image: public.ecr.aws/v0j6k5v6/faucet-service:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -40,7 +40,7 @@ spec:
                 configMapKeyRef:
                   name: globals
                   key: hnt_mint
-            - name: ANCHOR_PROVIDER_URL
+            - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:
                   name: globals
