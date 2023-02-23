@@ -25,6 +25,11 @@ spec:
           env:
             - name: ANCHOR_WALLET
               value: /usr/src/app/keys/keypair.json
+            - name: IOT_MINT
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: iot_mint
             - name: MOBILE_MINT
               valueFrom:
                 configMapKeyRef:
