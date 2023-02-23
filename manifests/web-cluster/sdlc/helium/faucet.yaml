@@ -40,7 +40,7 @@ spec:
                 configMapKeyRef:
                   name: globals
                   key: hnt_mint
-            - name: SOLANA_URL
+            - name: ANCHOR_PROVIDER_URL
               valueFrom:
                 configMapKeyRef:
                   name: globals
