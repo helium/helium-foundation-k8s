@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: migration-service-keypair
+  namespace: helium
+spec:
+  encryptedData:
+    keypair.json: AgApnbbMU+WgMRyJuvyWNJSo70bQVDEARQGkt93+V2oT7FF8Px8knMy4jBdk9+UaqrBndqiA+ZZcvjPmKBExo1wiWNnWOQPSvcrsDIpgwtNyvZjw6OiEORGpziH1IC2nfUMP3Y82KpkyypbylzKf7EcEfeyD4qjvK/35DLMyL9czuQ16gXgUZkYkgZAmu1AaRpBg77qHnnosU1PM2or3FD9CKp10VTsBTMiP7LVw1/wawcFYEgkBEBpJCH6FK7/JYT9wGzIFjLiHvTo1KMJfnkJ0EqJ8uI30Sc72OvylUs/9rVrwWs/dDQJSRcRiUay4xakoaOaEMp/i7Ftw9H1V0ZiK3sgVsLnrcMFVrR8HIsVP5qm24kV0QGD6MuiAjCT0XzA0Pa1LDILOcE0X3hZInaNyeaR8fUNpl7jCfYLoOFFgCtbIa7Y7P/ra3ROcPp9XOCA2+FzmA4j2XzhY5PS/WKHTv//RPqcfJiLS+nkBDXativqBl82JV0BNc1g3+VHw6o6alTWDphmgmP2zvx0uYEu+xvjIJ9OhCJvYYjC3y049KaSy//VrpwD8FtScoZeaGSqmT8HAkYFr4a7xgAzUR6ng2A+eOkzAoIjGInizW0jNgJbADZgJBVUqf+kf2LNPWjJi3bdMZZxxQx2OIbVBMrJ/0Mq9+6rjWPiB6EHmFqGYIupaQHufVK9WZ91GnCLg4G6DX2v9iXBvGILD2ID3jFNomsJu24sgPZGGSzwxKLsCVk1jdvBAa3LX8x6dbLXyhRCX15Uu+KH0d/8u0crSGrtGa7o94tM2KwZrRjvJyeuTVkyFvBpQ/9hp/Io+jVqHEunxrJUBI2tkaJ38NdUoPDYjwajEKj6WxB3Mlk81SDD3TaQBRiwIz+N469SkHrp6ZujvfkaVYTOiEDn7pGW4ZXXNsCJJuDxmtxhchMDr3sNbM+/lyGd8Vv4nlVuGy6p5w5QadgP69NIh86405poDgSCgXyacrAxf4JHdxzo74nnnZuOZ7K3o+q1qA2udSwud
+  template:
+    metadata:
+      creationTimestamp: null
+      name: migration-service-keypair
+      namespace: helium
+
