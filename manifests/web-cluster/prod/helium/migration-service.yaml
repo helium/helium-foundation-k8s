@@ -46,6 +46,12 @@ spec:
                 configMapKeyRef:
                   name: globals
                   key: solana_url
+            - name: ANCHOR_WALLET
+              value: /usr/src/app/keys/keypair.json
+          volumeMounts:
+            - name: migration-service-keypair
+              mountPath: /usr/src/app/keys
+              readOnly: true                  
           resources:
             requests:
               cpu: 250m
@@ -53,6 +59,13 @@ spec:
             limits:
               cpu: 500m
               memory: 750Mi
+      volumes:
+        - name: migration-service-keypair
+          secret:
+            secretName: migration-service-keypair
+            items:
+              - key: keypair.json
+                path: keypair.json
 ---
 apiVersion: v1
 kind: Service
