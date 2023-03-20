@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-web-user-access
       containers:
         - name: onboarding-server
-          image: public.ecr.aws/v0j6k5v6/onboarding-server:0.0.16
+          image: public.ecr.aws/v0j6k5v6/onboarding-server:0.0.17
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3002
@@ -41,6 +41,8 @@ spec:
               value: '{"1":"uDiMcWVNTuz//naQ88sOcN+E40CyBRGzGTT7OkoBS6M="}'
             - name: KEYRING_SALT
               value: development_salt
+            - name: ECC_VERIFY_ENDPOINT
+              value: https://ecc-verifier.web.test-helium.com/verify
             - name: RATE_LIMIT_MAX
               value: "100"
             - name: IOT_MINT
