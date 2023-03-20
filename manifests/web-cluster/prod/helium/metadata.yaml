@@ -9,6 +9,7 @@ spec:
   selector:
     matchLabels:
       app: metadata
+  replicas: 4
   template:
     metadata:
       labels:
@@ -58,7 +59,6 @@ spec:
               cpu: 250m
               memory: 500Mi
             limits:
-              cpu: 500m
               memory: 750Mi
 ---
 apiVersion: v1
@@ -94,3 +94,29 @@ spec:
             name: metadata
             port:
               number: 8081
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: metadata
+  namespace: helium
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: metadata
+  minReplicas: 4
+  maxReplicas: 15
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
