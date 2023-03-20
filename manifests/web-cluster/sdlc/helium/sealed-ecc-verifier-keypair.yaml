@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: ecc-verifier-keypair
+  namespace: helium
+spec:
+  encryptedData:
+    keypair.json: AgAujTxdlZ6WZiUGCUx4Nsxw0zQzi/lD/pOwp4sDhuboQWBXT2gPNla9VJogShoShqlviGzEeifKH6ZXz9rVHf6lmgCaaACTa/FRHEXDbhZtvLHS4oOOoahk5525KrWcAxuKERkl1WcLMXsDrKcXtwHcOZirdXB2q6LiRU9i9n98Al7SjMFYWGZasf/exkqkpdGMMSurkjOhU4/ONzGg9tLflbz0TNmhAd5SImiye8zkJLvgjTx1e22Zi05dXC0lSHq6NKAK3VQRxOpgfba4uNzneOb/BCtWhEaYHhjWKCPWbyY9roZhq9F9yflw4vOCSasddtugajdIjh7tRD4Q3x7zr/NaHTO03C6TWzXjULcb7UHIjYaosu2eb7BKxV23L7zSDbDlQwcGSaZjqGrck/qzdyodCW1CIphdkwOtTCbgcMLG8C+SHf68WQXV60hQtvDOHOHg23Q6UyBCvn7Rf8l0SzV9TDm6tYspAnz7+FFS/7P9MNpm4f14hN0/4BGg6hDCVdg+eyT/qbvraUga2/gBWg/7s7fH69WCt4lgr7lqgN8bcvlMd8VjkJQaoZgqGBQa12BOzmjLqOXaoAP2hrdK75PXXcQQYonZU483J5hEvk2P6Z6pWOsUg9k6DTug+0F7wUhla/O6eTW7p7zBKCmkRXPjKqH2irqzJTmNkCcuQy3PpCmeDom/6NzvWi+QXll94sTEg68WgUTeRm/GB0KB2u3xh4kQVPqINMZmfwG31cO9B9DpiqSIXIuJxO74W77z/AWC2etowiwFGp7yOkCCmUk5e+6uR2J5UvWCtUukULwmKgCzrr09l9hSzXcSs9ZWRG2dco0MhOUL2D/wEmAz0GPNsZ2zWF1ov9RLBe44Snv3vuuj6CzrckJZ/6G2CRiQ9A6gmrDj//ebkCTZYusxML38Sk2FBwX0RyY0/zzMDDawaAmiX+ENN+V1O2oZkkUyJ1BxTAAUAxhng2w6lKJK7MAShr4eswTmlnL3UlyhFjtBiA==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: ecc-verifier-keypair
+      namespace: helium
+
