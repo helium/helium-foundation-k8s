@@ -24,11 +24,11 @@ spec:
               protocol: TCP
           env:
             - name: ANCHOR_WALLET
-              value: /usr/src/app/keys/keypair.json
+              value: /app/keys/keypair.json
             
           volumeMounts:
             - name: ecc-verifier-keypair
-              mountPath: /usr/src/app/keys
+              mountPath: /app/keys
               readOnly: true
           readinessProbe:
             failureThreshold: 3
