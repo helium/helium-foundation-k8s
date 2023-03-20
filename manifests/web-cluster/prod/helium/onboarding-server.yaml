@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-web-user-access
       containers:
         - name: onboarding-server
-          image: public.ecr.aws/v0j6k5v6/onboarding-server:0.0.13
+          image: public.ecr.aws/v0j6k5v6/onboarding-server:0.0.20
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3002
@@ -68,6 +68,10 @@ spec:
                 configMapKeyRef:
                   name: globals
                   key: asset_api_url
+            - name: ECC_VERIFY_ENDPOINT
+              value: https://ecc-verifier.web.helium.io/verify
+            - name: ECC_VERIFIER
+              value: eccSAJM3tq7nQSpQTm8roxv4FPoipCkMsGizW2KBhqZ
           resources:
             requests:
               cpu: 250m
