@@ -9,6 +9,7 @@ spec:
   selector:
     matchLabels:
       app: iot-oracle
+  replicas: 5  
   template:
     metadata:
       labels:
@@ -79,7 +80,6 @@ spec:
               cpu: 250m
               memory: 500Mi
             limits:
-              cpu: 500m
               memory: 750Mi
       volumes:
         - name: oracle-keypair
@@ -122,3 +122,29 @@ spec:
             name: iot-oracle
             port:
               number: 8080
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: iot-oracle
+  namespace: helium
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: iot-oracle
+  minReplicas: 5
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75

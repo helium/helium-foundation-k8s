@@ -9,6 +9,7 @@ spec:
   selector:
     matchLabels:
       app: onboarding-server
+  replicas: 2
   template:
     metadata:
       labels:
@@ -77,7 +78,6 @@ spec:
               cpu: 250m
               memory: 500Mi
             limits:
-              cpu: 500m
               memory: 750Mi
 ---
 apiVersion: v1
@@ -113,3 +113,29 @@ spec:
             name: onboarding-server
             port:
               number: 3002
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: onboarding-server
+  namespace: helium
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: onboarding-server
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
