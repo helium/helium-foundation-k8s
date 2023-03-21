@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: solana-monitor
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -87,29 +87,3 @@ spec:
     app: solana-monitor
   sessionAffinity: None
   type: LoadBalancer
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: solana-monitor
-  namespace: helium
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: solana-monitor
-  minReplicas: 2
-  maxReplicas: 5
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 75
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: 75
