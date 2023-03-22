@@ -2,21 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: helius-service
-  name: helius-service
+    app: hotspot-data-indexer
+  name: hotspot-data-indexer
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: helius-service
+      app: hotspot-data-indexer
   template:
     metadata:
       labels:
-        app: helius-service
+        app: hotspot-data-indexer
+        security-group: rds-access
     spec:
+      serviceAccountName: rds-web-user-access
       containers:
-        - name: helius-service
-          image: public.ecr.aws/v0j6k5v6/helius-service:0.0.2
+        - name: hotspot-data-indexer
+          image: public.ecr.aws/v0j6k5v6/hotspot-data-indexer:0.0.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -25,10 +27,21 @@ spec:
           env:
             - name: HELIUS_AUTH_SECRET_FILE
               value: /app/keys/helius_auth.txt
-            
+          - name: PGHOST
+            value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+          - name: PGPORT
+            value: "5432"
+          - name: PGUSER
+            value: web
+          - name: AWS_REGION
+            value: us-east-1
+          - name: PGDATABASE
+            value: hotspot
+          - name: PGSSLMODE
+            value: no-verify
           volumeMounts:
             - name: helius-auth-secret
-              mountPath: /app/keys
+              mountPath: /usr/src/app/keys
               readOnly: true
           readinessProbe:
             failureThreshold: 3
@@ -60,13 +73,13 @@ spec:
           secret:
             secretName: helius-auth-secret
             items:
-              - key: keypair.json
-                path: keypair.json
+              - key: helius-auth-secret.txt
+                path: helius-auth-secret.txt
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: helius-service
+  name: hotspot-data-indexer
   namespace: helium
 spec:
   ports:
@@ -74,25 +87,25 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: helius-service
+    app: hotspot-data-indexer
   sessionAffinity: None
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: helius-service
+  name: hotspot-data-indexer
   namespace: helium
 spec:
   ingressClassName: nginx
   rules:
-  - host: helius-service.web.test-helium.com
+  - host: hotspot-data-indexer.web.test-helium.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: helius-service
+            name: hotspot-data-indexer
             port:
               number: 3000
