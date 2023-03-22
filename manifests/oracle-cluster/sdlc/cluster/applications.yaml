@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helium
+  namespace: argocd
+spec:
+  destination:
+    namespace: helium
+    server: https://kubernetes.default.svc
+  project: helium
+  source:
+    repoURL: https://github.com/helium/helium-foundation-k8s
+    path: manifests/oracle-cluster/prod/helium
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    server: https://kubernetes.default.svc
+  project: monitoring
+  source:
+    repoURL: https://github.com/helium/helium-foundation-k8s
+    path: manifests/oracle-cluster/prod/monitoring
+    targetRevision: HEAD
+    directory:
+      recurse: false
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

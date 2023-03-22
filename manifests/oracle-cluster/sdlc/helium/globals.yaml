@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: globals
+  namespace: helium
+data:
+  solana_url: "https://api.devnet.solana.com"
+  asset_api_url: "https://rpc-devnet.helius.xyz/?api-key=4eb6e438-25d1-4dcf-89dd-f54f2b42b846"
+  mobile_mint: "mb1eu7TzEc71KxDpsmsKoucSSuuoGLv1drys1oP2jh6"
+  iot_mint: "iotEVVZLEywoTn1QdwNPddxPWszn3zFhEot3MfL9fns"
+  hnt_mint: "hntyVP6YFm1Hg25TN9WGLqM12b8TQmcknKrdu1oxWux"
+  dc_mint: "dcuc8Amr83Wz27ZkQ2K9NS6r8zRpf1J6cvArEBDZDmm"
