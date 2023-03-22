@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: hotspot-data-indexer
-  name: hotspot-data-indexer
+    app: hotspot-data-sink
+  name: hotspot-data-sink
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: hotspot-data-indexer
+      app: hotspot-data-sink
   template:
     metadata:
       labels:
-        app: hotspot-data-indexer
+        app: hotspot-data-sink
         security-group: rds-access
     spec:
       serviceAccountName: rds-web-user-access
       containers:
-        - name: hotspot-data-indexer
-          image: public.ecr.aws/v0j6k5v6/hotspot-data-indexer:0.0.1
+        - name: hotspot-data-sink
+          image: public.ecr.aws/v0j6k5v6/hotspot-data-sink:0.0.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -79,7 +79,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hotspot-data-indexer
+  name: hotspot-data-sink
   namespace: helium
 spec:
   ports:
@@ -87,25 +87,25 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: hotspot-data-indexer
+    app: hotspot-data-sink
   sessionAffinity: None
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hotspot-data-indexer
+  name: hotspot-data-sink
   namespace: helium
 spec:
   ingressClassName: nginx
   rules:
-  - host: hotspot-data-indexer.web.test-helium.com
+  - host: hotspot-data-sink.web.test-helium.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: hotspot-data-indexer
+            name: hotspot-data-sink
             port:
               number: 3000
