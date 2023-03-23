@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-web-user-access
       containers:
         - name: hotspot-data-sink
-          image: public.ecr.aws/v0j6k5v6/hotspot-data-sink:0.0.1
+          image: public.ecr.aws/s2o4r1i6/hotspot-data-sink:0.0.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
