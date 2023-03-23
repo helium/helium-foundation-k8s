@@ -123,6 +123,12 @@ The argo username is admin, the password can be acquired by running:
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
+Make sure you're connected to the right cluster with kubectl.:
+
+```
+aws eks --region us-east-1 update-kubeconfig  --name web-cluster-sdlc --profile web-sdlc
+```
+
 You'll usually want to check the argo interface to see if your changes deployed succesfully. 
 
 ### Debugging

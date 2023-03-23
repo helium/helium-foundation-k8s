@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: oracle-keypair
+  namespace: helium
+spec:
+  encryptedData:
+    keypair.json: AgApaY2tKvapBSJimwRIyncrLY9X23+/W5sC+Pl6i3vl5VCtLj6D4eDs+lpwZIJ5K55ej1l1+dDOQ9fp0oR4D4J0GVvbGsPHOXVswRfahf1J46VyMl6rb19Po+CyR2EBoataEOTbYKFkT9qegzMJ3E93UCjPPJy5EABVxfNS/K86IbxNRUx4fkLSFdz/G+UvmPWaaeQQ/QFka5sVaBBV34B6+hLpWXX6HAkP4b/QDkLTo00kRZ6jNmG+yDdTbCoCupU5Gpcpxc+LD4SIgmNd8eQI3Z9+Ltb9OL4YHkRMAJBa4/Ok198CrWhMhWFsvU3P5erftDkEZKoAjp0qUD1iIL3jHu9Ls1Vn1JLkGScvpOHiDgI8nywvE0JeG3qINdJwKBLCp6ZGkAmsqVBI0jfvK6J3KFObUaYPBDVLD3zsL8Gbn1DJuQluBIXz6bj6xDZDIjiwzqDZfeFmVvN4QgLr/yi/ZYOiWieFqiA2GO2clDGz8kafFwRGZD596O5Z8/t43I1o9TqdyxwXbjuLiSH2dk4ggHP7KDckFky4TCNY8wNzbrnnUZ0sC+wLFi71Dn0m+WvsXzRpAe5dBNerE76H/hDBpfSTA4RisMV0OI6odXq0iZCyedxJrctjDo/d9v4/0/PzuhMyEmzcCPLPMzWNFfSXbgqiMWdNzVIBsTu4LAhVuwAvP26eGxgECXGYDHCRZArpXrhlABcQsXkTTcyHzSokd9E9oyB3iKlsmT4uayP6lTRTjkKN3AZPY42339i12Jb+RpcdT9M3vKEtI9rDubNDgEAaNrxR1OlY4pJ14IPbsOgFiWIEGisyNGdQA26Ye6cp03Isjz5E9Oa+kBrupSBvdGkck2l+8KBhPquyE/k8DjUP4t832gd7Qn+RfOERKd/EsH8SgliJ4pIlVnWGBrKNsJZOZZjckmJ2PPTyXxP2op46VMZlEzoQ9m1Pk3hb973qaN5aXTDg+LPkjx/gArozERswRhDstpBXyTWfp7k=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: oracle-keypair
+      namespace: helium
+
