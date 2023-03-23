@@ -10,7 +10,7 @@ spec:
   project: helium
   source:
     repoURL: https://github.com/helium/helium-foundation-k8s
-    path: manifests/oracle-cluster/prod/helium
+    path: manifests/oracle-cluster/sdlc/helium
     targetRevision: HEAD
     directory:
       recurse: true
@@ -33,7 +33,7 @@ spec:
   project: monitoring
   source:
     repoURL: https://github.com/helium/helium-foundation-k8s
-    path: manifests/oracle-cluster/prod/monitoring
+    path: manifests/oracle-cluster/sdlc/monitoring
     targetRevision: HEAD
     directory:
       recurse: false
