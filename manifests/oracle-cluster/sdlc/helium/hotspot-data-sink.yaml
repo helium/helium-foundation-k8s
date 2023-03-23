@@ -25,20 +25,23 @@ spec:
               name: http
               protocol: TCP
           env:
-            - name: HELIUS_AUTH_SECRET_FILE
-              value: /app/keys/helius_auth.txt
-          - name: PGHOST
-            value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
-          - name: PGPORT
-            value: "5432"
-          - name: PGUSER
-            value: metadata
-          - name: AWS_REGION
-            value: us-east-1
-          - name: PGDATABASE
-            value: metadata
-          - name: PGSSLMODE
-            value: no-verify
+            - name: HELIUS_AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: helius-auth-secret
+                  key: secret
+            - name: PGHOST
+              value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+            - name: PGPORT
+              value: "5432"
+            - name: PGUSER
+              value: metadata
+            - name: AWS_REGION
+              value: us-east-1
+            - name: PGDATABASE
+              value: metadata
+            - name: PGSSLMODE
+              value: no-verify
           volumeMounts:
             - name: helius-auth-secret
               mountPath: /usr/src/app/keys
@@ -68,13 +71,6 @@ spec:
             limits:
               cpu: 500m
               memory: 750Mi
-      volumes:
-        - name: helius-auth-secret
-          secret:
-            secretName: helius-auth-secret
-            items:
-              - key: helius-auth-secret.txt
-                path: helius-auth-secret.txt
 ---
 apiVersion: v1
 kind: Service
