@@ -42,10 +42,6 @@ spec:
               value: metadata
             - name: PGSSLMODE
               value: no-verify
-          volumeMounts:
-            - name: helius-auth-secret
-              mountPath: /usr/src/app/keys
-              readOnly: true
           readinessProbe:
             failureThreshold: 3
             httpGet:
