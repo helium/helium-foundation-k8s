@@ -15,7 +15,7 @@ spec:
         app: hotspot-data-sink
         security-group: rds-access
     spec:
-      serviceAccountName: rds-web-user-access
+      serviceAccountName: rds-metadata-user-access-role
       containers:
         - name: hotspot-data-sink
           image: public.ecr.aws/s2o4r1i6/hotspot-data-sink:0.0.1
