@@ -87,3 +87,22 @@ spec:
     app: solana-monitor
   sessionAffinity: None
   type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: solana-monitor
+  namespace: helium
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: solana-monitor.web.test-helium.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: solana-monitor
+            port:
+              number: 8082
