@@ -96,7 +96,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: hotspot-data-sink.web.test-helium.com
+  - host: hotspot-data-sink.oracle.test-helium.io
     http:
       paths:
       - path: /
