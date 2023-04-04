@@ -35,13 +35,13 @@ spec:
             - name: PGDATABASE
               value: mobile_index
             - name: PGHOST
-              value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
+              value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER
               value: mobile_oracle
             - name: AWS_REGION
-              value: us-west-2
+              value: us-east-1
             - name: ASSET_API_URL
               valueFrom:
                 configMapKeyRef:
