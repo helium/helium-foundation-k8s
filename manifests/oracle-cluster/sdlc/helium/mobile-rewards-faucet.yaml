@@ -89,7 +89,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: mobile-rewards-faucet.oracle.test-helium.io
+  - host: mobile-rewards-faucet.oracle.test-helium.com
     http:
       paths:
       - path: /
