@@ -36,17 +36,15 @@ spec:
                   name: globals
                   key: solana_url
             - name: PGHOST
-              value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+              value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER
               value: metadata
             - name: AWS_REGION
-              value: us-east-1
+              value: us-west-2
             - name: PGDATABASE
               value: metadata
-            - name: PGSSLMODE
-              value: no-verify
           readinessProbe:
             failureThreshold: 3
             httpGet:
