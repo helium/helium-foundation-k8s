@@ -1,213 +1,215 @@
-# apiVersion: v1
-# kind: ConfigMap
-# metadata:
-#   name: account-postgres-sink-config
-#   namespace: helium
-# data:
-#   config.json: |
-#     {
-#       "configs": [
-#         {
-#           "programId": "1atrmQs3eq1N2FEYWu6tyTXbCjP4uQwExpjtnhXtS8h",
-#           "accounts": [
-#             {
-#               "type": "LazyTransactionsV0",
-#               "table": "lazy_transactions",
-#               "schema": "ltr"
-#             },
-#             { "type": "Block", "table": "blocks", "schema": "ltr" }
-#           ]
-#         },
-#         {
-#           "programId": "hvsrNC3NKbcryqDs2DocYHZ9yPKEVzdSjQG6RVtK1s8",
-#           "accounts": [
-#             { "type": "PositionV0", "table": "positions", "schema": "vsr" },
-#             { "type": "Registrar", "table": "registrars", "schema": "vsr" }
-#           ]
-#         },
-#         {
-#           "programId": "hdaoVTCqhfHHo75XdAMxBKdUqvq1i5bF23sisBqVgGR",
-#           "accounts": [
-#             { "type": "DaoV0", "table": "daos", "schema": "hsd" },
-#             { "type": "SubDaoV0", "table": "sub_daos", "schema": "hsd" },
-#             {
-#               "type": "SubDaoEpochInfoV0",
-#               "table": "sub_dao_epoch_infos",
-#               "schema": "hsd"
-#             },
-#             {
-#               "type": "DaoEpochInfoV0",
-#               "table": "dao_epoch_infos",
-#               "schema": "hsd"
-#             },
-#             {
-#               "type": "DelegatedPositionV0",
-#               "table": "delegated_positions",
-#               "schema": "hsd"
-#             }
-#           ]
-#         },
-#         {
-#           "programId": "circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g",
-#           "accounts": [
-#             { "type": "MintWindowedCircuitBreakerV0", "table": "mint_windowed_circuit_breaker_configs", "schema": "cb" },
-#             { "type": "AccountWindowedCircuitBreakerV0", "table": "account_windowed_circuit_breaker_configs", "schema": "cb" }
-#           ]
-#         },
-#         {
-#           "programId": "circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g",
-#           "accounts": [
-#             { "type": "MintWindowedCircuitBreakerV0", "table": "mint_windowed_circuit_breaker_configs", "schema": "cb" },
-#             { "type": "AccountWindowedCircuitBreakerV0", "table": "account_windowed_circuit_breaker_configs", "schema": "cb" }
-#           ]
-#         },
-#         {
-#           "programId": "hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8",
-#           "accounts": [
-#             { "type": "RewardableEntityConfigV0", "table": "rewardable_entity_configs", "schema": "hem" },
-#             { "type": "MakerV0", "table": "makers", "schema": "hem" },
-#             { "type": "MakerApprovalV0", "table": "maker_approvals", "schema": "hem" },
-#             { "type": "KeyToAssetV0", "table": "key_to_assets", "schema": "hem" },
-#             { "type": "IotHotspotInfoV0", "table": "iot_hotspot_infos", "schema": "hem" },
-#             { "type": "MobileHotspotInfoV0", "table": "mobile_hotspot_infos", "schema": "hem" }
-#           ]
-#         },
-#         {
-#           "programId": "1azyuavdMyvsivtNxPoz6SucD18eDHeXzFCUPq5XU7w",
-#           "accounts": [
-#             { "type": "LazyDistributorV0", "table": "lazy_distributors", "schema": "ldr" },
-#             { "type": "RecipientV0", "table": "recipients", "schema": "ldr" }
-#           ]
-#         }
-#       ]
-#     }
-# ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   labels:
-#     app: account-postgres-sink-service
-#   name: account-postgres-sink-service
-#   namespace: helium
-# spec:
-#   selector:
-#     matchLabels:
-#       app: account-postgres-sink-service
-#   replicas: 1
-#   template:
-#     metadata:
-#       labels:
-#         app: account-postgres-sink-service
-#         security-group: rds-access
-#     spec:
-#       serviceAccountName: rds-web-user-access
-#       containers:
-#         - name: account-postgres-sink-service
-#           image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.3
-#           imagePullPolicy: IfNotPresent
-#           ports:
-#             - containerPort: 8081
-#               name: http
-#               protocol: TCP
-#           env:
-#             - name: PGHOST
-#               value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
-#             - name: PGPORT
-#               value: "5432"
-#             - name: PGUSER
-#               value: web
-#             - name: AWS_REGION
-#               value: us-east-1
-#             - name: PGDATABASE
-#               value: solana
-#             - name: PGSSLMODE
-#               value: no-verify
-#             - name: SOLANA_URL
-#               valueFrom:
-#                 configMapKeyRef:
-#                   name: globals
-#                   key: solana_url
-#             - name: ASSET_API_URL
-#               valueFrom:
-#                 configMapKeyRef:
-#                   name: globals
-#                   key: asset_api_url
-#             - name: PROGRAM_ACCOUNT_CONFIGS
-#               value: "/usr/src/app/config/config.json"
-#           volumeMounts:
-#             - name: account-postgres-sink-config
-#               mountPath: /usr/src/app/config
-#               readOnly: true                  
-#           resources:
-#             requests:
-#               cpu: 250m
-#               memory: 500Mi
-#             limits:
-#               memory: 750Mi
-#       volumes:
-#         - name: account-postgres-sink-config
-#           configMap:
-#             name: account-postgres-sink-config
-#             items:
-#               - key: config.json
-#                 path: config.json
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: account-postgres-sink-service
-#   namespace: helium
-# spec:
-#   ports:
-#     - port: 8081
-#       protocol: TCP
-#       targetPort: http
-#   selector:
-#     app: account-postgres-sink-service
-#   sessionAffinity: None
-#   type: LoadBalancer
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: account-postgres-sink-service
-#   namespace: helium
-# spec:
-#   ingressClassName: nginx
-#   rules:
-#   - host: account-sink.web.test-helium.com
-#     http:
-#       paths:
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: account-postgres-sink-service
-#             port:
-#               number: 8081
-# ---
-# apiVersion: autoscaling/v2
-# kind: HorizontalPodAutoscaler
-# metadata:
-#   name: account-postgres-sink-service
-#   namespace: helium
-# spec:
-#   scaleTargetRef:
-#     apiVersion: apps/v1
-#     kind: Deployment
-#     name: account-postgres-sink-service
-#   minReplicas: 1
-#   maxReplicas: 1
-#   metrics:
-#     - type: Resource
-#       resource:
-#         name: cpu
-#         target:
-#           type: Utilization
-#           averageUtilization: 75
-#     - type: Resource
-#       resource:
-#         name: memory
-#         target:
-#           type: Utilization
-#           averageUtilization: 75
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: account-postgres-sink-config
+  namespace: helium
+data:
+  config.json: |
+    {
+      "configs": [
+        {
+          "programId": "1atrmQs3eq1N2FEYWu6tyTXbCjP4uQwExpjtnhXtS8h",
+          "accounts": [
+            {
+              "type": "LazyTransactionsV0",
+              "table": "lazy_transactions",
+              "schema": "ltr"
+            },
+            { "type": "Block", "table": "blocks", "schema": "ltr" }
+          ]
+        },
+        {
+          "programId": "hvsrNC3NKbcryqDs2DocYHZ9yPKEVzdSjQG6RVtK1s8",
+          "accounts": [
+            { "type": "PositionV0", "table": "positions", "schema": "vsr" },
+            { "type": "Registrar", "table": "registrars", "schema": "vsr" }
+          ]
+        },
+        {
+          "programId": "hdaoVTCqhfHHo75XdAMxBKdUqvq1i5bF23sisBqVgGR",
+          "accounts": [
+            { "type": "DaoV0", "table": "daos", "schema": "hsd" },
+            { "type": "SubDaoV0", "table": "sub_daos", "schema": "hsd" },
+            {
+              "type": "SubDaoEpochInfoV0",
+              "table": "sub_dao_epoch_infos",
+              "schema": "hsd"
+            },
+            {
+              "type": "DaoEpochInfoV0",
+              "table": "dao_epoch_infos",
+              "schema": "hsd"
+            },
+            {
+              "type": "DelegatedPositionV0",
+              "table": "delegated_positions",
+              "schema": "hsd"
+            }
+          ]
+        },
+        {
+          "programId": "circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g",
+          "accounts": [
+            { "type": "MintWindowedCircuitBreakerV0", "table": "mint_windowed_circuit_breaker_configs", "schema": "cb" },
+            { "type": "AccountWindowedCircuitBreakerV0", "table": "account_windowed_circuit_breaker_configs", "schema": "cb" }
+          ]
+        },
+        {
+          "programId": "circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g",
+          "accounts": [
+            { "type": "MintWindowedCircuitBreakerV0", "table": "mint_windowed_circuit_breaker_configs", "schema": "cb" },
+            { "type": "AccountWindowedCircuitBreakerV0", "table": "account_windowed_circuit_breaker_configs", "schema": "cb" }
+          ]
+        },
+        {
+          "programId": "hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8",
+          "accounts": [
+            { "type": "RewardableEntityConfigV0", "table": "rewardable_entity_configs", "schema": "hem" },
+            { "type": "MakerV0", "table": "makers", "schema": "hem" },
+            { "type": "MakerApprovalV0", "table": "maker_approvals", "schema": "hem" },
+            { "type": "KeyToAssetV0", "table": "key_to_assets", "schema": "hem" },
+            { "type": "IotHotspotInfoV0", "table": "iot_hotspot_infos", "schema": "hem" },
+            { "type": "MobileHotspotInfoV0", "table": "mobile_hotspot_infos", "schema": "hem" }
+          ]
+        },
+        {
+          "programId": "1azyuavdMyvsivtNxPoz6SucD18eDHeXzFCUPq5XU7w",
+          "accounts": [
+            { "type": "LazyDistributorV0", "table": "lazy_distributors", "schema": "ldr" },
+            { "type": "RecipientV0", "table": "recipients", "schema": "ldr" }
+          ]
+        }
+      ]
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: account-postgres-sink-service
+  name: account-postgres-sink-service
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: account-postgres-sink-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: account-postgres-sink-service
+        security-group: rds-access
+    spec:
+      serviceAccountName: rds-web-user-access
+      containers:
+        - name: account-postgres-sink-service
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+              name: http
+              protocol: TCP
+          env:
+            - name: PGHOST
+              value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+            - name: PGPORT
+              value: "5432"
+            - name: PGUSER
+              value: web
+            - name: AWS_REGION
+              value: us-east-1
+            - name: PGDATABASE
+              value: solana
+            - name: PGSSLMODE
+              value: no-verify
+            - name: SOLANA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: solana_url
+            - name: ASSET_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: asset_api_url
+            - name: PROGRAM_ACCOUNT_CONFIGS
+              value: "/usr/src/app/config/config.json"
+            - name: GLOBAL_CRON_CONFIG
+              value: 0 1 * * *
+          volumeMounts:
+            - name: account-postgres-sink-config
+              mountPath: /usr/src/app/config
+              readOnly: true                  
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+            limits:
+              memory: 750Mi
+      volumes:
+        - name: account-postgres-sink-config
+          configMap:
+            name: account-postgres-sink-config
+            items:
+              - key: config.json
+                path: config.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-postgres-sink-service
+  namespace: helium
+spec:
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: account-postgres-sink-service
+  sessionAffinity: None
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: account-postgres-sink-service
+  namespace: helium
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: account-sink.web.test-helium.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: account-postgres-sink-service
+            port:
+              number: 8081
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: account-postgres-sink-service
+  namespace: helium
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: account-postgres-sink-service
+  minReplicas: 1
+  maxReplicas: 1
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75

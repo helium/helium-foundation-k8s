@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-mobile-oracle-user-access
       containers:
         - name: mobile-rewards-faucet
-          image: public.ecr.aws/s2o4r1i6/rewards-oracle-faucet-service:0.0.1
+          image: public.ecr.aws/s2o4r1i6/rewards-oracle-faucet-service:0.0.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -89,7 +89,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: mobile-rewards-faucet.oracle.test-helium.io
+  - host: mobile-rewards-faucet.oracle.test-helium.com
     http:
       paths:
       - path: /
