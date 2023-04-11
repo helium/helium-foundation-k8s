@@ -64,7 +64,7 @@ spec:
             - name: S3_BUCKET
               value: web-sdlc-migration-bucket
             - name: S3_ENDPOINT
-              value: s3.us-east-1.amazonaws.com
+              value: http://s3.us-east-1.amazonaws.com
             - name: MULTISIG
               value: BBhoCZSUJH8iiXHT5aP6GVbhnX2iY2vWR1BAsuYm7ZUm
             - name: DC_BURN_AUTHORITY
