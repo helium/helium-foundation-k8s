@@ -48,7 +48,7 @@ spec:
             - name: PGPORT
               value: "5432"
             - name: PGUSER
-              value: web
+              value: migration
             - name: AWS_REGION
               value: us-east-1
             - name: PGDATABASE
