@@ -1,113 +1,113 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: migration
-  name: migration
-  namespace: helium
-spec:
-  selector:
-    matchLabels:
-      app: migration
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: migration
-        security-group: rds-access
-    spec:
-      serviceAccountName: rds-migration-user-access
-      tolerations:
-        - key: "migration_workload"
-          operator: "Exists"
-          effect: "NoSchedule"
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                - key: beta.kubernetes.io/instance-type
-                  operator: In
-                  values:
-                    - r5.xlarge
-      containers:
-        - name: migration
-          image: public.ecr.aws/v0j6k5v6/migration:0.0.2
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 8080
-              name: http
-              protocol: TCP
-          env:
-            - name: SOLANA_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: solana_url
-            - name: PGHOST
-              value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
-            - name: PGPORT
-              value: "5432"
-            - name: PGUSER
-              value: migration
-            - name: AWS_REGION
-              value: us-east-1
-            - name: PGDATABASE
-              value: test_migration
-            - name: PGSSLMODE
-              value: no-verify
-            - name: ASSET_API_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: asset_api_url
-            - name: S3_BUCKET
-              value: web-sdlc-migration-bucket
-            - name: S3_ENDPOINT
-              value: http://s3.us-east-1.amazonaws.com
-            - name: MULTISIG
-              value: BBhoCZSUJH8iiXHT5aP6GVbhnX2iY2vWR1BAsuYm7ZUm
-            - name: DC_BURN_AUTHORITY
-              value: pverYDx5LZx3cmBsdJSJtgPFHpTrZkSac1zRg4XKb46
-            - name: NETWORK
-              value: devnet
-            - name: LAZY_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: migration-secret
-                  key: name
-            - name: GPG_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                    name: migration-secret
-                    key: gpg-password
-            - name: GPG_KEY
-              value: /data/migration.gpg
-            - name: ADMIN_KEYPAIR
-              value: devnet-admin.json
-            - name: ORACLE_QUEUE
-              value: uPeRMdfPmrPqgRWSrjAnAkH78RqAhe5kXoW6vBYRqFX
-            - name: ORACLE_CRANK
-              value: UcrnK4w2HXCEjY8z6TcQ9tysYr3c9VcFLdYAU9YQP5e
-            - name: VALIDATOR_HEARTBEAT_THRESHOLD
-              value: "0" # TODO: For actual migration update to the last valid block
-            - name: ORACLE_SOL
-              value: "10"
-          volumeMounts:
-            - name: gpg-key
-              mountPath: /data
-              readOnly: true
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   labels:
+#     app: migration
+#   name: migration
+#   namespace: helium
+# spec:
+#   selector:
+#     matchLabels:
+#       app: migration
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         app: migration
+#         security-group: rds-access
+#     spec:
+#       serviceAccountName: rds-migration-user-access
+#       tolerations:
+#         - key: "migration_workload"
+#           operator: "Exists"
+#           effect: "NoSchedule"
+#       affinity:
+#         nodeAffinity:
+#           requiredDuringSchedulingIgnoredDuringExecution:
+#             nodeSelectorTerms:
+#               - matchExpressions:
+#                 - key: beta.kubernetes.io/instance-type
+#                   operator: In
+#                   values:
+#                     - r5.xlarge
+#       containers:
+#         - name: migration
+#           image: public.ecr.aws/v0j6k5v6/migration:0.0.2
+#           imagePullPolicy: IfNotPresent
+#           ports:
+#             - containerPort: 8080
+#               name: http
+#               protocol: TCP
+#           env:
+#             - name: SOLANA_URL
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: globals
+#                   key: solana_url
+#             - name: PGHOST
+#               value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+#             - name: PGPORT
+#               value: "5432"
+#             - name: PGUSER
+#               value: migration
+#             - name: AWS_REGION
+#               value: us-east-1
+#             - name: PGDATABASE
+#               value: test_migration
+#             - name: PGSSLMODE
+#               value: no-verify
+#             - name: ASSET_API_URL
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: globals
+#                   key: asset_api_url
+#             - name: S3_BUCKET
+#               value: web-sdlc-migration-bucket
+#             - name: S3_ENDPOINT
+#               value: http://s3.us-east-1.amazonaws.com
+#             - name: MULTISIG
+#               value: BBhoCZSUJH8iiXHT5aP6GVbhnX2iY2vWR1BAsuYm7ZUm
+#             - name: DC_BURN_AUTHORITY
+#               value: pverYDx5LZx3cmBsdJSJtgPFHpTrZkSac1zRg4XKb46
+#             - name: NETWORK
+#               value: devnet
+#             - name: LAZY_NAME
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: migration-secret
+#                   key: name
+#             - name: GPG_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                     name: migration-secret
+#                     key: gpg-password
+#             - name: GPG_KEY
+#               value: /data/migration.gpg
+#             - name: ADMIN_KEYPAIR
+#               value: devnet-admin.json
+#             - name: ORACLE_QUEUE
+#               value: uPeRMdfPmrPqgRWSrjAnAkH78RqAhe5kXoW6vBYRqFX
+#             - name: ORACLE_CRANK
+#               value: UcrnK4w2HXCEjY8z6TcQ9tysYr3c9VcFLdYAU9YQP5e
+#             - name: VALIDATOR_HEARTBEAT_THRESHOLD
+#               value: "0" # TODO: For actual migration update to the last valid block
+#             - name: ORACLE_SOL
+#               value: "10"
+#           volumeMounts:
+#             - name: gpg-key
+#               mountPath: /data
+#               readOnly: true
           
-          resources:
-            requests:
-              cpu: 2000m
-              memory: 16Gi
-            limits:
-              memory: 20Gi
-      volumes:
-        - name: gpg-key
-          secret:
-            secretName: gpg-key
-            items:
-              - key: migration.gpg
-                path: migration.gpg                
+#           resources:
+#             requests:
+#               cpu: 2000m
+#               memory: 16Gi
+#             limits:
+#               memory: 20Gi
+#       volumes:
+#         - name: gpg-key
+#           secret:
+#             secretName: gpg-key
+#             items:
+#               - key: migration.gpg
+#                 path: migration.gpg                
