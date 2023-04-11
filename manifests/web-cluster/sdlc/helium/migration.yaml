@@ -32,7 +32,7 @@ spec:
                     - r5.xlarge
       containers:
         - name: migration
-          image: public.ecr.aws/v0j6k5v6/migration:0.0.1
+          image: public.ecr.aws/v0j6k5v6/migration:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
