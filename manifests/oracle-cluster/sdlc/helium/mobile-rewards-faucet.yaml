@@ -2,56 +2,44 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: hotspot-data-sink
-  name: hotspot-data-sink
+    app: mobile-rewards-faucet
+  name: mobile-rewards-faucet
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: hotspot-data-sink
+      app: mobile-rewards-faucet
   template:
     metadata:
       labels:
-        app: hotspot-data-sink
+        app: mobile-rewards-faucet
         security-group: rds-access
     spec:
-      serviceAccountName: rds-metadata-user-access
+      serviceAccountName: rds-mobile-oracle-user-access
       containers:
-        - name: hotspot-data-sink
-          image: public.ecr.aws/s2o4r1i6/hotspot-data-sink:0.0.5
+        - name: mobile-rewards-faucet
+          image: public.ecr.aws/s2o4r1i6/rewards-oracle-faucet-service:0.0.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
               name: http
               protocol: TCP
           env:
-            - name: HELIUS_AUTH_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: helius-auth-secret
-                  key: secret
             - name: ANCHOR_PROVIDER_URL
               valueFrom:
                 configMapKeyRef:
                   name: globals
                   key: solana_url
-            - name: HNT_MINT
-              valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: hnt_mint
+            - name: PGDATABASE
+              value: mobile_index
             - name: PGHOST
               value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER
-              value: metadata
+              value: mobile_oracle
             - name: AWS_REGION
               value: us-east-1
-            - name: PGDATABASE
-              value: metadata
-            - name: PGSSLMODE
-              value: no-verify
           readinessProbe:
             failureThreshold: 3
             httpGet:
@@ -81,7 +69,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hotspot-data-sink
+  name: mobile-rewards-faucet
   namespace: helium
 spec:
   ports:
@@ -89,25 +77,25 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: hotspot-data-sink
+    app: mobile-rewards-faucet
   sessionAffinity: None
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hotspot-data-sink
+  name: mobile-rewards-faucet
   namespace: helium
 spec:
   ingressClassName: nginx
   rules:
-  - host: hotspot-data-sink.oracle.test-helium.com
+  - host: mobile-rewards-faucet.oracle.test-helium.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: hotspot-data-sink
+            name: mobile-rewards-faucet
             port:
               number: 3000

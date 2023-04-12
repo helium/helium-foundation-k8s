@@ -9,6 +9,7 @@ spec:
   selector:
     matchLabels:
       app: mobile-oracle
+  replicas: 2
   template:
     metadata:
       labels:
@@ -35,13 +36,13 @@ spec:
             - name: PGDATABASE
               value: mobile_index
             - name: PGHOST
-              value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
+              value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER
               value: mobile_oracle
             - name: AWS_REGION
-              value: us-west-2
+              value: us-east-1
             - name: ASSET_API_URL
               valueFrom:
                 configMapKeyRef:
@@ -79,7 +80,6 @@ spec:
               cpu: 250m
               memory: 500Mi
             limits:
-              cpu: 500m
               memory: 750Mi
       volumes:
         - name: oracle-keypair
@@ -112,7 +112,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: mobile-rewards.oracle.test-helium.io
+  - host: mobile-rewards.oracle.test-helium.com
     http:
       paths:
       - path: /
@@ -122,3 +122,29 @@ spec:
             name: mobile-oracle
             port:
               number: 8080
+# ---
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: mobile-oracle
+#   namespace: helium
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: mobile-oracle
+#   minReplicas: 2
+#   maxReplicas: 5
+#   metrics:
+#     - type: Resource
+#       resource:
+#         name: cpu
+#         target:
+#           type: Utilization
+#           averageUtilization: 75
+#     - type: Resource
+#       resource:
+#         name: memory
+#         target:
+#           type: Utilization
+#           averageUtilization: 75

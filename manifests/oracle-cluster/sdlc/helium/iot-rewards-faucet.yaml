@@ -2,27 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: iot-oracle
-  name: iot-oracle
+    app: iot-rewards-faucet
+  name: iot-rewards-faucet
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: iot-oracle
-  replicas: 2
+      app: iot-rewards-faucet
   template:
     metadata:
       labels:
-        app: iot-oracle
+        app: iot-rewards-faucet
         security-group: rds-access
     spec:
       serviceAccountName: rds-iot-oracle-user-access
       containers:
-        - name: iot-oracle
-          image: public.ecr.aws/j4f9f0n7/distributor-oracle:0.0.31
+        - name: iot-rewards-faucet
+          image: public.ecr.aws/s2o4r1i6/rewards-oracle-faucet-service:0.0.5
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - containerPort: 3000
               name: http
               protocol: TCP
           env:
@@ -31,8 +30,6 @@ spec:
                 configMapKeyRef:
                   name: globals
                   key: solana_url
-            - name: ORACLE_KEYPAIR_PATH
-              value: /usr/src/app/keys/keypair.json
             - name: PGDATABASE
               value: iot_index
             - name: PGHOST
@@ -43,25 +40,11 @@ spec:
               value: iot_oracle
             - name: AWS_REGION
               value: us-east-1
-            - name: ASSET_API_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: asset_api_url
-            - name: DNT_MINT
-              valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: iot_mint
-          volumeMounts:
-            - name: oracle-keypair
-              mountPath: /usr/src/app/keys
-              readOnly: true
           readinessProbe:
             failureThreshold: 3
             httpGet:
               path: /health
-              port: 8080
+              port: 3000
               scheme: HTTP
             initialDelaySeconds: 10
             periodSeconds: 30
@@ -73,78 +56,46 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             tcpSocket:
-              port: 8080
+              port: 3000
             timeoutSeconds: 1
           resources:
             requests:
               cpu: 250m
               memory: 500Mi
             limits:
+              cpu: 500m
               memory: 750Mi
-      volumes:
-        - name: oracle-keypair
-          secret:
-            secretName: oracle-keypair
-            items:
-              - key: keypair.json
-                path: keypair.json
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: iot-oracle
+  name: iot-rewards-faucet
   namespace: helium
 spec:
   ports:
-    - port: 8080
+    - port: 3000
       protocol: TCP
       targetPort: http
   selector:
-    app: iot-oracle
+    app: iot-rewards-faucet
   sessionAffinity: None
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: iot-oracle
+  name: iot-rewards-faucet
   namespace: helium
 spec:
   ingressClassName: nginx
   rules:
-  - host: iot-rewards.oracle.test-helium.com
+  - host: iot-rewards-faucet.oracle.test-helium.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: iot-oracle
+            name: iot-rewards-faucet
             port:
-              number: 8080
-# ---
-# apiVersion: autoscaling/v2
-# kind: HorizontalPodAutoscaler
-# metadata:
-#   name: iot-oracle
-#   namespace: helium
-# spec:
-#   scaleTargetRef:
-#     apiVersion: apps/v1
-#     kind: Deployment
-#     name: iot-oracle
-#   minReplicas: 2
-#   maxReplicas: 5
-#   metrics:
-#     - type: Resource
-#       resource:
-#         name: cpu
-#         target:
-#           type: Utilization
-#           averageUtilization: 75
-#     - type: Resource
-#       resource:
-#         name: memory
-#         target:
-#           type: Utilization
-#           averageUtilization: 75
+              number: 3000

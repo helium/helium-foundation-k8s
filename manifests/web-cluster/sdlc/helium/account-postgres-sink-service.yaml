@@ -134,6 +134,8 @@ spec:
                   key: asset_api_url
             - name: PROGRAM_ACCOUNT_CONFIGS
               value: "/usr/src/app/config/config.json"
+            - name: GLOBAL_CRON_CONFIG
+              value: 0 1 * * *
           volumeMounts:
             - name: account-postgres-sink-config
               mountPath: /usr/src/app/config
