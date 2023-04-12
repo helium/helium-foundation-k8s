@@ -32,7 +32,7 @@ spec:
                     - r5.xlarge
       containers:
         - name: migration
-          image: public.ecr.aws/v0j6k5v6/migration:0.0.3
+          image: public.ecr.aws/v0j6k5v6/migration:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -66,17 +66,17 @@ spec:
             - name: S3_ENDPOINT
               value: http://s3.us-east-1.amazonaws.com
             - name: MULTISIG
-              value: FCZsBmkJAHwiCFgb9kBgAUjkizWDipCFzuK7qfNVVdjs
+              value: 21oLRs6tEWG4ypJyKmSAdZ7EV5iUPGGoZaUUjFARKt3o
             - name: DC_BURN_AUTHORITY
               value: pverYDx5LZx3cmBsdJSJtgPFHpTrZkSac1zRg4XKb46
             - name: NETWORK
               value: devnet
             - name: IOT_REALM_NAME
-              value: Docker IOT Helium
+              value: "Docker IOT Helium2"
             - name: MOBILE_REALM_NAME
-              value: Docker MOBILE Helium
+              value: "Docker MOBILE Helium2"
             - name: REALM_NAME
-              value: Docker Helium
+              value: "Docker Helium2"
             - name: LAZY_NAME
               valueFrom:
                 secretKeyRef:
