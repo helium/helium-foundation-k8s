@@ -98,9 +98,9 @@ spec:
     metadata:
       labels:
         app: account-postgres-sink-service
-        security-group: rds-access
+        security-group: public-rds-access
     spec:
-      serviceAccountName: rds-web-user-access
+      serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
           image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.3
@@ -111,15 +111,15 @@ spec:
               protocol: TCP
           env:
             - name: PGHOST
-              value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER
-              value: web
+              value: monitoring
             - name: AWS_REGION
               value: us-east-1
             - name: PGDATABASE
-              value: solana
+              value: monitoring
             - name: PGSSLMODE
               value: no-verify
             - name: SOLANA_URL
@@ -187,29 +187,3 @@ spec:
             name: account-postgres-sink-service
             port:
               number: 8081
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: account-postgres-sink-service
-  namespace: helium
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: account-postgres-sink-service
-  minReplicas: 1
-  maxReplicas: 1
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 75
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: 75
