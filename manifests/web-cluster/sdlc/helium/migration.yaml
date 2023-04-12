@@ -66,7 +66,7 @@ spec:
             - name: S3_ENDPOINT
               value: http://s3.us-east-1.amazonaws.com
             - name: MULTISIG
-              value: BBhoCZSUJH8iiXHT5aP6GVbhnX2iY2vWR1BAsuYm7ZUm
+              value: FCZsBmkJAHwiCFgb9kBgAUjkizWDipCFzuK7qfNVVdjs
             - name: DC_BURN_AUTHORITY
               value: pverYDx5LZx3cmBsdJSJtgPFHpTrZkSac1zRg4XKb46
             - name: NETWORK
