@@ -25,6 +25,8 @@ spec:
           env:
             - name: ANCHOR_WALLET
               value: /app/keys/keypair.json
+            - name: MIGRATION_SERVICE_URL
+              value: https://ecc-verifier.web.test-helium.com
             
           volumeMounts:
             - name: ecc-verifier-keypair
