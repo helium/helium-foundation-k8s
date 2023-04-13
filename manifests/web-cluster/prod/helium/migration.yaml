@@ -62,7 +62,7 @@ spec:
                   name: migration-secret
                   key: solana-url
             - name: S3_BUCKET
-              value: web-sdlc-migration-bucket
+              value: web-prod-migration-bucket
             - name: S3_ENDPOINT
               value: http://s3.us-west-2.amazonaws.com
             - name: MULTISIG
