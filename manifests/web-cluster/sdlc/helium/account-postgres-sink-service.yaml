@@ -106,7 +106,7 @@ spec:
           image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.3
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8081
+            - containerPort: 3000
               name: http
               protocol: TCP
           env:
@@ -161,7 +161,7 @@ metadata:
   namespace: helium
 spec:
   ports:
-    - port: 8081
+    - port: 3000
       protocol: TCP
       targetPort: http
   selector:
@@ -186,4 +186,4 @@ spec:
           service:
             name: account-postgres-sink-service
             port:
-              number: 8081
+              number: 3000
