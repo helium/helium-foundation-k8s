@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: migration
+  name: migration
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: migration
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: migration
+        security-group: rds-access
+    spec:
+      serviceAccountName: rds-migration-user-access
+      tolerations:
+        - key: "migration_workload"
+          operator: "Exists"
+          effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: beta.kubernetes.io/instance-type
+                  operator: In
+                  values:
+                    - r5.xlarge
+      containers:
+        - name: migration
+          image: public.ecr.aws/v0j6k5v6/migration:0.0.7
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          env:
+            - name: SOLANA_URL
+              valueFrom:
+                secretKeyRef:
+                  name: migration-secret
+                  key: solana-url
+            - name: PGHOST
+              value: web-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
+            - name: PGPORT
+              value: "5432"
+            - name: PGUSER
+              value: migration
+            - name: AWS_REGION
+              value: us-west-2
+            - name: PGDATABASE
+              value: test_migration
+            - name: PGSSLMODE
+              value: no-verify
+            - name: ASSET_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: migration-secret
+                  key: solana-url
+            - name: S3_BUCKET
+              value: web-prod-migration-bucket
+            - name: S3_ENDPOINT
+              value: http://s3.us-west-2.amazonaws.com
+            - name: MULTISIG
+              value: 3JhVwzKqDoenAzTkKHsrozUFXATS4bSsQP744jvLHVaL
+            - name: DC_BURN_AUTHORITY
+              value: pverYDx5LZx3cmBsdJSJtgPFHpTrZkSac1zRg4XKb46
+            - name: NETWORK
+              value: mainnet-beta
+            - name: IOT_REALM_NAME
+              value: "Docker IOT Helium2"
+            - name: MOBILE_REALM_NAME
+              value: "Docker MOBILE Helium2"
+            - name: REALM_NAME
+              value: "Docker Helium2"
+            - name: LAZY_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: migration-secret
+                  key: name
+            - name: GPG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                    name: migration-secret
+                    key: gpg-password
+            - name: GPG_KEY
+              value: /data/migration.gpg
+            - name: ADMIN_KEYPAIR
+              value: devnet-admin.json
+            - name: ORACLE_QUEUE
+              value: 5JYwqvKkqp35w8Nq3ba4z1WYUeJQ1rB36V8XvaGp6zn1
+            - name: ORACLE_CRANK
+              value: BKtF8yyQsj3Ft6jb2nkfpEKzARZVdGgdEPs6mFmZNmbA
+            - name: VALIDATOR_HEARTBEAT_THRESHOLD
+              value: "5" # TODO: For actual migration update to the last valid block
+            - name: ORACLE_SOL
+              value: "0.00001"
+          volumeMounts:
+            - name: gpg-key
+              mountPath: /data
+              readOnly: true
+          
+          resources:
+            requests:
+              cpu: 2000m
+              memory: 16Gi
+            limits:
+              memory: 20Gi
+      volumes:
+        - name: gpg-key
+          secret:
+            secretName: gpg-key
+            items:
+              - key: migration.gpg
+                path: migration.gpg                
