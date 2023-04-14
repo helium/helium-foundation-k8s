@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       app: migration-service
-  replicas: 5
   template:
     metadata:
       labels:
