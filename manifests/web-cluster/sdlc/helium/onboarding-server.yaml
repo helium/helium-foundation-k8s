@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       app: onboarding-server
-  replicas: 1
   template:
     metadata:
       labels:

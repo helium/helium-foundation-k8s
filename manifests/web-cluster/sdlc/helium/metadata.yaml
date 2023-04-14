@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       app: metadata
-  replicas: 1
   template:
     metadata:
       labels:
