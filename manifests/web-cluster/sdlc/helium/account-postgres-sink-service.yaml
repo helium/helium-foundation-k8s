@@ -65,7 +65,7 @@ data:
           "programId": "hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8",
           "accounts": [
             { "type": "RewardableEntityConfigV0", "table": "rewardable_entity_configs", "schema": "public" },
-            { "type": "MakerV0", "table": "makers", "schema": "hem" },
+            { "type": "MakerV0", "table": "makers", "schema": "public" },
             { "type": "MakerApprovalV0", "table": "maker_approvals", "schema": "public" },
             { "type": "KeyToAssetV0", "table": "key_to_assets", "schema": "public" },
             { "type": "IotHotspotInfoV0", "table": "iot_hotspot_infos", "schema": "public" },
