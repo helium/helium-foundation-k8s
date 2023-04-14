@@ -8,8 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: iot-oracle
-  replicas: 5  
+      app: iot-oracle 
   template:
     metadata:
       labels:

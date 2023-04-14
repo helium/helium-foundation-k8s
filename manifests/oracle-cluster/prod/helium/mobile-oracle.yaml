@@ -8,8 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: mobile-oracle
-  replicas: 5  
+      app: mobile-oracle 
   template:
     metadata:
       labels:
