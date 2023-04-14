@@ -8,8 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: vsr-metadata
-  replicas: 1  
+      app: vsr-metadata 
   template:
     metadata:
       labels:
