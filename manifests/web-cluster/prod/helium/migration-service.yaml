@@ -26,7 +26,10 @@ spec:
               protocol: TCP
           env:
             - name: NAME
-              value: devnethelium5
+              valueFrom:
+                secretKeyRef:
+                  name: migration-secret
+                  key: name
             - name: NODE_ENV
               value: staging
             - name: PGHOST
