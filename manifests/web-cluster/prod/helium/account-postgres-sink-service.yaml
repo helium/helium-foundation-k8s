@@ -175,7 +175,7 @@ metadata:
   name: account-postgres-sink-service
   namespace: helium
 spec:
-  ClassName: nginx
+  ingressClassName: nginx
   rules:
   - host: account-sink.web.helium.io
     http:
