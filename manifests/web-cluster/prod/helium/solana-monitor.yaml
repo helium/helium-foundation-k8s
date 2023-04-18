@@ -24,6 +24,11 @@ spec:
               name: http
               protocol: TCP
           env:
+            - name: LAZY_SIGNER
+              valueFrom:
+                secretKeyRef:
+                  name: migration-secret
+                  key: name
             - name: HNT_MINT
               valueFrom:
                 configMapKeyRef:
@@ -76,8 +81,8 @@ metadata:
   name: solana-monitor
   namespace: helium
   annotations:
-    prometheus.io/scrape: 'true'
-    prometheus.io/port:   '8082'
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8082"
 spec:
   ports:
     - port: 8082
