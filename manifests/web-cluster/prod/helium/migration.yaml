@@ -99,7 +99,6 @@ spec:
             - name: gpg-key
               mountPath: /data
               readOnly: true
-          
           resources:
             requests:
               cpu: 2000m
