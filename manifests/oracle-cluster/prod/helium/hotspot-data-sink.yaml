@@ -2,126 +2,127 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: migration-service
-  name: migration-service
+    app: hotspot-data-sink
+  name: hotspot-data-sink
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: migration-service
+      app: hotspot-data-sink
   template:
     metadata:
       labels:
-        app: migration-service
+        app: hotspot-data-sink
         security-group: rds-access
     spec:
-      serviceAccountName: rds-web-user-access
+      serviceAccountName: rds-metadata-user-access
       containers:
-        - name: migration-service
-          image: public.ecr.aws/v0j6k5v6/migration-service:0.0.12
+        - name: hotspot-data-sink
+          image: public.ecr.aws/s2o4r1i6/hotspot-data-sink:0.0.5
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8081
+            - containerPort: 3000
               name: http
               protocol: TCP
           env:
-            - name: NAME
+            - name: HELIUS_AUTH_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: migration-secret
-                  key: name
-            - name: NODE_ENV
-              value: staging
-            - name: PGHOST
-              value: web-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
-            - name: PGPORT
-              value: "5432"
-            - name: PGUSER
-              value: web
-            - name: AWS_REGION
-              value: us-west-2
-            - name: PGDATABASE
-              value: migration
-            - name: PGSSLMODE
-              value: no-verify
-            - name: SOLANA_URL
+                  name: helius-auth-secret
+                  key: secret
+            - name: ANCHOR_PROVIDER_URL
               valueFrom:
                 configMapKeyRef:
                   name: globals
                   key: solana_url
-            - name: ASSET_API_URL
+            - name: HNT_MINT
               valueFrom:
                 configMapKeyRef:
                   name: globals
-                  key: asset_api_url
-            - name: ANCHOR_WALLET
-              value: /usr/src/app/keys/keypair.json
-          volumeMounts:
-            - name: migration-service-keypair
-              mountPath: /usr/src/app/keys
-              readOnly: true                  
+                  key: hnt_mint
+            - name: PGHOST
+              value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
+            - name: PGPORT
+              value: "5432"
+            - name: PGUSER
+              value: metadata
+            - name: AWS_REGION
+              value: us-west-2
+            - name: PGDATABASE
+              value: metadata
+            - name: PGSSLMODE
+              value: no-verify
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 3000
+            timeoutSeconds: 1
           resources:
             requests:
               cpu: 250m
               memory: 500Mi
             limits:
               memory: 750Mi
-      volumes:
-        - name: migration-service-keypair
-          secret:
-            secretName: migration-service-keypair
-            items:
-              - key: keypair.json
-                path: keypair.json
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: migration-service
+  name: hotspot-data-sink
   namespace: helium
 spec:
   ports:
-    - port: 8081
+    - port: 3000
       protocol: TCP
       targetPort: http
   selector:
-    app: migration-service
+    app: hotspot-data-sink
   sessionAffinity: None
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: migration-service
+  name: hotspot-data-sink
   namespace: helium
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/limit-rps: "1"
-    nginx.ingress.kubernetes.io/limit-burst-multiplier: "3"
 spec:
   ingressClassName: nginx
   rules:
-  - host: migration.web.helium.io
+  - host: hotspot-data-sink.oracle.helium.io
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: migration-service
+            name: hotspot-data-sink
             port:
-              number: 8081
+              number: 3000
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: migration-service
+  name: hotspot-data-sink
   namespace: helium
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: migration-service
+    name: hotspot-data-sink
   minReplicas: 5
   maxReplicas: 20
   metrics:
