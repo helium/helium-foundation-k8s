@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/helium/helium-foundation-k8s
     path: manifests/web-cluster/sdlc/helium
-    targetRevision: HEAD
+    targetRevision: develop
     directory:
       recurse: true
   syncPolicy:
