@@ -86,7 +86,7 @@ spec:
             - name: GPG_KEY
               value: /data/migration.gpg
             - name: ADMIN_KEYPAIR
-              value: devnet-admin.json
+              value: prod-admin.json
             - name: ORACLE_QUEUE
               value: 5JYwqvKkqp35w8Nq3ba4z1WYUeJQ1rB36V8XvaGp6zn1
             - name: ORACLE_CRANK
