@@ -82,8 +82,8 @@ metadata:
   namespace: helium
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/limit-rps: "1"
-    nginx.ingress.kubernetes.io/limit-burst-multiplier: "3"
+    nginx.ingress.kubernetes.io/limit-rps: "5"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "5"
 spec:
   ingressClassName: nginx
   rules:
