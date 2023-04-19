@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: vsr-metadata
-          image: public.ecr.aws/v0j6k5v6/vsr-metadata-service:0.0.1
+          image: public.ecr.aws/v0j6k5v6/vsr-metadata-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -81,16 +81,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: positions.nft.helium.io
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: vsr-metadata
-            port:
-              number: 8081
+    - host: positions.nft.helium.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vsr-metadata
+                port:
+                  number: 8081
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
