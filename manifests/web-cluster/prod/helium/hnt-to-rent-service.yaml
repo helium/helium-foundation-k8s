@@ -97,7 +97,6 @@ metadata:
     nginx.ingress.kubernetes.io/limit-rps: "1"
     nginx.ingress.kubernetes.io/limit-burst-multiplier: "3"
 spec:
-  ingressClassName: nginx
   rules:
   - host: hnt-to-rent.web.helium.io
     http:
