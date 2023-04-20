@@ -1,0 +1,137 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hnt-to-rent
+  name: hnt-to-rent
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: hnt-to-rent
+  template:
+    metadata:
+      labels:
+        app: hnt-to-rent
+    spec:
+      containers:
+        - name: hnt-to-rent
+          image: public.ecr.aws/v0j6k5v6/hnt-to-rent-service:0.0.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+              name: http
+              protocol: TCP
+          env:
+            - name: SOLANA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: solana_url
+            - name: ASSET_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: asset_api_url
+            - name: ANCHOR_WALLET
+              value: /usr/src/app/keys/keypair.json
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8081
+            timeoutSeconds: 1
+          volumeMounts:
+            - name: migration-service-keypair
+              mountPath: /usr/src/app/keys
+              readOnly: true                      
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+            limits:
+              cpu: 500m
+              memory: 750Mi
+      volumes:
+        - name: migration-service-keypair
+          secret:
+            secretName: migration-service-keypair
+            items:
+              - key: keypair.json
+                path: keypair.json              
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hnt-to-rent
+  namespace: helium
+spec:
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: hnt-to-rent
+  sessionAffinity: None
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hnt-to-rent
+  namespace: helium
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/limit-rps: "1"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "3"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hnt-to-rent.web.helium.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hnt-to-rent
+            port:
+              number: 8081
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hnt-to-rent
+  namespace: helium
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hnt-to-rent
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
