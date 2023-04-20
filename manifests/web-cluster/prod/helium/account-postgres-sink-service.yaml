@@ -23,7 +23,8 @@ data:
           "accounts": [
             { "type": "PositionV0", "table": "positions", "schema": "public" },
             { "type": "Registrar", "table": "registrars", "schema": "public" }
-          ]
+          ],
+          "cron": "*/15 * * * *"
         },
         {
           "programId": "hdaoVTCqhfHHo75XdAMxBKdUqvq1i5bF23sisBqVgGR",
@@ -50,32 +51,72 @@ data:
         {
           "programId": "circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g",
           "accounts": [
-            { "type": "MintWindowedCircuitBreakerV0", "table": "mint_windowed_circuit_breaker_configs", "schema": "public" },
-            { "type": "AccountWindowedCircuitBreakerV0", "table": "account_windowed_circuit_breaker_configs", "schema": "public" }
+            {
+              "type": "MintWindowedCircuitBreakerV0",
+              "table": "mint_windowed_circuit_breaker_configs",
+              "schema": "public"
+            },
+            {
+              "type": "AccountWindowedCircuitBreakerV0",
+              "table": "account_windowed_circuit_breaker_configs",
+              "schema": "public"
+            }
           ]
         },
         {
           "programId": "circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g",
           "accounts": [
-            { "type": "MintWindowedCircuitBreakerV0", "table": "mint_windowed_circuit_breaker_configs", "schema": "public" },
-            { "type": "AccountWindowedCircuitBreakerV0", "table": "account_windowed_circuit_breaker_configs", "schema": "public" }
+            {
+              "type": "MintWindowedCircuitBreakerV0",
+              "table": "mint_windowed_circuit_breaker_configs",
+              "schema": "public"
+            },
+            {
+              "type": "AccountWindowedCircuitBreakerV0",
+              "table": "account_windowed_circuit_breaker_configs",
+              "schema": "public"
+            }
           ]
         },
         {
           "programId": "hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8",
           "accounts": [
-            { "type": "RewardableEntityConfigV0", "table": "rewardable_entity_configs", "schema": "public" },
+            {
+              "type": "RewardableEntityConfigV0",
+              "table": "rewardable_entity_configs",
+              "schema": "public"
+            },
             { "type": "MakerV0", "table": "makers", "schema": "public" },
-            { "type": "MakerApprovalV0", "table": "maker_approvals", "schema": "public" },
-            { "type": "KeyToAssetV0", "table": "key_to_assets", "schema": "public" },
-            { "type": "IotHotspotInfoV0", "table": "iot_hotspot_infos", "schema": "public" },
-            { "type": "MobileHotspotInfoV0", "table": "mobile_hotspot_infos", "schema": "public" }
+            {
+              "type": "MakerApprovalV0",
+              "table": "maker_approvals",
+              "schema": "public"
+            },
+            {
+              "type": "KeyToAssetV0",
+              "table": "key_to_assets",
+              "schema": "public"
+            },
+            {
+              "type": "IotHotspotInfoV0",
+              "table": "iot_hotspot_infos",
+              "schema": "public"
+            },
+            {
+              "type": "MobileHotspotInfoV0",
+              "table": "mobile_hotspot_infos",
+              "schema": "public"
+            }
           ]
         },
         {
           "programId": "1azyuavdMyvsivtNxPoz6SucD18eDHeXzFCUPq5XU7w",
           "accounts": [
-            { "type": "LazyDistributorV0", "table": "lazy_distributors", "schema": "public" },
+            {
+              "type": "LazyDistributorV0",
+              "table": "lazy_distributors",
+              "schema": "public"
+            },
             { "type": "RecipientV0", "table": "recipients", "schema": "public" }
           ]
         }
@@ -103,7 +144,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.5
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
