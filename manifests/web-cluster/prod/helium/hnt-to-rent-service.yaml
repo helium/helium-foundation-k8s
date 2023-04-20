@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: hnt-to-rent
-          image: public.ecr.aws/v0j6k5v6/hnt-to-rent-service:0.0.2
+          image: public.ecr.aws/v0j6k5v6/hnt-to-rent-service:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
