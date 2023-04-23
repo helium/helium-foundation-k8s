@@ -46,7 +46,8 @@ data:
               "table": "delegated_positions",
               "schema": "public"
             }
-          ]
+          ],
+          "cron": "*/15 * * * *"
         },
         {
           "programId": "circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g",
