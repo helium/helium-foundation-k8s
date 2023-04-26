@@ -18,7 +18,11 @@ spec:
       serviceAccountName: rds-web-user-access
       containers:
         - name: migration-service
-          image: public.ecr.aws/v0j6k5v6/migration-service:0.0.16
+<<<<<<< Updated upstream
+          image: public.ecr.aws/v0j6k5v6/migration-service:0.0.15
+=======
+          image: public.ecr.aws/v0j6k5v6/migration-service:0.0.17
+>>>>>>> Stashed changes
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
