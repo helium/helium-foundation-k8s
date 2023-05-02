@@ -8,7 +8,6 @@ data:
     {
       "configs": [
         {
-          "cron": "*/15 * * * *",
           "programId": "hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8",
           "accounts": [
             {
