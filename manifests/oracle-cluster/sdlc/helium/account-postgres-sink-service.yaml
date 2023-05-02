@@ -49,6 +49,19 @@ spec:
         security-group: rds-access
     spec:
       serviceAccountName: rds-metadata-user-access
+      tolerations:
+        - key: "migration_workload"
+          operator: "Exists"
+          effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: beta.kubernetes.io/instance-type
+                  operator: In
+                  values:
+                    - r5.xlarge
       containers:
         - name: account-postgres-sink-service
           image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.9
@@ -96,9 +109,9 @@ spec:
           resources:
             requests:
               cpu: 250m
-              memory: 2Gi
+              memory: 10Gi
             limits:
-              memory: 2Gi
+              memory: 20Gi
       volumes:
         - name: account-postgres-sink-config
           configMap:
@@ -130,7 +143,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: account-sink.web.test-helium.com
+    - host: account-sink.oracle.test-helium.com
       http:
         paths:
           - path: /
