@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-web-user-access
       containers:
         - name: migration-service
-          image: public.ecr.aws/v0j6k5v6/migration-service:0.0.20
+          image: public.ecr.aws/v0j6k5v6/migration-service:0.0.21
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -56,7 +56,7 @@ spec:
           volumeMounts:
             - name: migration-service-keypair
               mountPath: /usr/src/app/keys
-              readOnly: true                  
+              readOnly: true
           resources:
             requests:
               cpu: 250m
@@ -98,16 +98,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: migration.web.test-helium.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: migration-service
-            port:
-              number: 8081
+    - host: migration.web.test-helium.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: migration-service
+                port:
+                  number: 8081
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
