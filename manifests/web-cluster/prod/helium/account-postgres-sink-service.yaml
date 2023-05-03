@@ -158,7 +158,7 @@ spec:
                       - r5.xlarge
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.14
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.15
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
