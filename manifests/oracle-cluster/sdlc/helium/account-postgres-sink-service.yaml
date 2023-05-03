@@ -96,9 +96,9 @@ spec:
           resources:
             requests:
               cpu: 250m
-              memory: 2Gi
+              memory: 500mi
             limits:
-              memory: 4Gi
+              memory: 2Gi
       volumes:
         - name: account-postgres-sink-config
           configMap:
