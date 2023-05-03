@@ -190,9 +190,9 @@ spec:
           resources:
             requests:
               cpu: 1500m
-              memory: 5Gi
+              memory: 20Gi
             limits:
-              memory: 7Gi
+              memory: 20Gi
       volumes:
         - name: account-postgres-sink-config
           configMap:
