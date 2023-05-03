@@ -151,13 +151,13 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                - key: beta.kubernetes.io/instance-type
-                  operator: In
-                  values:
-                    - r5.xlarge
+                  - key: beta.kubernetes.io/instance-type
+                    operator: In
+                    values:
+                      - r5.xlarge
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.11
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.12
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
