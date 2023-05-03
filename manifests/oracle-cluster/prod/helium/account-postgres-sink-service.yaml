@@ -72,9 +72,9 @@ spec:
               value: no-verify
             - name: SOLANA_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: solana_url
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
             - name: ASSET_API_URL
               valueFrom:
                 configMapKeyRef:
