@@ -82,8 +82,6 @@ spec:
                   key: asset_api_url
             - name: PROGRAM_ACCOUNT_CONFIGS
               value: "/usr/src/app/config/config.json"
-            - name: GLOBAL_CRON_CONFIG
-              value: 0 1 * * *
             - name: HELIUS_AUTH_SECRET
               valueFrom:
                 secretKeyRef:
