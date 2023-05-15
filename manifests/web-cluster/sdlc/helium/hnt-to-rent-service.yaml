@@ -2,41 +2,44 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: ecc-verifier
-  name: ecc-verifier
+    app: hnt-to-rent
+  name: hnt-to-rent
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: ecc-verifier
+      app: hnt-to-rent
   template:
     metadata:
       labels:
-        app: ecc-verifier
+        app: hnt-to-rent
     spec:
       containers:
-        - name: ecc-verifier
-          image: public.ecr.aws/v0j6k5v6/ecc-verifier:0.0.7
+        - name: hnt-to-rent
+          image: public.ecr.aws/v0j6k5v6/hnt-to-rent-service:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8000
+            - containerPort: 8081
               name: http
               protocol: TCP
           env:
+            - name: SOLANA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: solana_url
+            - name: ASSET_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: asset_api_url
             - name: ANCHOR_WALLET
-              value: /app/keys/keypair.json
-            - name: MIGRATION_SERVICE_URL
-              value: https://migration.web.helium.io
-            
-          volumeMounts:
-            - name: ecc-verifier-keypair
-              mountPath: /app/keys
-              readOnly: true
+              value: /usr/src/app/keys/keypair.json
           readinessProbe:
             failureThreshold: 3
             httpGet:
               path: /health
-              port: 8000
+              port: 8081
               scheme: HTTP
             initialDelaySeconds: 10
             periodSeconds: 30
@@ -48,8 +51,12 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             tcpSocket:
-              port: 8000
+              port: 8081
             timeoutSeconds: 1
+          volumeMounts:
+            - name: migration-service-keypair
+              mountPath: /usr/src/app/keys
+              readOnly: true                      
           resources:
             requests:
               cpu: 250m
@@ -58,32 +65,32 @@ spec:
               cpu: 500m
               memory: 750Mi
       volumes:
-        - name: ecc-verifier-keypair
+        - name: migration-service-keypair
           secret:
-            secretName: ecc-verifier-keypair
+            secretName: migration-service-keypair
             items:
               - key: keypair.json
-                path: keypair.json
+                path: keypair.json              
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ecc-verifier
+  name: hnt-to-rent
   namespace: helium
 spec:
   ports:
-    - port: 8000
+    - port: 8081
       protocol: TCP
       targetPort: http
   selector:
-    app: ecc-verifier
+    app: hnt-to-rent
   sessionAffinity: None
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ecc-verifier
+  name: hnt-to-rent
   namespace: helium
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -92,13 +99,39 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: ecc-verifier.web.helium.io
+  - host: hnt-to-rent.web.test-helium.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: ecc-verifier
+            name: hnt-to-rent
             port:
-              number: 8000
+              number: 8081
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hnt-to-rent
+  namespace: helium
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hnt-to-rent
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
