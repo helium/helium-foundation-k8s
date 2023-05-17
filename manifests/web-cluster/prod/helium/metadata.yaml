@@ -107,7 +107,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: metadata
-  minReplicas: 4
+  minReplicas: 2
   maxReplicas: 15
   metrics:
     - type: Resource
