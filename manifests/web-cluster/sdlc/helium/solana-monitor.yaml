@@ -94,7 +94,6 @@ metadata:
   name: solana-monitor
   namespace: helium
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/limit-rps: "1"
     nginx.ingress.kubernetes.io/limit-burst-multiplier: "3"
 spec:

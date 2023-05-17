@@ -13,19 +13,3 @@ spec:
       server: '*'
   sourceRepos:
     - '*'
----
-apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
-  name: monitoring
-  namespace: argocd
-spec:
-  clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
-  destinations:
-    - name: '*'
-      namespace: 'monitoring'
-      server: '*'
-  sourceRepos:
-    - '*'

@@ -109,7 +109,6 @@ metadata:
   name: iot-oracle
   namespace: helium
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/limit-rps: "10"
     nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
 spec:
@@ -136,7 +135,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: iot-oracle
-  minReplicas: 5
+  minReplicas: 3
   maxReplicas: 20
   metrics:
     - type: Resource
