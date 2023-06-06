@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helium
+  namespace: argocd
+spec:
+  destination:
+    namespace: helium
+    server: https://kubernetes.default.svc
+  project: helium
+  source:
+    repoURL: https://github.com/helium/helium-foundation-k8s
+    path: manifests/poc-data-cluster/prod/helium
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
