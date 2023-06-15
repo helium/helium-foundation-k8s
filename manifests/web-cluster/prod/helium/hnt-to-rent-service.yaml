@@ -120,7 +120,7 @@ spec:
     kind: Deployment
     name: hnt-to-rent
   minReplicas: 2
-  maxReplicas: 5
+  maxReplicas: 6
   metrics:
     - type: Resource
       resource:
