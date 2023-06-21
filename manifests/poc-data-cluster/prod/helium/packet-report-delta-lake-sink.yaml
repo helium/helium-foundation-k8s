@@ -1,11 +1,11 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: iot-poc-delta-lake-sink
+  name: packet-report-delta-lake-sink
   namespace: helium
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 */4 * * *"
+  schedule: "10 */4 * * *"
   jobTemplate:
     spec:
       backoffLimit: 10
@@ -13,15 +13,15 @@ spec:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
           containers:
-          - name: iot-poc-delta-lake-sink
+          - name: packet-report-delta-lake-sink
             image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.2
             imagePullPolicy: IfNotPresent
             resources:
               requests:
                 cpu: 1000m
-                memory: 6900Mi
+                memory: 4000Mi
               limits:
-                memory: 6900Mi
+                memory: 4000Mi
             env: 
               - name: AWS_S3_ALLOW_UNSAFE_RENAME
                 value: "true"
@@ -31,25 +31,25 @@ spec:
               - --source-region
               - us-west-2
               - --file-prefix
-              - foundation-iot-verified-rewards/iot_poc
+              - foundation-iot-packet-ingest/packetreport
               - --source-proto-name
-              - "lora_poc_v1"
+              - "packet_router_packet_report_v1"
               - --source-proto-base-url
               - https://raw.githubusercontent.com/helium/proto/master/src
               - --source-protos
-              - data_rate.proto              
+              - data_rate.proto
               - --source-protos
-              - service/packet_verifier.proto
+              - region.proto              
               - --source-protos
-              - service/poc_lora.proto
+              - service/packet_router.proto
               - --target-bucket
               - foundation-data-lake-requester-pays
               - --target-table
-              - bronze/lora_poc_v1
+              - bronze/packet_router_packet_report_v1
               - --target-region
               - us-west-2
               - --partition-timestamp-column
-              - beacon_report.received_timestamp
+              - received_timestamp
               - --batch-size
-              - "1000000000" # Targetting ~1gb parquet files, per databricks recs on large tables
+              - "500000000" # Targetting 500mb parquet files, per databricks recs on large tables
           restartPolicy: OnFailure
