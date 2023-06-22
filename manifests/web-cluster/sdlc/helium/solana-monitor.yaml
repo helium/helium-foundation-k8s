@@ -40,7 +40,10 @@ spec:
                   name: globals
                   key: iot_mint
             - name: SOLANA_URL
-              value: https://triton-test.helium-foundation.workers.dev?session-key=Cowboy
+              valueFrom:
+                configMapKeyRef:
+                  name: globals
+                  key: solana_url
           readinessProbe:
             failureThreshold: 3
             httpGet:
