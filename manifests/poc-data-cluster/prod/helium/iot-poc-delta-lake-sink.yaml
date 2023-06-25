@@ -14,7 +14,7 @@ spec:
           serviceAccountName: s3-data-lake-bucket-access
           containers:
           - name: iot-poc-delta-lake-sink
-            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.4
+            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.3
             imagePullPolicy: IfNotPresent
             resources:
               requests:
