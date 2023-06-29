@@ -19,9 +19,9 @@ spec:
             resources:
               requests:
                 cpu: 1000m
-                memory: 4000Mi
+                memory: 6900Mi
               limits:
-                memory: 4000Mi
+                memory: 6900Mi
             env: 
               - name: AWS_S3_ALLOW_UNSAFE_RENAME
                 value: "true"
