@@ -13,3 +13,19 @@ spec:
       server: '*'
   sourceRepos:
     - '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: spark
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - name: '*'
+      namespace: 'spark'
+      server: '*'
+  sourceRepos:
+    - '*'
