@@ -18,6 +18,15 @@ spec:
             imagePullPolicy: IfNotPresent
             nodeSelector:
               node.kubernetes.io/instance-type: m5.xlarge
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: nodegroup-type
+                      operator: In
+                      values:
+                      - spot
             resources:
               requests:
                 cpu: 1000m
