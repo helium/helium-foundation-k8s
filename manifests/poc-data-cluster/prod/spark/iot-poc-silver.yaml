@@ -120,7 +120,7 @@ spec:
     cores: 1
     coreLimit: "1200m"
     instances: 3
-    memory: "6G"
+    memory: "10G"
     tolerations: # Schedule executor pods on spot instance group
       - key: dedicated
         operator: Equal
