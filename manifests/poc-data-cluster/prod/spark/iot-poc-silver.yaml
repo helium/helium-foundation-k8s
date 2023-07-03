@@ -118,7 +118,7 @@ spec:
     cores: 1
     coreLimit: "1200m"
     instances: 3
-    memory: "6G"
+    memory: "10G"
     labels:
       version: 3.4.0
     volumeMounts:
