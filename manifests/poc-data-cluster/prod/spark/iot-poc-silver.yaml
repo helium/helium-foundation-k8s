@@ -100,6 +100,8 @@ spec:
     cores: 1
     coreLimit: "1200m"
     memory: "512m"
+    nodeSelector:
+      node.kubernetes.io/instance-type: m5.large
     envVars:
       TABLE_LORA_POC_V1: s3a://foundation-data-lake-requester-pays/bronze/lora_poc_v1
       PARTITION_BY: "date"
@@ -119,6 +121,11 @@ spec:
     coreLimit: "1200m"
     instances: 3
     memory: "10G"
+    tolerations: # Schedule executor pods on spot instance group
+      - key: dedicated
+        operator: Equal
+        value: spark
+        effect: NoSchedule
     labels:
       version: 3.4.0
     volumeMounts:

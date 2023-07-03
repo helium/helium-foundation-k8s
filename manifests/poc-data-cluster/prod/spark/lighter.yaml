@@ -51,7 +51,7 @@ spec:
               memory: "512Mi"
           ports:
             - containerPort: 8080
-          env:
+          env: # By default executor pods _should_ be scheduled on spot instance group
             - name: LIGHTER_KUBERNETES_ENABLED
               value: "true"
             - name: LIGHTER_MAX_RUNNING_JOBS
