@@ -121,8 +121,13 @@ spec:
     coreLimit: "1200m"
     instances: 3
     memory: "10G"
+    tolerations: # Schedule executor pods on spot instance group
+      - key: dedicated
+        operator: Equal
+        value: spark
+        effect: NoSchedule
     nodeSelector:
-      nodegroup-type: spot # Schedule executor pods on spot instance group
+      nodegroup-type: spot
     labels:
       version: 3.4.0
     volumeMounts:
