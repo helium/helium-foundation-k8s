@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: gateway-reward-share-delta-lake-sink
+  name: gateway-rewards-share-delta-lake-sink
   namespace: helium
 spec:
   concurrencyPolicy: Forbid
@@ -20,7 +20,7 @@ spec:
           nodeSelector:
             nodegroup-type: spot
           containers:
-          - name: packet-report-delta-lake-sink
+          - name: gateway-rewards-delta-lake-sink
             image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.9
             imagePullPolicy: IfNotPresent
             resources:
