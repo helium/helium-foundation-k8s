@@ -48,7 +48,7 @@ spec:
               - --source-protos
               - region.proto              
               - --source-protos
-              - service/packet_router.proto
+              - service/poc_lora.proto
               - --target-bucket
               - foundation-data-lake-requester-pays
               - --target-table
