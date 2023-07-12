@@ -5,9 +5,14 @@ metadata:
   namespace: spark
 data:
   query.sql: |
-    SELECT
+    WITH raw AS (
+      SELECT
         distinct gateway
-    FROM packet_router_packet_report_v1
+      FROM packet_router_packet_report_v1
+    )
+    SELECT
+      b58encodeChecked(gateway) as gateway,
+    FROM raw
 ---
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
@@ -49,8 +54,8 @@ spec:
     envVars:
       TABLE_LORA_POC_V1: s3a://foundation-data-lake-requester-pays/bronze/packet_router_packet_report_v1
       PARTITION_BY: "date"
-      CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/epoch-gateways
-      OUTPUT: s3a://foundation-data-lake-requester-pays/silver/epoch-gateways
+      CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-active-gateways
+      OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-active-gateways
       QUERY_PATH: /app/query.sql
     labels:
       version: 3.4.0
