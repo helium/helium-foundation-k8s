@@ -1,4 +1,4 @@
-apiVersion: batch/v1
+hapiVersion: batch/v1
 kind: CronJob
 metadata:
   name: iot-poc-delta-lake-sink
@@ -38,9 +38,9 @@ spec:
               - --source-region
               - us-west-2
               - --file-prefix
-              - foundation-iot-verified-rewards/iot_poc
+              - foundation-iot-verified-rewards/iot_reward_share
               - --source-proto-name
-              - "lora_poc_v1"
+              - "iot_reward_share"
               - --source-proto-base-url
               - https://raw.githubusercontent.com/helium/proto/master/src
               - --source-protos
