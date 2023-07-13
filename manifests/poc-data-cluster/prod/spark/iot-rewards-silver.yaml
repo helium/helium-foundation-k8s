@@ -14,7 +14,7 @@ data:
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
-  name: iot-poc-silver
+  name: iot-rewards-silver
   namespace: spark
 spec:
   type: Scala
@@ -49,7 +49,7 @@ spec:
     nodeSelector:
       node.kubernetes.io/instance-type: m5.large
     envVars:
-      TABLE_LORA_POC_V1: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
+      TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
       PARTITION_BY: "date"
       CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot_reward_share
       OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot_reward_share
