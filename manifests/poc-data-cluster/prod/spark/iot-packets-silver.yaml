@@ -11,7 +11,7 @@ data:
       net_id,
       rssi_dbm,
       frequency_hz,
-      snr_dbm,
+      snr_db,
       datarate,
       region,
       b58encodeChecked(gateway) as gateway,
