@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: iot-poc-silver-query
+  name: iot-rewards-silver-query
   namespace: spark
 data:
   query.sql: |
@@ -9,7 +9,7 @@ data:
       start_period,
       end_period,
       gateway_reward
-      FROM iot_reward_share
+    FROM iot_reward_share
 ---
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
@@ -37,7 +37,7 @@ spec:
         type: Directory
     - name: config-vol
       configMap:
-        name: iot-poc-silver-query
+        name: iot-rewards-silver-query
         items:
           - key: query.sql
             path: query.sql
@@ -49,10 +49,10 @@ spec:
     nodeSelector:
       node.kubernetes.io/instance-type: m5.large
     envVars:
-      TABLE_LORA_POC_V1: s3a://foundation-data-lake-requester-pays/bronze/lora_poc_v1
+      TABLE_LORA_POC_V1: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
       PARTITION_BY: "date"
-      CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-poc-silver
-      OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-poc-witnesses
+      CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot_reward_share
+      OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot_reward_share
       QUERY_PATH: /app/query.sql
     labels:
       version: 3.4.0
@@ -65,7 +65,7 @@ spec:
     serviceAccount: spark-data-lake-access
     cores: 1
     coreLimit: "1200m"
-    instances: 3
+    instances: 2
     memory: "10G"
     tolerations: # Schedule executor pods on spot instance group
       - key: dedicated
