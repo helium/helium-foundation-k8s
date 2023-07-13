@@ -9,13 +9,13 @@ data:
       gateway_tmst,
       oui,
       net_id,
-      rssi,
-      frequency,
-      snr,
+      rssi_db,
+      frequency_hz,
+      snr_db,
       datarate,
       region,
       b58encodeChecked(gateway) as gateway,
-      payload_hash,
+      base64(payload_hash) as payload_hash,
       payload_size
       free,
       type,
@@ -63,7 +63,7 @@ spec:
     nodeSelector:
       node.kubernetes.io/instance-type: m5.large
     envVars:
-      TABLE_LORA_POC_V1: s3a://foundation-data-lake-requester-pays/bronze/packet_router_packet_report_v1
+      TABLE_IOT_PACKETS: s3a://foundation-data-lake-requester-pays/bronze/packet_router_packet_report_v1
       PARTITION_BY: "date"
       CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-packets
       OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-packets
