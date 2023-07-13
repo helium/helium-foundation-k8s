@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ecc-verifier
-          image: public.ecr.aws/v0j6k5v6/ecc-verifier:0.0.8
+          image: public.ecr.aws/v0j6k5v6/ecc-verifier:0.0.9
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
