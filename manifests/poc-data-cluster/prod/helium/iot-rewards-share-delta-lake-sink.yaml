@@ -21,7 +21,7 @@ spec:
             nodegroup-type: spot
           containers:
           - name: iot-rewards-delta-lake-sink
-            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.9
+            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.10
             imagePullPolicy: IfNotPresent
             resources:
               requests:
@@ -56,7 +56,9 @@ spec:
               - --target-region
               - us-west-2
               - --partition-timestamp-column
-              - received_timestamp
+              - start_period
+              - --partition-timestamp-date-divisor
+              - 86400
               - --batch-size
               - "500000000" # Targetting 500mb parquet files, per databricks recs on large tables
           restartPolicy: OnFailure

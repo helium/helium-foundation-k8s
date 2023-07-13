@@ -14,7 +14,7 @@ data:
       snr,
       datarate,
       region,
-      b58encodeChecked(gateway) as gateway_key,
+      b58encodeChecked(gateway) as gateway,
       payload_hash,
       payload_size
       free,
