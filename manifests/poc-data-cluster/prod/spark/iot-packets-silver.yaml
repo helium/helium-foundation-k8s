@@ -15,7 +15,7 @@ data:
       datarate,
       region,
       b58encodeChecked(gateway) as gateway,
-      base64(payload_hash) as payload_hash,
+      xxhash64(payload_hash) as payload_hash,
       payload_size
       free,
       type,
