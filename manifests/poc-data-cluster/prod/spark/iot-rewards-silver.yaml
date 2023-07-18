@@ -5,7 +5,8 @@ metadata:
   namespace: spark
 data:
   query.sql: |
-    SELECT 
+    SELECT
+      date,
       start_period,
       end_period,
       b58encodeChecked(gateway_reward.hotspot_key) as gateway,
@@ -53,7 +54,7 @@ spec:
       node.kubernetes.io/instance-type: m5.large
     envVars:
       TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
-      PARTITION_BY: "end_period"
+      PARTITION_BY: "date"
       CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-reward-share
       OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-reward-share
       QUERY_PATH: /app/query.sql
