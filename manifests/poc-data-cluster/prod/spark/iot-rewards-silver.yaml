@@ -54,8 +54,8 @@ spec:
     envVars:
       TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
       PARTITION_BY: "end_period"
-      CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot_reward_share
-      OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot_reward_share
+      CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-reward-share
+      OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-reward-share
       QUERY_PATH: /app/query.sql
     labels:
       version: 3.4.0
