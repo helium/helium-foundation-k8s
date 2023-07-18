@@ -53,7 +53,7 @@ spec:
       node.kubernetes.io/instance-type: m5.large
     envVars:
       TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
-      PARTITION_BY: "date"
+      PARTITION_BY: "end_period"
       CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot_reward_share
       OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot_reward_share
       QUERY_PATH: /app/query.sql
