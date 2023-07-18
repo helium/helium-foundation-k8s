@@ -46,9 +46,11 @@ spec:
               - --source-protos
               - data_rate.proto
               - --source-protos
-              - region.proto              
+              - service/packet_verifier.proto
               - --source-protos
               - service/poc_lora.proto
+              - --source-protos
+              - region.proto              
               - --target-bucket
               - foundation-data-lake-requester-pays
               - --target-table
@@ -58,7 +60,7 @@ spec:
               - --partition-timestamp-column
               - start_period
               - --partition-timestamp-date-divisor
-              - 86400
+              - "86400"
               - --batch-size
               - "500000000" # Targetting 500mb parquet files, per databricks recs on large tables
           restartPolicy: OnFailure

@@ -44,7 +44,7 @@ spec:
               - --source-proto-base-url
               - https://raw.githubusercontent.com/helium/proto/master/src
               - --source-protos
-              - data_rate.proto              
+              - data_rate.proto
               - --source-protos
               - service/packet_verifier.proto
               - --source-protos
