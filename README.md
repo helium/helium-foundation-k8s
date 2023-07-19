@@ -74,6 +74,12 @@ Next, build the container and push:
 docker build . -t public.ecr.aws/v0j6k5v6/ecc-verifier:0.0.1 && docker push public.ecr.aws/v0j6k5v6/ecc-verifier:0.0.1
 ```
 
+If you're on Apple silicon, then you'll need to build it targetting a Linux platform so it can run on the Kubernetes cluster:
+
+```
+docker buildx build --platform linux/amd64 . -t public.ecr.aws/v0j6k5v6/ecc-verifier:0.0.1 && docker push public.ecr.aws/v0j6k5v6/ecc-verifier:0.0.1
+```
+
 ### Make a Pull Request to Add the Service
 
 #### Sealed Secrets

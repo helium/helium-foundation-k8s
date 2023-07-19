@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: active-hotspot-oracle
+  namespace: helium
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "*/10 * * * *" # TODO update this before pr
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: s3-data-lake-bucket-access
+          containers:
+          - name: active-hotspot-oracle
+            image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.5
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: SOLANA_URL
+                value: https://solana-rpc.web.helium.io/?session-key=Pluto
+              - name: ANCHOR_WALLET
+                value: /usr/src/app/keys/keypair.json
+            args:
+              - --aws-bucket
+              - foundation-poc-data-requester-pays
+              - --aws-region
+              - us-west-2
+              - --aws-table
+              - gold/hotspot-rewards
+            volumeMounts:
+              - name: active-hotspot-oracle-keypair
+                mountPath: /usr/src/app/keys
+                readOnly: true
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 5Gi
+              limits:
+                memory: 5Gi
+          restartPolicy: OnFailure
+          volumes:
+            - name: active-hotspot-oracle-keypair
+              secret:
+                secretName: active-hotspot-oracle-keypair
+                items:
+                  - key: keypair.json
+                    path: keypair.json

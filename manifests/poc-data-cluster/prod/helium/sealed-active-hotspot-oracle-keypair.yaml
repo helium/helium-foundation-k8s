@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: active-hotspot-oracle-keypair
+  namespace: helium
+spec:
+  encryptedData:
+    keypair.json: AgAILHx3Rhv8wAVVx+IehqbY5RwkIgtGnze82NAjjXaBUuQwCd/O8920rZ1BK8d97CJosxEI5h/LB3V1Jl36XrU0dD0Z51zjtrz5Z8otOkIqtRIrXHAx8TCx/FQB8IWe16hP0AA27OOZxnK1aRk+jmK0AEQrFr82N+upDBX8S9bNEJc5XeyfnNIzaR075QAN+pYsdUh31hABKBV1G3JAVR+zDAo/OOjqU6HulBsuPUWW1wXOYubKMB8ZcONeZ74SLO6qH+fdNDi1FrwjtBmdesPcBTFiF0NLYAVzOh0UAhvXCjb8k9wtARp9Z8dk1btaDW/yQhr2066X3h+9JqX1VHn0b0Lr9GhlGxyxbT+8SyfskMd0YQ7XFY5zuxmzJ3TpET3SZAakJANgBNOBDjv5nZCC4A9qECWSW39P7QJtmRM0EdUkfB1tE3+PIjx6dLO82lO9VbdOLYk82nT/zg3Ss2RGUJlXrDWCVnGN+1QrPWQvgMWMPMzw1TfrEb7WLCCv9VbJcFTEBg12nrUayQJdWfpKW68RALbIVdOxHCNjnny7lY8N28hSwVVwvu6uYLOPiKuMS2jb0Dfi+KeppmfzrbDdSEFejPESxDzB/KtkYl4EcvqX0xZeD5D8+NqwzYz3Vgi2b0T3XA0dIGY/07eQziqsRy1fV24qskKeBidyMrGMXy5tHlWXOB3laJUsHGPKQWY/DLgDBv2K2A5Ft5by6SrhI03iXWP5CZ2PiYHx/xEa+GBnMaZnSKLUXVO+YxoeYnP+Yl4/vKnrWhw0lGcEVzY/TBXcGBWtk8lii7EHfEfBVfowyz/Knhh3r/BiLl/C3x/VHNjH0paj/1rRJ8C/0NkOVdQrcBVf+3J2YRhTuomjoEWBcNPBAAIo27KqRZitI22lbbSxlTaxkuRIIrXc0Ay1jC11AUAGqix2mSXactP/WQcaLvK1vlsqw0qf6PniFMvx3ogd1p/E5w4MeeUABLrN1cCUn2fujx0Bj9llXPpKW71xz88=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: active-hotspot-oracle-keypair
+      namespace: helium
+
