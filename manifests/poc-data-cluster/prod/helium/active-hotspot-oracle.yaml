@@ -5,7 +5,7 @@ metadata:
   namespace: helium
 spec:
   concurrencyPolicy: Forbid
-  schedule: "*/10 * * * *" # TODO update this before pr
+  schedule: "0 * * * *"
   jobTemplate:
     spec:
       template:
