@@ -1,14 +1,14 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: iot-poc-delta-lake-sink
+  name: iot-rewards-share-delta-lake-sink
   namespace: helium
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 */4 * * *"
+  schedule: "10 */4 * * *"
   jobTemplate:
     spec:
-      backoffLimit: 200 # Has a tendency to OOM while backfilling
+      backoffLimit: 10
       template:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
@@ -20,8 +20,8 @@ spec:
           nodeSelector:
             nodegroup-type: spot
           containers:
-          - name: iot-poc-delta-lake-sink
-            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.9
+          - name: iot-rewards-delta-lake-sink
+            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.10
             imagePullPolicy: IfNotPresent
             resources:
               requests:
@@ -38,9 +38,9 @@ spec:
               - --source-region
               - us-west-2
               - --file-prefix
-              - foundation-iot-verified-rewards/iot_poc
+              - foundation-iot-verified-rewards/iot_reward_share
               - --source-proto-name
-              - "lora_poc_v1"
+              - "iot_reward_share"
               - --source-proto-base-url
               - https://raw.githubusercontent.com/helium/proto/master/src
               - --source-protos
@@ -49,14 +49,18 @@ spec:
               - service/packet_verifier.proto
               - --source-protos
               - service/poc_lora.proto
+              - --source-protos
+              - region.proto              
               - --target-bucket
               - foundation-data-lake-requester-pays
               - --target-table
-              - bronze/lora_poc_v1
+              - bronze/iot_reward_share
               - --target-region
               - us-west-2
               - --partition-timestamp-column
-              - beacon_report.received_timestamp
+              - start_period
+              - --partition-timestamp-date-divisor
+              - "86400"
               - --batch-size
-              - "1000000000" # Targetting ~1gb parquet files, per databricks recs on large tables
+              - "500000000" # Targetting 500mb parquet files, per databricks recs on large tables
           restartPolicy: OnFailure
