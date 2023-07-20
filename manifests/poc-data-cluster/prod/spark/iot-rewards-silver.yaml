@@ -29,7 +29,11 @@ spec:
   mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.jar"
   sparkVersion: "3.4.0"
   restartPolicy:
-    type: Never
+    type: OnFailure
+    onFailureRetries: 3
+    onFailureRetryInterval: 10
+    onSubmissionFailureRetries: 3
+    onSubmissionFailureRetryInterval: 10
   sparkConf:
     spark.databricks.delta.autoCompact.enabled: "true"
   hadoopConf:
