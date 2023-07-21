@@ -48,7 +48,7 @@ spec:
               - --source-protos
               - service/packet_verifier.proto
               - --source-protos
-              - service/poc_lora.proto
+              - service/poc_mobile.proto
               - --source-protos
               - region.proto              
               - --target-bucket
