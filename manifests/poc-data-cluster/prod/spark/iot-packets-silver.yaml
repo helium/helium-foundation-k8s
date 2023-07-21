@@ -67,7 +67,7 @@ spec:
     nodeSelector:
       node.kubernetes.io/instance-type: m5.large
     envVars:
-      TABLE_IOT_PACKETS: s3a://foundation-data-lake-requester-pays/bronze/packet_router_packet_report_v1
+      TABLE_PACKET_ROUTER_PACKET_REPORT_V1: s3a://foundation-data-lake-requester-pays/bronze/packet_router_packet_report_v1
       PARTITION_BY: "date"
       CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-packets
       OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-packets
