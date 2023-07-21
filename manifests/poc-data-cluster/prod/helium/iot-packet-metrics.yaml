@@ -37,7 +37,7 @@ spec:
               - --starttime
               - "yesterday"
               - --duration
-              - 1440
+              - "1440"
               - --s3metrics
-              - true
+              - "true"
           restartPolicy: OnFailure
