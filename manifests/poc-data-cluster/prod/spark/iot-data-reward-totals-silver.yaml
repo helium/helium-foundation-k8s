@@ -7,7 +7,7 @@ data:
   query.sql: |
     SELECT 
       date, sum(dc_transfer_amount_iot) AS data-iot-total
-    FROM TABLE_IOT_REWARDS
+    FROM iot_reward_share
 ---
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
@@ -51,7 +51,7 @@ spec:
     nodeSelector:
       node.kubernetes.io/instance-type: m5.large
     envVars:
-      TABLE_IOT_REWARDS: s3a://foundation-data-lake-requester-pays/silver/iot-reward-share
+      TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/silver/iot-reward-share
       PARTITION_BY: "date"
       CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-data-reward-totals
       OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-data-reward-totals
