@@ -5,7 +5,7 @@ metadata:
   namespace: helium
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 * * * *"
+  schedule: "0 0 * * *"
   jobTemplate:
     spec:
       template:
@@ -13,16 +13,16 @@ spec:
           serviceAccountName: s3-data-lake-bucket-access
           containers:
           - name: active-hotspot-oracle
-            image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.5
+            image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.8
             imagePullPolicy: IfNotPresent
             env:
               - name: SOLANA_URL
-                value: https://solana-rpc.web.helium.io/?session-key=Pluto
+                value: https://solana-rpc.web.test-helium.com/?session-key=Pluto
               - name: ANCHOR_WALLET
                 value: /usr/src/app/keys/keypair.json
             args:
               - --aws-bucket
-              - foundation-poc-data-requester-pays
+              - foundation-data-lake-requester-pays
               - --aws-region
               - us-west-2
               - --aws-table
