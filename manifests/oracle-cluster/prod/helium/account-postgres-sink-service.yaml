@@ -25,6 +25,9 @@ data:
               "table": "mobile_hotspot_infos",
               "schema": "public"
             }
+          ],
+          "crons": [
+            { "schedule": "0 12 * * *", "type": "integrity-check" }
           ]
         }
       ]
@@ -51,13 +54,15 @@ spec:
       serviceAccountName: rds-metadata-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.28
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.30
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
               name: http
               protocol: TCP
           env:
+            - name: RUN_JOBS_AT_STARTUP
+              value: true
             - name: PGHOST
               value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
             - name: PGPORT
