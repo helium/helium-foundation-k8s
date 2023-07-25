@@ -23,9 +23,6 @@ data:
           "accounts": [
             { "type": "PositionV0", "table": "positions", "schema": "public" },
             { "type": "Registrar", "table": "registrars", "schema": "public" }
-          ],
-          "crons": [
-            { "schedule": "0 13 * * *", "type": "refresh-accounts" }
           ]
         },
         {
@@ -153,8 +150,6 @@ spec:
               name: http
               protocol: TCP
           env:
-            - name: RUN_JOBS_AT_STARTUP
-              value: true
             - name: PGHOST
               value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PGPORT
