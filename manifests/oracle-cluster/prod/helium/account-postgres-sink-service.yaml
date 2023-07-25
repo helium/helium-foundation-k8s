@@ -61,8 +61,6 @@ spec:
               name: http
               protocol: TCP
           env:
-            - name: RUN_JOBS_AT_STARTUP
-              value: true
             - name: PGHOST
               value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
             - name: PGPORT
