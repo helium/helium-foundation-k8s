@@ -6,7 +6,7 @@ metadata:
 data:
   query.sql: |
     SELECT
-      greatest(date) as most_recent_ts, 
+      max(end_period) as most_recent_ts, 
       gateway as gateway_key 
     FROM iot_reward_share
     GROUP BY gateway_key;
