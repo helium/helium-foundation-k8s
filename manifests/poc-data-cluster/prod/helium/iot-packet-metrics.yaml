@@ -22,7 +22,7 @@ spec:
             nodegroup-type: spot
           containers:
           - name: iot-packet-metrics
-            image: public.ecr.aws/k0m1p4t7/iot-packet-metrics:0.0.8
+            image: public.ecr.aws/k0m1p4t7/iot-packet-metrics:0.0.7
             imagePullPolicy: Always
             resources:
               requests:
