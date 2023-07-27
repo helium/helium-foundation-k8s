@@ -112,7 +112,7 @@ metadata:
   namespace: helium
   annotations:
     prometheus.io/scrape: "true"
-    prometheus.io/port: "8082"
+    prometheus.io/port: "3000"
 spec:
   ports:
     - port: 3000
