@@ -27,7 +27,7 @@ data:
             }
           ],
           "crons": [
-            { "schedule": "0 12 * * *", "type": "integrity-check" }
+            { "schedule": "0 0 * * *", "type": "integrity-check" }
           ]
         }
       ]
