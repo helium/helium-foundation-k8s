@@ -6,7 +6,7 @@ metadata:
 data:
   query.sql: |
     SELECT 
-      date, sum(dc_transfer_amount_iot) AS data-iot-total
+      date, sum(dc_transfer_amount_iot) AS data_iot_total
     FROM iot_reward_share
 ---
 apiVersion: "sparkoperator.k8s.io/v1beta2"
