@@ -23,8 +23,7 @@ data:
           "accounts": [
             { "type": "PositionV0", "table": "positions", "schema": "public" },
             { "type": "Registrar", "table": "registrars", "schema": "public" }
-          ],
-          "cron": "*/15 * * * *"
+          ]
         },
         {
           "programId": "hdaoVTCqhfHHo75XdAMxBKdUqvq1i5bF23sisBqVgGR",
@@ -44,21 +43,6 @@ data:
             {
               "type": "DelegatedPositionV0",
               "table": "delegated_positions",
-              "schema": "public"
-            }
-          ]
-        },
-        {
-          "programId": "circAbx64bbsscPbQzZAUvuXpHqrCe6fLMzc2uKXz9g",
-          "accounts": [
-            {
-              "type": "MintWindowedCircuitBreakerV0",
-              "table": "mint_windowed_circuit_breaker_configs",
-              "schema": "public"
-            },
-            {
-              "type": "AccountWindowedCircuitBreakerV0",
-              "table": "account_windowed_circuit_breaker_configs",
               "schema": "public"
             }
           ]
@@ -144,7 +128,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.28
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.35
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -175,8 +159,6 @@ spec:
                   key: asset_api_url
             - name: PROGRAM_ACCOUNT_CONFIGS
               value: "/usr/src/app/config/config.json"
-            - name: GLOBAL_CRON_CONFIG
-              value: 0 1 * * *
             - name: HELIUS_AUTH_SECRET
               valueFrom:
                 secretKeyRef:
