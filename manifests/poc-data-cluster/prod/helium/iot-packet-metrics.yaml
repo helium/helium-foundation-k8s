@@ -13,20 +13,20 @@ spec:
       template:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
-          tolerations: # Schedule executor pods on spot instance group
+          tolerations: # Schedule executor pods on spot-helium instance group
             - key: dedicated
               operator: Equal
-              value: spark
+              value: spot-helium
               effect: NoSchedule
           nodeSelector:
-            nodegroup-type: spot
+            nodegroup-type: spot-helium
           containers:
           - name: iot-packet-metrics
             image: public.ecr.aws/k0m1p4t7/iot-packet-metrics:0.0.10
             imagePullPolicy: Always
             resources:
               requests:
-                cpu: 1000m
+                cpu: 500m
                 memory: 6900Mi
               limits:
                 memory: 6900Mi
