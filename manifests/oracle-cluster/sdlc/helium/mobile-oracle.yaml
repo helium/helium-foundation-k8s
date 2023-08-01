@@ -76,10 +76,10 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              cpu: 250m
-              memory: 500Mi
+              cpu: 100m
+              memory: 200Mi
             limits:
-              memory: 750Mi
+              memory: 300Mi
       volumes:
         - name: oracle-keypair
           secret:
