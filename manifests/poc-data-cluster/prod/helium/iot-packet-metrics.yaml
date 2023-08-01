@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: iot-packet-metrics
+  namespace: helium
+spec:
+  concurrencyPolicy: Allow
+  schedule: "0 4 * * *"
+  failedJobsHistoryLimit: 60
+  jobTemplate:
+    spec:
+      backoffLimit: 200 # Has a tendency to OOM while backfilling
+      template:
+        spec:
+          serviceAccountName: s3-data-lake-bucket-access
+          tolerations: # Schedule executor pods on spot-helium instance group
+            - key: dedicated
+              operator: Equal
+              value: spot-helium
+              effect: NoSchedule
+          nodeSelector:
+            nodegroup-type: spot-helium
+          containers:
+          - name: iot-packet-metrics
+            image: public.ecr.aws/k0m1p4t7/iot-packet-metrics:0.0.10
+            imagePullPolicy: Always
+            resources:
+              requests:
+                cpu: 500m
+                memory: 6900Mi
+              limits:
+                memory: 6900Mi
+            env: 
+              - name: AWS_S3_ALLOW_UNSAFE_RENAME
+                value: "true"
+            args:
+              - --starttime
+              - "yesterday"
+              - --duration
+              - "1440"
+              - --s3metrics
+              - "true"
+          restartPolicy: OnFailure

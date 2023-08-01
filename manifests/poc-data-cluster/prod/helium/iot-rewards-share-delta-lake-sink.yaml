@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: packet-report-delta-lake-sink
+  name: iot-rewards-share-delta-lake-sink
   namespace: helium
 spec:
   concurrencyPolicy: Forbid
@@ -12,7 +12,7 @@ spec:
       template:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
-          tolerations: # Schedule executor pods on spot instance group
+          tolerations: # Schedule executor pods on spot-helium instance group
             - key: dedicated
               operator: Equal
               value: spot-helium
@@ -20,8 +20,8 @@ spec:
           nodeSelector:
             nodegroup-type: spot-helium
           containers:
-          - name: packet-report-delta-lake-sink
-            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.9
+          - name: iot-rewards-delta-lake-sink
+            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.10
             imagePullPolicy: IfNotPresent
             resources:
               requests:
@@ -38,25 +38,29 @@ spec:
               - --source-region
               - us-west-2
               - --file-prefix
-              - foundation-iot-packet-ingest/packetreport
+              - foundation-iot-verified-rewards/iot_reward_share
               - --source-proto-name
-              - "packet_router_packet_report_v1"
+              - "iot_reward_share"
               - --source-proto-base-url
               - https://raw.githubusercontent.com/helium/proto/master/src
               - --source-protos
               - data_rate.proto
               - --source-protos
-              - region.proto              
+              - service/packet_verifier.proto
               - --source-protos
-              - service/packet_router.proto
+              - service/poc_lora.proto
+              - --source-protos
+              - region.proto              
               - --target-bucket
               - foundation-data-lake-requester-pays
               - --target-table
-              - bronze/packet_router_packet_report_v1
+              - bronze/iot_reward_share
               - --target-region
               - us-west-2
               - --partition-timestamp-column
-              - received_timestamp
+              - start_period
+              - --partition-timestamp-date-divisor
+              - "86400"
               - --batch-size
               - "500000000" # Targetting 500mb parquet files, per databricks recs on large tables
           restartPolicy: OnFailure

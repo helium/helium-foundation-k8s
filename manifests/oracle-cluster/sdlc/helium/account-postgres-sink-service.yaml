@@ -25,6 +25,9 @@ data:
               "table": "mobile_hotspot_infos",
               "schema": "public"
             }
+          ],
+          "crons": [
+            { "schedule": "0 0 * * *", "type": "integrity-check" }
           ]
         }
       ]
@@ -58,6 +61,8 @@ spec:
               name: http
               protocol: TCP
           env:
+            - name: RUN_JOBS_AT_STARTUP
+              value "true"
             - name: PGHOST
               value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
             - name: PGPORT
