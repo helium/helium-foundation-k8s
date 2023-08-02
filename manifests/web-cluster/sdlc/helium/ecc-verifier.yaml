@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ecc-verifier
-          image: public.ecr.aws/v0j6k5v6/ecc-verifier:0.0.8
+          image: public.ecr.aws/v0j6k5v6/ecc-verifier:0.0.10
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
@@ -52,11 +52,11 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              cpu: 250m
-              memory: 500Mi
+              cpu: 100m
+              memory: 200Mi
             limits:
-              cpu: 500m
-              memory: 750Mi
+              cpu: 300m
+              memory: 300Mi
       volumes:
         - name: ecc-verifier-keypair
           secret:
