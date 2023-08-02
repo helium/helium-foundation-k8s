@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: metadata
-          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.1
+          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -55,10 +55,10 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              cpu: 250m
-              memory: 500Mi
+              cpu: 100m
+              memory: 200Mi
             limits:
-              memory: 750Mi
+              memory: 300Mi
 ---
 apiVersion: v1
 kind: Service
