@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-iot-oracle-user-access
       containers:
         - name: iot-oracle
-          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.0.45
+          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.0.46
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
