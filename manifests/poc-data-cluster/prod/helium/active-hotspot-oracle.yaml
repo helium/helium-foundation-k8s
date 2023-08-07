@@ -21,7 +21,7 @@ spec:
             nodegroup-type: spot-helium
           containers:
           - name: active-hotspot-oracle
-            image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.7
+            image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.8
             imagePullPolicy: IfNotPresent
             env:
               - name: SOLANA_URL
@@ -41,7 +41,7 @@ spec:
                 readOnly: true
             resources:
               requests:
-                cpu: 500m
+                cpu: 1000m
                 memory: 5Gi
               limits:
                 memory: 5Gi

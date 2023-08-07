@@ -54,7 +54,7 @@ spec:
       serviceAccountName: rds-metadata-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.37
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.41
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -62,7 +62,7 @@ spec:
               protocol: TCP
           env:
             - name: RUN_JOBS_AT_STARTUP
-              value "true"
+              value: "true"
             - name: PGHOST
               value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
             - name: PGPORT
