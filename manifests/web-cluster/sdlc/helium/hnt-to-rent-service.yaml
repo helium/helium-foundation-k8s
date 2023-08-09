@@ -24,10 +24,7 @@ spec:
               protocol: TCP
           env:
             - name: SOLANA_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: solana_url
+              value: https://solana-rpc.web.helim.io?session-key=Pluto
             - name: ASSET_API_URL
               valueFrom:
                 configMapKeyRef:
