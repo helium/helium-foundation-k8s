@@ -22,7 +22,7 @@ spec:
             nodegroup-type: spot-helium
           containers:
           - name: iot-cc-ranked
-            image: public.ecr.aws/k0m1p4t7/iot-cc-ranked:0.0.1
+            image: public.ecr.aws/k0m1p4t7/iot-cc-ranked:0.0.3
             imagePullPolicy: Always
             resources:
               requests:
