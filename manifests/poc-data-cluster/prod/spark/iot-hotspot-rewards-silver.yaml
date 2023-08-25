@@ -1,20 +1,24 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: gateway-rewards-gold-query
+  name: iot-hotspot-rewards-silver-query
   namespace: spark
 data:
   query.sql: |
     SELECT
-      max(end_period) as most_recent_ts, 
-      gateway as gateway_key 
+      date,
+      start_period,
+      end_period,
+      b58encodeChecked(gateway_reward.hotspot_key) as entity_key,
+      gateway_reward.beacon_amount as beacon_amount,
+      gateway_reward.witness_amount as witness_amount,
+      gateway_reward.dc_transfer_amount as dc_transfer_amount
     FROM iot_reward_share
-    GROUP BY gateway_key;
 ---
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
-  name: gateway-rewards-gold
+  name: iot-hotspot-rewards-silver
   namespace: spark
 spec:
   type: Scala
@@ -22,7 +26,7 @@ spec:
   image: "public.ecr.aws/k0m1p4t7/spark:v3.4.0-aws"
   imagePullPolicy: Always
   mainClass: Main
-  mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.jar"
+  mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1..0.1.jar"
   sparkVersion: "3.4.0"
   restartPolicy:
     type: OnFailure
@@ -41,7 +45,7 @@ spec:
         type: Directory
     - name: config-vol
       configMap:
-        name: gateway-rewards-gold-query
+        name: iot-hotspot-rewards-silver-query
         items:
           - key: query.sql
             path: query.sql
@@ -50,12 +54,14 @@ spec:
     cores: 1
     coreLimit: "1200m"
     memory: "512m"
+    nodeSelector:
+      node.kubernetes.io/instance-type: m5.large
     envVars:
-      TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/silver/iot-reward-share
-      CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/gateway-rewards
-      OUTPUT: s3a://foundation-data-lake-requester-pays/gold/gateway-rewards
+      TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
+      PARTITION_BY: "date"
+      CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-hotspot-rewards
+      OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-hotspot-rewards
       QUERY_PATH: /app/query.sql
-      BATCH_PROCESSING: "true"
     labels:
       version: 3.4.0
     volumeMounts:
@@ -67,8 +73,15 @@ spec:
     serviceAccount: spark-data-lake-access
     cores: 1
     coreLimit: "1200m"
-    instances: 3
-    memory: "6G"
+    instances: 2
+    memory: "10G"
+    tolerations: # Schedule executor pods on spot-spark instance group
+      - key: dedicated
+        operator: Equal
+        value: spot-spark
+        effect: NoSchedule
+    nodeSelector:
+      nodegroup-type: spot-spark
     labels:
       version: 3.4.0
     volumeMounts:
