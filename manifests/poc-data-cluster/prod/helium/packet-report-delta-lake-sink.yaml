@@ -1,62 +1,62 @@
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: packet-report-delta-lake-sink
-  namespace: helium
-spec:
-  concurrencyPolicy: Forbid
-  schedule: "10 */4 * * *"
-  jobTemplate:
-    spec:
-      backoffLimit: 10
-      template:
-        spec:
-          serviceAccountName: s3-data-lake-bucket-access
-          tolerations: # Schedule executor pods on spot instance group
-            - key: dedicated
-              operator: Equal
-              value: spot-helium
-              effect: NoSchedule
-          nodeSelector:
-            nodegroup-type: spot-helium
-          containers:
-          - name: packet-report-delta-lake-sink
-            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.9
-            imagePullPolicy: IfNotPresent
-            resources:
-              requests:
-                cpu: 500m
-                memory: 6900Mi
-              limits:
-                memory: 6900Mi
-            env: 
-              - name: AWS_S3_ALLOW_UNSAFE_RENAME
-                value: "true"
-            args:
-              - --source-bucket
-              - foundation-poc-data-requester-pays
-              - --source-region
-              - us-west-2
-              - --file-prefix
-              - foundation-iot-packet-ingest/packetreport
-              - --source-proto-name
-              - "packet_router_packet_report_v1"
-              - --source-proto-base-url
-              - https://raw.githubusercontent.com/helium/proto/master/src
-              - --source-protos
-              - data_rate.proto
-              - --source-protos
-              - region.proto              
-              - --source-protos
-              - service/packet_router.proto
-              - --target-bucket
-              - foundation-data-lake-requester-pays
-              - --target-table
-              - bronze/packet_router_packet_report_v1
-              - --target-region
-              - us-west-2
-              - --partition-timestamp-column
-              - received_timestamp
-              - --batch-size
-              - "500000000" # Targetting 500mb parquet files, per databricks recs on large tables
-          restartPolicy: OnFailure
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: packet-report-delta-lake-sink
+#   namespace: helium
+# spec:
+#   concurrencyPolicy: Forbid
+#   schedule: "10 */4 * * *"
+#   jobTemplate:
+#     spec:
+#       backoffLimit: 10
+#       template:
+#         spec:
+#           serviceAccountName: s3-data-lake-bucket-access
+#           tolerations: # Schedule executor pods on spot instance group
+#             - key: dedicated
+#               operator: Equal
+#               value: spot-helium
+#               effect: NoSchedule
+#           nodeSelector:
+#             nodegroup-type: spot-helium
+#           containers:
+#           - name: packet-report-delta-lake-sink
+#             image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.9
+#             imagePullPolicy: IfNotPresent
+#             resources:
+#               requests:
+#                 cpu: 500m
+#                 memory: 6900Mi
+#               limits:
+#                 memory: 6900Mi
+#             env: 
+#               - name: AWS_S3_ALLOW_UNSAFE_RENAME
+#                 value: "true"
+#             args:
+#               - --source-bucket
+#               - foundation-poc-data-requester-pays
+#               - --source-region
+#               - us-west-2
+#               - --file-prefix
+#               - foundation-iot-packet-ingest/packetreport
+#               - --source-proto-name
+#               - "packet_router_packet_report_v1"
+#               - --source-proto-base-url
+#               - https://raw.githubusercontent.com/helium/proto/master/src
+#               - --source-protos
+#               - data_rate.proto
+#               - --source-protos
+#               - region.proto              
+#               - --source-protos
+#               - service/packet_router.proto
+#               - --target-bucket
+#               - foundation-data-lake-requester-pays
+#               - --target-table
+#               - bronze/packet_router_packet_report_v1
+#               - --target-region
+#               - us-west-2
+#               - --partition-timestamp-column
+#               - received_timestamp
+#               - --batch-size
+#               - "500000000" # Targetting 500mb parquet files, per databricks recs on large tables
+#           restartPolicy: OnFailure

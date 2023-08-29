@@ -1,62 +1,62 @@
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: iot-poc-delta-lake-sink
-  namespace: helium
-spec:
-  concurrencyPolicy: Forbid
-  schedule: "0 */4 * * *"
-  jobTemplate:
-    spec:
-      backoffLimit: 200 # Has a tendency to OOM while backfilling
-      template:
-        spec:
-          serviceAccountName: s3-data-lake-bucket-access
-          tolerations: # Schedule executor pods on spot-helium instance group
-            - key: dedicated
-              operator: Equal
-              value: spot-helium
-              effect: NoSchedule
-          nodeSelector:
-            nodegroup-type: spot-helium
-          containers:
-          - name: iot-poc-delta-lake-sink
-            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.10
-            imagePullPolicy: IfNotPresent
-            resources:
-              requests:
-                cpu: 500m
-                memory: 6900Mi
-              limits:
-                memory: 6900Mi
-            env: 
-              - name: AWS_S3_ALLOW_UNSAFE_RENAME
-                value: "true"
-            args:
-              - --source-bucket
-              - foundation-poc-data-requester-pays
-              - --source-region
-              - us-west-2
-              - --file-prefix
-              - foundation-iot-verified-rewards/iot_poc
-              - --source-proto-name
-              - "lora_poc_v1"
-              - --source-proto-base-url
-              - https://raw.githubusercontent.com/helium/proto/master/src
-              - --source-protos
-              - data_rate.proto
-              - --source-protos
-              - service/packet_verifier.proto
-              - --source-protos
-              - service/poc_lora.proto
-              - --target-bucket
-              - foundation-data-lake-requester-pays
-              - --target-table
-              - bronze/lora_poc_v1
-              - --target-region
-              - us-west-2
-              - --partition-timestamp-column
-              - beacon_report.received_timestamp
-              - --batch-size
-              - "1000000000" # Targetting ~1gb parquet files, per databricks recs on large tables
-          restartPolicy: OnFailure
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: iot-poc-delta-lake-sink
+#   namespace: helium
+# spec:
+#   concurrencyPolicy: Forbid
+#   schedule: "0 */4 * * *"
+#   jobTemplate:
+#     spec:
+#       backoffLimit: 200 # Has a tendency to OOM while backfilling
+#       template:
+#         spec:
+#           serviceAccountName: s3-data-lake-bucket-access
+#           tolerations: # Schedule executor pods on spot-helium instance group
+#             - key: dedicated
+#               operator: Equal
+#               value: spot-helium
+#               effect: NoSchedule
+#           nodeSelector:
+#             nodegroup-type: spot-helium
+#           containers:
+#           - name: iot-poc-delta-lake-sink
+#             image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.10
+#             imagePullPolicy: IfNotPresent
+#             resources:
+#               requests:
+#                 cpu: 500m
+#                 memory: 6900Mi
+#               limits:
+#                 memory: 6900Mi
+#             env: 
+#               - name: AWS_S3_ALLOW_UNSAFE_RENAME
+#                 value: "true"
+#             args:
+#               - --source-bucket
+#               - foundation-poc-data-requester-pays
+#               - --source-region
+#               - us-west-2
+#               - --file-prefix
+#               - foundation-iot-verified-rewards/iot_poc
+#               - --source-proto-name
+#               - "lora_poc_v1"
+#               - --source-proto-base-url
+#               - https://raw.githubusercontent.com/helium/proto/master/src
+#               - --source-protos
+#               - data_rate.proto
+#               - --source-protos
+#               - service/packet_verifier.proto
+#               - --source-protos
+#               - service/poc_lora.proto
+#               - --target-bucket
+#               - foundation-data-lake-requester-pays
+#               - --target-table
+#               - bronze/lora_poc_v1
+#               - --target-region
+#               - us-west-2
+#               - --partition-timestamp-column
+#               - beacon_report.received_timestamp
+#               - --batch-size
+#               - "1000000000" # Targetting ~1gb parquet files, per databricks recs on large tables
+#           restartPolicy: OnFailure
