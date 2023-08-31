@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: metadata
-          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.3
+          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
