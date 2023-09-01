@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: cron-keypair
+  namespace: helium
+spec:
+  encryptedData:
+    keypair.json: AgCDVHWF8GwzNFiEhT+rMQyb7tikZ9f1aDZb8YYslJCuUf4zwn1dOkMENoyFblp6OrLxKAjXNeRVLIPVTfqoAMSV55MWmfRwh+6Mpnih2OnsIgHqoGDSMvRNyXrSnbKL1Bfe7YSmzoDB2f83ToyQit6mr7uI28cfGp7dRS42apElMcXN8fZHSmOnPRq6EROAseTgXc8SumD6U/r1PutOXcp6qkpbaoIYG8GLmK2rFzFN4aOdeyZ6tywU+2a9eg0a4zn3E0kNpibNBWhO8AGPsBQOM/qCgV+Herd6Cl0LdROZYPbBh7jzOp0GaE/bO693vYKdSug54P3H/bDHJkLnkhaWnowEIhvC7wfMF9akUUYbAi9v2QpGMZsBPhJ0yAIIJcg7NRqWYsCPiVofBvE74V+JRDRRjJXCRjs+94aBPmPlbEDz/reGGYWN3PHuZO85sbD68IPPik+q6inrPcwPtBenIicuNvkgg1lSkxJS/cDJo5HAUn1ybKJvek70rT7PEcHeKA1BRrHpeqsBDtviNXyuJPMG/zSyKbXpNj9gghubIhdfT1PS47ZNpMKPxQ6LI+4GHCqClCxo+YqF8OfaIDS/kjkwz1UGG7kWbY5gLId6u6Opcz8x77fGOaPE0XoJKBVTPpVBBXjXl1av5flKv0mBb4dAXw0hLdy+2T5wXm7XpWLsVmqn8+Sp1UDjkymG7pywr14ZDWNi+JeZSMwbsB34OULFrIC7xCyTHXPoM0sczC3g68gH1v0ERsxbyC+Ugpbmck1PWmgptcxphOKmDeeSmlOppcoaAMK2YzybLFRB3MmzN12X3FO8XVSkkUkE/IsxOb1LBHPbXC2ZITbR+8pclT/8nq2n4JgCKUxlDyFimlO8rc3ETGFdvcgiXL7c2++VgQk1GmPphkE/rtcjwSx+gsTouc8g/FrJsiJbTeGDCYsqBvIcMR4D4EtY7mliIoTX98fSuBC6nPoPKHH4pEa61GFXWJhyCg==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: cron-keypair
+      namespace: helium
+

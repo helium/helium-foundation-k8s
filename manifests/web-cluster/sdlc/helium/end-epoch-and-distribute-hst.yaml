@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: end-epoch-and-distribute-hst
+  namespace: helium
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: 'end-epoch-and-distribute-hst'
+        spec:
+          containers:
+          - name: end-epoch-and-distribute-hst
+            image: public.ecr.aws/v0j6k5v6/crons:0.0.1
+            imagePullPolicy: IfNotPresent
+            command: ["node"]
+            args: ["/app/lib/src/end-epoch-and-distribute-hst.js"]
+            env:
+              - name: ANCHOR_WALLET
+                value: /app/keys/keypair.json
+              - name: SOLANA_URL
+                valueFrom:
+                  configMapKeyRef:
+                    name: globals
+                    key: solana_url
+
+            volumeMounts:
+              - name: cron-keypair
+                mountPath: /app/keys
+                readOnly: true
+          volumes:
+            - name: cron-keypair
+              secret:
+                secretName: cron-keypair
+                items:
+                  - key: keypair.json
+                    path: keypair.json
