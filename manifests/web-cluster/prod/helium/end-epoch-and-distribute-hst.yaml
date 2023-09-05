@@ -14,7 +14,7 @@ spec:
         spec:
           containers:
           - name: end-epoch-and-distribute-hst
-            image: public.ecr.aws/v0j6k5v6/crons:0.0.1
+            image: public.ecr.aws/v0j6k5v6/crons:0.0.2
             imagePullPolicy: IfNotPresent
             command: ["node"]
             args: ["/app/lib/src/end-epoch-and-distribute-hst.js"]
