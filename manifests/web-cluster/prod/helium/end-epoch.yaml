@@ -38,3 +38,4 @@ spec:
                 items:
                   - key: keypair.json
                     path: keypair.json
+  restartPolicy: OnFailure
