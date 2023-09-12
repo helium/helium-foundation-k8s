@@ -5,6 +5,8 @@ metadata:
   namespace: helium
 spec:
   schedule: "0 0 * * *"
+  concurrencyPolicy: "Forbid"
+  failedJobsHistoryLimit: 10
   jobTemplate:
     spec:
       template:
@@ -17,11 +19,10 @@ spec:
           - name: end-epoch
             image: public.ecr.aws/v0j6k5v6/crons:0.0.3
             imagePullPolicy: IfNotPresent
-            command: ["node"]
-            args: ["/app/lib/src/end-epoch.js"]
+            command: ["node", "/usr/src/app/lib/src/end-epoch.js"]
             env:
               - name: ANCHOR_WALLET
-                value: /app/keys/keypair.json
+                value: /usr/src/app/keys/keypair.json
               - name: SOLANA_URL
                 valueFrom:
                   configMapKeyRef:
@@ -30,7 +31,7 @@ spec:
 
             volumeMounts:
               - name: cron-keypair
-                mountPath: /app/keys
+                mountPath: /usr/src/app/keys
                 readOnly: true
           volumes:
             - name: cron-keypair
