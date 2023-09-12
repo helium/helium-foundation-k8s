@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-iot-oracle-user-access
       containers:
         - name: iot-rewards-faucet
-          image: public.ecr.aws/s2o4r1i6/rewards-oracle-faucet-service:0.0.5
+          image: public.ecr.aws/v0j6k5v6/rewards-oracle-faucet-service:0.0.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
