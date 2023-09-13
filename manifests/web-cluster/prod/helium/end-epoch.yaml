@@ -1,0 +1,42 @@
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: end-epoch
+#   namespace: helium
+# spec:
+#   schedule: "0 0 * * *"
+#   concurrencyPolicy: "Forbid"
+#   failedJobsHistoryLimit: 10
+#   jobTemplate:
+#     spec:
+#       template:
+#         metadata:
+#           labels:
+#             app: 'end-epoch'
+#         spec:
+#           restartPolicy: OnFailure
+#           containers:
+#           - name: end-epoch
+#             image: public.ecr.aws/v0j6k5v6/crons:0.0.3
+#             imagePullPolicy: IfNotPresent
+#             command: ["node", "/usr/src/app/lib/src/end-epoch.js"]
+#             env:
+#               - name: ANCHOR_WALLET
+#                 value: /usr/src/app/keys/keypair.json
+#               - name: SOLANA_URL
+#                 valueFrom:
+#                   configMapKeyRef:
+#                     name: globals
+#                     key: solana_url
+
+#             volumeMounts:
+#               - name: cron-keypair
+#                 mountPath: /usr/src/app/keys
+#                 readOnly: true
+#           volumes:
+#             - name: cron-keypair
+#               secret:
+#                 secretName: cron-keypair
+#                 items:
+#                   - key: keypair.json
+#                     path: keypair.json
