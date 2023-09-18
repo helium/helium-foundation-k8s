@@ -29,11 +29,6 @@ spec:
   mainClass: Main
   mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.1.jar"
   sparkVersion: "3.4.0"
-  dynamicAllocation:
-    enabled: true
-    initialExecutors: 1
-    minExecutors: 0
-    maxExecutors: 2
   restartPolicy:
     type: OnFailure
     onFailureRetries: 3
@@ -42,7 +37,6 @@ spec:
     onSubmissionFailureRetryInterval: 10
   sparkConf:
     spark.databricks.delta.autoCompact.enabled: "true"
-    spark.streaming.dynamicAllocation.enabled: "true"
   hadoopConf:
     fs.s3a.aws.credentials.provider: com.amazonaws.auth.WebIdentityTokenCredentialsProvider
   volumes:
@@ -80,7 +74,8 @@ spec:
     serviceAccount: spark-data-lake-access
     cores: 1
     coreLimit: "1200m"
-    memory: "10G"
+    instances: 1
+    memory: "5G"
     tolerations: # Schedule executor pods on spot-spark instance group
       - key: dedicated
         operator: Equal
