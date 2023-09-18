@@ -37,6 +37,7 @@ spec:
     onSubmissionFailureRetryInterval: 10
   sparkConf:
     spark.databricks.delta.autoCompact.enabled: "true"
+    spark.streaming.dynamicAllocation.enabled: "true"
   hadoopConf:
     fs.s3a.aws.credentials.provider: com.amazonaws.auth.WebIdentityTokenCredentialsProvider
   volumes:
