@@ -26,7 +26,7 @@
 #             imagePullPolicy: IfNotPresent
 #             env:
 #               - name: SOLANA_URL
-#                 value: https://solana-rpc.web.helium.io/?session-key=Pluto
+#                 value: https://solana-rpc.web.test-helium.com/?session-key=Pluto
 #               - name: ANCHOR_WALLET
 #                 value: /usr/src/app/keys/keypair.json
 #             args:
