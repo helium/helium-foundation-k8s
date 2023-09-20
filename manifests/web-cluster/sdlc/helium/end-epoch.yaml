@@ -6,15 +6,16 @@ metadata:
 spec:
   schedule: "0 0 * * *"
   concurrencyPolicy: "Forbid"
-  failedJobsHistoryLimit: 10
+  successfulJobsHistoryLimit: 3
   jobTemplate:
     spec:
+      backoffLimit: 3
       template:
         metadata:
           labels:
             app: 'end-epoch'
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
           containers:
           - name: end-epoch
             image: public.ecr.aws/v0j6k5v6/crons:0.0.3
