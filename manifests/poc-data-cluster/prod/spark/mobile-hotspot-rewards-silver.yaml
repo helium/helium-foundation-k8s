@@ -22,6 +22,7 @@ metadata:
   name: mobile-hotspot-rewards-silver
   namespace: spark
 spec:
+  # Run 15 minutes after mobile-reward-share-delta-lake-sink
   schedule: "25 */4 * * *"
   concurrencyPolicy: Forbid
   successfulRunHistoryLimit: 1
