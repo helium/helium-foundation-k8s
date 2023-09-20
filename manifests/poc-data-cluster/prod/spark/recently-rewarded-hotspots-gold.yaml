@@ -40,7 +40,7 @@ spec:
     image: "public.ecr.aws/k0m1p4t7/spark:v3.4.0-aws"
     imagePullPolicy: Always
     mainClass: Main
-    mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.1.jar"
+    mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.2.jar"
     sparkVersion: "3.4.0"
     restartPolicy:
       type: OnFailure
@@ -74,6 +74,7 @@ spec:
         OUTPUT: s3a://foundation-data-lake-requester-pays/gold/recently-rewarded-hotspots
         QUERY_PATH: /app/query.sql
         BATCH_PROCESSING: "true"
+        TRIGGER: AvailableNow
       labels:
         version: 3.4.0
       volumeMounts:
