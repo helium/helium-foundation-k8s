@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tokens-to-rent
-          image: public.ecr.aws/v0j6k5v6/tokens-to-rent-service:0.0.4
+          image: public.ecr.aws/v0j6k5v6/tokens-to-rent-service:0.0.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
