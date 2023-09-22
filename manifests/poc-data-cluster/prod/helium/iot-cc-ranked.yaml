@@ -1,36 +1,36 @@
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: iot-cc-ranked
-  namespace: helium
-spec:
-  concurrencyPolicy: Allow
-  schedule: "0 4 * * *"
-  failedJobsHistoryLimit: 60
-  jobTemplate:
-    spec:
-      backoffLimit: 200 # Has a tendency to OOM while backfilling
-      template:
-        spec:
-          serviceAccountName: s3-data-lake-bucket-access
-          tolerations: # Schedule executor pods on spot-helium instance group
-            - key: dedicated
-              operator: Equal
-              value: spot-helium
-              effect: NoSchedule
-          nodeSelector:
-            nodegroup-type: spot-helium
-          containers:
-          - name: iot-cc-ranked
-            image: public.ecr.aws/k0m1p4t7/iot-cc-ranked:0.0.3
-            imagePullPolicy: Always
-            resources:
-              requests:
-                cpu: 500m
-                memory: 6900Mi
-              limits:
-                memory: 6900Mi
-            env: 
-              - name: AWS_S3_ALLOW_UNSAFE_RENAME
-                value: "true"
-          restartPolicy: OnFailure
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: iot-cc-ranked
+#   namespace: helium
+# spec:
+#   concurrencyPolicy: Allow
+#   schedule: "0 4 * * *"
+#   failedJobsHistoryLimit: 60
+#   jobTemplate:
+#     spec:
+#       backoffLimit: 200 # Has a tendency to OOM while backfilling
+#       template:
+#         spec:
+#           serviceAccountName: s3-data-lake-bucket-access
+#           tolerations: # Schedule executor pods on spot-helium instance group
+#             - key: dedicated
+#               operator: Equal
+#               value: spot-helium
+#               effect: NoSchedule
+#           nodeSelector:
+#             nodegroup-type: spot-helium
+#           containers:
+#           - name: iot-cc-ranked
+#             image: public.ecr.aws/k0m1p4t7/iot-cc-ranked:0.0.3
+#             imagePullPolicy: Always
+#             resources:
+#               requests:
+#                 cpu: 500m
+#                 memory: 6900Mi
+#               limits:
+#                 memory: 6900Mi
+#             env: 
+#               - name: AWS_S3_ALLOW_UNSAFE_RENAME
+#                 value: "true"
+#           restartPolicy: OnFailure
