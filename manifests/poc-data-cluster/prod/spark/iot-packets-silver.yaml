@@ -70,8 +70,6 @@ spec:
       cores: 1
       coreLimit: "1200m"
       memory: "512m"
-      nodeSelector:
-        node.kubernetes.io/instance-type: m5.large
       envVars:
         TABLE_PACKET_ROUTER_PACKET_REPORT_V1: s3a://foundation-data-lake-requester-pays/bronze/packet_router_packet_report_v1
         PARTITION_BY: "date"

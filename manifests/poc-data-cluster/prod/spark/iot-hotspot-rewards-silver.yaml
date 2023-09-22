@@ -16,74 +16,81 @@ data:
     FROM iot_reward_share
 ---
 apiVersion: "sparkoperator.k8s.io/v1beta2"
-kind: SparkApplication
+kind: ScheduledSparkApplication
 metadata:
   name: iot-hotspot-rewards-silver
   namespace: spark
 spec:
-  type: Scala
-  mode: cluster
-  image: "public.ecr.aws/k0m1p4t7/spark:v3.4.0-aws"
-  imagePullPolicy: Always
-  mainClass: Main
-  mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.1.jar"
-  sparkVersion: "3.4.0"
-  restartPolicy:
-    type: OnFailure
-    onFailureRetries: 3
-    onFailureRetryInterval: 10
-    onSubmissionFailureRetries: 3
-    onSubmissionFailureRetryInterval: 10
-  sparkConf:
-    spark.databricks.delta.autoCompact.enabled: "true"
-  hadoopConf:
-    fs.s3a.aws.credentials.provider: com.amazonaws.auth.WebIdentityTokenCredentialsProvider
-  volumes:
-    - name: "tmp"
-      hostPath:
-        path: "/tmp"
-        type: Directory
-    - name: config-vol
-      configMap:
-        name: iot-hotspot-rewards-silver-query
-        items:
-          - key: query.sql
-            path: query.sql
-  driver:
-    serviceAccount: spark-data-lake-access
-    cores: 1
-    coreLimit: "1200m"
-    memory: "512m"
-    nodeSelector:
-      node.kubernetes.io/instance-type: m5.large
-    envVars:
-      TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
-      PARTITION_BY: "date"
-      CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-hotspot-rewards
-      OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-hotspot-rewards
-      QUERY_PATH: /app/query.sql
-    labels:
-      version: 3.4.0
-    volumeMounts:
-      - name: "test-volume"
-        mountPath: "/tmp"
-      - name: config-vol
-        mountPath: /app
-  executor:
-    serviceAccount: spark-data-lake-access
-    cores: 1
-    coreLimit: "1200m"
-    instances: 2
-    memory: "10G"
-    tolerations: # Schedule executor pods on spot-spark instance group
-      - key: dedicated
-        operator: Equal
-        value: spot-spark
-        effect: NoSchedule
-    nodeSelector:
-      nodegroup-type: spot-spark
-    labels:
-      version: 3.4.0
-    volumeMounts:
+  # Run 15 minutes after iot-reward-share-delta-lake-sink
+  schedule: "25 */4 * * *"
+  concurrencyPolicy: Forbid
+  successfulRunHistoryLimit: 1
+  failedRunHistoryLimit: 5
+  template:
+    type: Scala
+    mode: cluster
+    image: "public.ecr.aws/k0m1p4t7/spark:v3.4.0-aws"
+    imagePullPolicy: Always
+    mainClass: Main
+    mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.2.jar"
+    sparkVersion: "3.4.0"
+    restartPolicy:
+      type: OnFailure
+      onFailureRetries: 3
+      onFailureRetryInterval: 10
+      onSubmissionFailureRetries: 3
+      onSubmissionFailureRetryInterval: 10
+    sparkConf:
+      spark.databricks.delta.autoCompact.enabled: "true"
+    hadoopConf:
+      fs.s3a.aws.credentials.provider: com.amazonaws.auth.WebIdentityTokenCredentialsProvider
+    volumes:
       - name: "tmp"
-        mountPath: "/tmp"
+        hostPath:
+          path: "/tmp"
+          type: Directory
+      - name: config-vol
+        configMap:
+          name: iot-hotspot-rewards-silver-query
+          items:
+            - key: query.sql
+              path: query.sql
+    driver:
+      serviceAccount: spark-data-lake-access
+      cores: 1
+      coreLimit: "1200m"
+      memory: "512m"
+      nodeSelector:
+        node.kubernetes.io/instance-type: m5.large
+      envVars:
+        TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
+        PARTITION_BY: "date"
+        CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-hotspot-rewards
+        OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-hotspot-rewards
+        QUERY_PATH: /app/query.sql
+        TRIGGER: AvailableNow
+      labels:
+        version: 3.4.0
+      volumeMounts:
+        - name: "test-volume"
+          mountPath: "/tmp"
+        - name: config-vol
+          mountPath: /app
+    executor:
+      serviceAccount: spark-data-lake-access
+      cores: 1
+      coreLimit: "1200m"
+      instances: 2
+      memory: "10G"
+      tolerations: # Schedule executor pods on spot-spark instance group
+        - key: dedicated
+          operator: Equal
+          value: spot-spark
+          effect: NoSchedule
+      nodeSelector:
+        nodegroup-type: spot-spark
+      labels:
+        version: 3.4.0
+      volumeMounts:
+        - name: "tmp"
+          mountPath: "/tmp"
