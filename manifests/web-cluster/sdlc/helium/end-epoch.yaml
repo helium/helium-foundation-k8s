@@ -6,9 +6,11 @@ metadata:
 spec:
   schedule: "0 0 * * *"
   concurrencyPolicy: "Forbid"
-  failedJobsHistoryLimit: 10
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
+      backoffLimit: 3
       template:
         metadata:
           labels:
