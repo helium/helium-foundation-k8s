@@ -92,6 +92,8 @@ spec:
           operator: Equal
           value: spot-spark
           effect: NoSchedule
+      nodeSelector:
+        nodegroup-type: spot-spark
       labels:
         version: 3.4.0
       volumeMounts:
