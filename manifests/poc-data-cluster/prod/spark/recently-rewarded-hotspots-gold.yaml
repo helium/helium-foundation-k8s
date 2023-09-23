@@ -87,6 +87,11 @@ spec:
       coreLimit: "1200m"
       instances: 3
       memory: "6G"
+      tolerations: # Schedule executor pods on spot-spark instance group
+        - key: dedicated
+          operator: Equal
+          value: spot-spark
+          effect: NoSchedule
       labels:
         version: 3.4.0
       volumeMounts:
