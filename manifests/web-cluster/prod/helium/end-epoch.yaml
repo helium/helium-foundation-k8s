@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: end-epoch
-            image: public.ecr.aws/v0j6k5v6/crons:0.0.3
+            image: public.ecr.aws/v0j6k5v6/crons:0.0.4
             imagePullPolicy: IfNotPresent
             command: ["node", "/usr/src/app/lib/src/end-epoch.js"]
             env:
