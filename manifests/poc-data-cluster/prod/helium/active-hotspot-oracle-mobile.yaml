@@ -27,7 +27,7 @@ spec:
             env:
               - name: SOLANA_URL
                 valueFrom:
-                  configMapKeyRef:
+                  secretKeyRef:
                     name: rpc-url
                     key: rpc-url
               - name: ANCHOR_WALLET
