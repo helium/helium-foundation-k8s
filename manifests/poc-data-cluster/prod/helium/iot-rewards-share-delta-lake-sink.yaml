@@ -5,7 +5,8 @@ metadata:
   namespace: helium
 spec:
   concurrencyPolicy: Forbid
-  schedule: "10 */4 * * *"
+  # Rewards run at 12:30-1am, run this after 
+  schedule: "0 2 * * *"
   jobTemplate:
     spec:
       backoffLimit: 10
