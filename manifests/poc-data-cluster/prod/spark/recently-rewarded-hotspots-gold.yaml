@@ -29,8 +29,8 @@ metadata:
   name: recently-rewarded-hotspots-gold
   namespace: spark
 spec:
-  # Run 30 minutes before the end of epoch
-  schedule: "30 23 * * *"
+  # Run 30 minutes after the silver pipeliens
+  schedule: "0 3 * * *"
   concurrencyPolicy: Forbid
   successfulRunHistoryLimit: 1
   failedRunHistoryLimit: 5

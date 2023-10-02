@@ -21,8 +21,8 @@ metadata:
   name: iot-hotspot-rewards-silver
   namespace: spark
 spec:
-  # Run 15 minutes after iot-reward-share-delta-lake-sink
-  schedule: "25 */4 * * *"
+  # Run 30 minutes after iot-reward-share-delta-lake-sink
+  schedule: "30 2 * * *"
   concurrencyPolicy: Forbid
   successfulRunHistoryLimit: 1
   failedRunHistoryLimit: 5
