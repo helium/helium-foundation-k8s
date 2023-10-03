@@ -84,12 +84,28 @@ data:
             {
               "type": "IotHotspotInfoV0",
               "table": "iot_hotspot_infos",
-              "schema": "public"
+              "schema": "public",
+              "plugins": [
+                {
+                  "type": "ExtractHexLocation",
+                  "config": {
+                    "field": "location"
+                  }
+                }
+              ]
             },
             {
               "type": "MobileHotspotInfoV0",
               "table": "mobile_hotspot_infos",
-              "schema": "public"
+              "schema": "public",
+              "plugins": [
+                {
+                  "type": "ExtractHexLocation",
+                  "config": {
+                    "field": "location"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -128,7 +144,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.44
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.45
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -147,6 +163,11 @@ spec:
               value: monitoring
             - name: PGSSLMODE
               value: no-verify
+            - name: MAPBOX_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: mapbox-api-key
+                  key: mapbox-api-key
             - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:
