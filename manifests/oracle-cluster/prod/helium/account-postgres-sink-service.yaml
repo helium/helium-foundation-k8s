@@ -80,11 +80,6 @@ spec:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
-            - name: MAPBOX_ACCESS_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: mapbox-api-key
-                  key: mapbox-api-key
             - name: ASSET_API_URL
               valueFrom:
                 configMapKeyRef:
