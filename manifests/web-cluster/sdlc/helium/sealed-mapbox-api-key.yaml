@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: mapbox-api-key
+  namespace: helium
+spec:
+  encryptedData:
+    mapbox-api-key: AgCRVoR/hWMP3nCu06aVDWmzX08DaH8yyeGJN32WreFXXs1Fm7Hth10uvTU8zUOMZXaWemEoWWmdFRGJ4cx15Ipgu8PhhXFj+IZQBOwsWst36lcMgqXBhEk2sE+VYfMel/C6PeFE2sNY4QAlzW4ImbbflJbWN6fHf4dmm9/AFIiuNsykddV/Zp54ZSjvxkYFeCT5QzaeMpr85nXZwfHr9fcI1reopfyXVJknQ2Khz8OTtgjTe40pUGztVYUOdOl445CvaG/gEmeWBA6bR2yGtloyQ1QClixQftWGA4oiHn/HW3r2CvPoKptPrrSTyaB2ty0OpUPTUz7EXPoq1kKLMJb3uJ2DlxohCj13sTNPlFze+89Y79fxGNqSEqoYw4wATPA/OSQwEof09Icdi/n0LhpibQzoJjlUOrBUJIYrF7+JdGxgjAZ+UnYOoOAMS7K4msfeI9K03ydUVqaSW+BxX7tqZlajw5XlOgz2xor+JMCt3pSSgSNO0XuKGH/XyojOh/DJzKBh87Ebc/YbVBzNF1DwUh4Dg3n0ZsH/viRDgjQdKpUFA8PZIlNXXGe2pd1Yxy+EtHhPQAZCRFqvYGPeWFQ/IPFmJHyFZrt1GcDN8qb59gE/BAj+Lub69F1Q8FbV3tYpIobPcK3LHwUqDjPyx5q7r7B1ByPQ7kvdGo4e+rWtEt+prT1FrO2knu03q5u0C7VScsvk76iIFTy8Ws4Vehx1e6fCy1K/LPDorLzYPnOlNd1kQXUuZ5+bXgBh1wq+HVSP0cMf4weCISsWn41soKL+rQKz275Ynj1bZ5nV80M+oo/9e4/vbBOa2Dw=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: mapbox-api-key
+      namespace: helium
+
