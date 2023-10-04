@@ -86,28 +86,12 @@ data:
               "table": "iot_hotspot_infos",
               "schema": "public",
               "batchSize": 2500,
-              "plugins": [
-                {
-                  "type": "ExtractHexLocation",
-                  "config": {
-                    "field": "location"
-                  }
-                }
-              ]
             },
             {
               "type": "MobileHotspotInfoV0",
               "table": "mobile_hotspot_infos",
               "schema": "public",
               "batchSize": 2500,
-              "plugins": [
-                {
-                  "type": "ExtractHexLocation",
-                  "config": {
-                    "field": "location"
-                  }
-                }
-              ]
             }
           ]
         },
