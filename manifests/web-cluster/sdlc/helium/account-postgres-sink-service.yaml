@@ -165,6 +165,8 @@ spec:
               value: monitoring
             - name: PGSSLMODE
               value: no-verify
+            - name: PHOTON_URL
+              value: "https://photon.komoot.io"
             - name: MAPBOX_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:

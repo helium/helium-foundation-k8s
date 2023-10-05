@@ -85,13 +85,29 @@ data:
               "type": "IotHotspotInfoV0",
               "table": "iot_hotspot_infos",
               "schema": "public",
-              "batchSize": 2500
+              "batchSize": 2500,
+              "plugins": [
+                {
+                  "type": "ExtractHexLocation",
+                  "config": {
+                    "field": "location"
+                  }
+                }
+              ]
             },
             {
               "type": "MobileHotspotInfoV0",
               "table": "mobile_hotspot_infos",
               "schema": "public",
-              "batchSize": 2500
+              "batchSize": 2500,
+              "plugins": [
+                {
+                  "type": "ExtractHexLocation",
+                  "config": {
+                    "field": "location"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -151,6 +167,8 @@ spec:
               value: no-verify
             - name: PG_POOL_SIZE
               value: "20"
+            - name: PHOTON_URL
+              value: "http://52.27.137.135"
             - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:
