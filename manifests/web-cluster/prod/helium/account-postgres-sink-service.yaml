@@ -85,13 +85,13 @@ data:
               "type": "IotHotspotInfoV0",
               "table": "iot_hotspot_infos",
               "schema": "public",
-              "batchSize": 2500,
+              "batchSize": 2500
             },
             {
               "type": "MobileHotspotInfoV0",
               "table": "mobile_hotspot_infos",
               "schema": "public",
-              "batchSize": 2500,
+              "batchSize": 2500
             }
           ]
         },
