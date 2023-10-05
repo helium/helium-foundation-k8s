@@ -1,106 +1,103 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: iot-packets-silver-query
-  namespace: spark
-data:
-  query.sql: |
-    SELECT 
-      gateway_tmst,
-      oui,
-      net_id,
-      rssi as rssi_dbm,
-      frequency as frequency_hz,
-      snr as snr_db,
-      datarate,
-      region,
-      b58encodeChecked(gateway) as gateway,
-      xxhash64(payload_hash) as payload_hash,
-      payload_size
-      free,
-      type,
-      received_timestamp,
-      date,
-      file
-    FROM packet_router_packet_report_v1
-
----
-apiVersion: "sparkoperator.k8s.io/v1beta2"
-kind: ScheduledSparkApplication
-metadata:
-  name: iot-packets-silver
-  namespace: spark
-spec:
-  # Run 15 minutes after packet-report-delta-lake-sink
-  schedule: "25 */4 * * *"
-  concurrencyPolicy: Forbid
-  successfulRunHistoryLimit: 1
-  failedRunHistoryLimit: 5
-  template:
-    type: Scala
-    mode: cluster
-    image: "public.ecr.aws/k0m1p4t7/spark:v3.4.0-aws"
-    imagePullPolicy: Always
-    mainClass: Main
-    mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.2.jar"
-    sparkVersion: "3.4.0"
-    restartPolicy:
-      type: OnFailure
-      onFailureRetries: 3
-      onFailureRetryInterval: 10
-      onSubmissionFailureRetries: 3
-      onSubmissionFailureRetryInterval: 10
-    sparkConf:
-      spark.databricks.delta.autoCompact.enabled: "true"
-    hadoopConf:
-      fs.s3a.aws.credentials.provider: com.amazonaws.auth.WebIdentityTokenCredentialsProvider
-    volumes:
-      - name: "tmp"
-        hostPath:
-          path: "/tmp"
-          type: Directory
-      - name: config-vol
-        configMap:
-          name: iot-packets-silver-query
-          items:
-            - key: query.sql
-              path: query.sql
-    driver:
-      serviceAccount: spark-data-lake-access
-      cores: 1
-      coreLimit: "1200m"
-      memory: "512m"
-      nodeSelector:
-        node.kubernetes.io/instance-type: m5.large
-      envVars:
-        TABLE_PACKET_ROUTER_PACKET_REPORT_V1: s3a://foundation-data-lake-requester-pays/bronze/packet_router_packet_report_v1
-        PARTITION_BY: "date"
-        CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-packets
-        OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-packets
-        QUERY_PATH: /app/query.sql
-        TRIGGER: AvailableNow
-      labels:
-        version: 3.4.0
-      volumeMounts:
-        - name: "test-volume"
-          mountPath: "/tmp"
-        - name: config-vol
-          mountPath: /app
-    executor:
-      serviceAccount: spark-data-lake-access
-      cores: 1
-      coreLimit: "1200m"
-      instances: 3
-      memory: "10G"
-      tolerations: # Schedule executor pods on spot-spark instance group
-        - key: dedicated
-          operator: Equal
-          value: spot-spark
-          effect: NoSchedule
-      nodeSelector:
-        nodegroup-type: spot-spark
-      labels:
-        version: 3.4.0
-      volumeMounts:
-        - name: "tmp"
-          mountPath: "/tmp"
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: iot-packets-silver-query
+#   namespace: spark
+# data:
+#   query.sql: |
+#     SELECT 
+#       gateway_tmst,
+#       oui,
+#       net_id,
+#       rssi as rssi_dbm,
+#       frequency as frequency_hz,
+#       snr as snr_db,
+#       datarate,
+#       region,
+#       b58encodeChecked(gateway) as gateway,
+#       xxhash64(payload_hash) as payload_hash,
+#       payload_size
+#       free,
+#       type,
+#       received_timestamp,
+#       date,
+#       file
+#     FROM packet_router_packet_report_v1
+# ---
+# apiVersion: "sparkoperator.k8s.io/v1beta2"
+# kind: ScheduledSparkApplication
+# metadata:
+#   name: iot-packets-silver
+#   namespace: spark
+# spec:
+#   # Run 15 minutes after packet-report-delta-lake-sink
+#   schedule: "25 */4 * * *"
+#   concurrencyPolicy: Forbid
+#   successfulRunHistoryLimit: 1
+#   failedRunHistoryLimit: 5
+#   template:
+#     type: Scala
+#     mode: cluster
+#     image: "public.ecr.aws/k0m1p4t7/spark:v3.4.0-aws"
+#     imagePullPolicy: Always
+#     mainClass: Main
+#     mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.2.jar"
+#     sparkVersion: "3.4.0"
+#     restartPolicy:
+#       type: OnFailure
+#       onFailureRetries: 3
+#       onFailureRetryInterval: 10
+#       onSubmissionFailureRetries: 3
+#       onSubmissionFailureRetryInterval: 10
+#     sparkConf:
+#       spark.databricks.delta.autoCompact.enabled: "true"
+#     hadoopConf:
+#       fs.s3a.aws.credentials.provider: com.amazonaws.auth.WebIdentityTokenCredentialsProvider
+#     volumes:
+#       - name: "tmp"
+#         hostPath:
+#           path: "/tmp"
+#           type: Directory
+#       - name: config-vol
+#         configMap:
+#           name: iot-packets-silver-query
+#           items:
+#             - key: query.sql
+#               path: query.sql
+#     driver:
+#       serviceAccount: spark-data-lake-access
+#       cores: 1
+#       coreLimit: "1200m"
+#       memory: "512m"
+#       envVars:
+#         TABLE_PACKET_ROUTER_PACKET_REPORT_V1: s3a://foundation-data-lake-requester-pays/bronze/packet_router_packet_report_v1
+#         PARTITION_BY: "date"
+#         CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-packets
+#         OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-packets
+#         QUERY_PATH: /app/query.sql
+#         TRIGGER: AvailableNow
+#       labels:
+#         version: 3.4.0
+#       volumeMounts:
+#         - name: "test-volume"
+#           mountPath: "/tmp"
+#         - name: config-vol
+#           mountPath: /app
+#     executor:
+#       serviceAccount: spark-data-lake-access
+#       cores: 1
+#       coreLimit: "1200m"
+#       instances: 3
+#       memory: "10G"
+#       tolerations: # Schedule executor pods on spot-spark instance group
+#         - key: dedicated
+#           operator: Equal
+#           value: spot-spark
+#           effect: NoSchedule
+#       nodeSelector:
+#         nodegroup-type: spot-spark
+#       labels:
+#         version: 3.4.0
+#       volumeMounts:
+#         - name: "tmp"
+#           mountPath: "/tmp"

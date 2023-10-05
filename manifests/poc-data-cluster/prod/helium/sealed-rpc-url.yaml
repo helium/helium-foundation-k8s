@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: rpc-url
+  namespace: helium
+spec:
+  encryptedData:
+    rpc-url: AgBbSodM6JwoNOa5kcah3u4cb1yOI49J+Cqn+y1tZ4e9Z71JBImzELyrXEF3FlTTqWcPnXXrsVdMLFmvqTvpX2NXszH6jVMwbXuB2uBSdjjZ2yPl+zYnXbyIR6osjTzmeXRfoPa3gZWWFw5EiEMsosULAOiMinks5hwM5VYwK5xNBUfEnplRz74l6w8Q+S+wE5nZsfMNATCl9Ib2mDWf5rgNeQlkRogNHF5Ff5Sf/1czd4glthnmqRmnJ9g+2f8dEAIIWnx/PxbS0VZG6C8M9alzJW9g5DNkjjaQ00DV0SvTCcAhvZ/BfaUkx758LsYPRh3e3MOhCk/d9cxLUC9oxxTCf9dFu95lDvIVJ0xm13m7Ka25PRkounuHXlfoM8kjjMbZLzmg7girsIdQ2ivzUztnnjlahprt2tWboqZm100QpBDmtdQ8rKLkV+HE62L6q8z40a9CbyfynRLsvkQqlg9V9HWl1cjA6f4Z4fCYTD4Gk32x9gvlX1p1NtuzX1JkPvgYgwrpx+pkojrKJJbKoPPJOGAhtPAaFtDQuCZ8iTi76FNNhZezn0nnzwagHpOk/X20FN/ymf7P/vFItNAcFNl9Nr57E070+Z1cVOfjmof6nO7wmXYz+fpTsXsuMlaRyXnmAUfMws4rKzWnUjG5a4GBda0NU29Cn7MrGXeKocnmWD+ZsSPHTNLLUt/BIll4RJojNcITmvc2HUMH4Tli2z32+LPPFFgaI+CyQ2f1HmvH+EJiay/xLRjVpA2CNIyviySvRBAev9xjaT4A7vtcAFFIbFgteAiVzqLj7KQhNQ==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: rpc-url
+      namespace: helium
+

@@ -1,64 +1,64 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: lighter
-  namespace: spark
-  labels:
-    run: lighter
-spec:
-  ports:
-    - name: api
-      port: 8080
-      protocol: TCP
-    - name: javagw
-      port: 25333
-      protocol: TCP
-  selector:
-    run: lighter
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  namespace: spark
-  name: lighter
-spec:
-  selector:
-    matchLabels:
-      run: lighter
-  replicas: 1
-  strategy:
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1
-  template:
-    metadata:
-      labels:
-        run: lighter
-    spec:
-      serviceAccountName: spark-data-lake-access
-      containers:
-        - image: ghcr.io/exacaster/lighter:0.0.45-spark3.4.0
-          name: lighter
-          readinessProbe:
-            httpGet:
-              path: /health/readiness
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 15
-          resources:
-            requests:
-              cpu: "0.25"
-              memory: "512Mi"
-          ports:
-            - containerPort: 8080
-          env: # By default executor pods _should_ be scheduled on spot instance group
-            - name: LIGHTER_KUBERNETES_ENABLED
-              value: "true"
-            - name: LIGHTER_MAX_RUNNING_JOBS
-              value: "15"
-            - name: LIGHTER_KUBERNETES_SERVICE_ACCOUNT
-              value: spark-data-lake-access
-            - name: LIGHTER_BATCH_DEFAULT_CONF
-              value: '{"spark.hadoop.fs.s3a.aws.credentials.provider": "com.amazonaws.auth.WebIdentityTokenCredentialsProvider", "spark.hadoop.fs.s3a.requester-pays.enabled": "true", "spark.kubernetes.container.image": "public.ecr.aws/k0m1p4t7/spark-py:v3.4.0-aws", "spark.sql.extensions": "io.delta.sql.DeltaSparkSessionExtension", "spark.sql.catalog.spark_catalog": "org.apache.spark.sql.delta.catalog.DeltaCatalog" }'
-            - name: LIGHTER_SESSION_DEFAULT_CONF
-              value: '{"spark.hadoop.fs.s3a.aws.credentials.provider": "com.amazonaws.auth.WebIdentityTokenCredentialsProvider", "spark.hadoop.fs.s3a.requester-pays.enabled": "true", "spark.kubernetes.container.image": "public.ecr.aws/k0m1p4t7/spark-py:v3.4.0-aws", "spark.sql.extensions": "io.delta.sql.DeltaSparkSessionExtension", "spark.sql.catalog.spark_catalog": "org.apache.spark.sql.delta.catalog.DeltaCatalog" }'
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: lighter
+#   namespace: spark
+#   labels:
+#     run: lighter
+# spec:
+#   ports:
+#     - name: api
+#       port: 8080
+#       protocol: TCP
+#     - name: javagw
+#       port: 25333
+#       protocol: TCP
+#   selector:
+#     run: lighter
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   namespace: spark
+#   name: lighter
+# spec:
+#   selector:
+#     matchLabels:
+#       run: lighter
+#   replicas: 1
+#   strategy:
+#     rollingUpdate:
+#       maxUnavailable: 0
+#       maxSurge: 1
+#   template:
+#     metadata:
+#       labels:
+#         run: lighter
+#     spec:
+#       serviceAccountName: spark-data-lake-access
+#       containers:
+#         - image: ghcr.io/exacaster/lighter:0.0.45-spark3.4.0
+#           name: lighter
+#           readinessProbe:
+#             httpGet:
+#               path: /health/readiness
+#               port: 8080
+#             initialDelaySeconds: 15
+#             periodSeconds: 15
+#           resources:
+#             requests:
+#               cpu: "0.25"
+#               memory: "512Mi"
+#           ports:
+#             - containerPort: 8080
+#           env: # By default executor pods _should_ be scheduled on spot instance group
+#             - name: LIGHTER_KUBERNETES_ENABLED
+#               value: "true"
+#             - name: LIGHTER_MAX_RUNNING_JOBS
+#               value: "15"
+#             - name: LIGHTER_KUBERNETES_SERVICE_ACCOUNT
+#               value: spark-data-lake-access
+#             - name: LIGHTER_BATCH_DEFAULT_CONF
+#               value: '{"spark.hadoop.fs.s3a.aws.credentials.provider": "com.amazonaws.auth.WebIdentityTokenCredentialsProvider", "spark.hadoop.fs.s3a.requester-pays.enabled": "true", "spark.kubernetes.container.image": "public.ecr.aws/k0m1p4t7/spark-py:v3.4.0-aws", "spark.sql.extensions": "io.delta.sql.DeltaSparkSessionExtension", "spark.sql.catalog.spark_catalog": "org.apache.spark.sql.delta.catalog.DeltaCatalog" }'
+#             - name: LIGHTER_SESSION_DEFAULT_CONF
+#               value: '{"spark.hadoop.fs.s3a.aws.credentials.provider": "com.amazonaws.auth.WebIdentityTokenCredentialsProvider", "spark.hadoop.fs.s3a.requester-pays.enabled": "true", "spark.kubernetes.container.image": "public.ecr.aws/k0m1p4t7/spark-py:v3.4.0-aws", "spark.sql.extensions": "io.delta.sql.DeltaSparkSessionExtension", "spark.sql.catalog.spark_catalog": "org.apache.spark.sql.delta.catalog.DeltaCatalog" }'
