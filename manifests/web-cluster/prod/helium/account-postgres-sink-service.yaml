@@ -168,7 +168,7 @@ spec:
             - name: PG_POOL_SIZE
               value: "20"
             - name: PHOTON_URL
-              value: "http://52.27.137.135"
+              value: "https://photon.komoot.io"
             - name: SOLANA_URL
               valueFrom:
                 configMapKeyRef:
