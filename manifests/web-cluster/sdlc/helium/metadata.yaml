@@ -83,6 +83,8 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/limit-rps: "10"
     nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+    external-dns.alpha.kubernetes.io/hostname: "d2aka7tbwsho2u.cloudfront.net"
+    external-dns.alpha.kubernetes.io/ingress-hostname-source: "annotation-only"
 spec:
   ingressClassName: nginx
   rules:
