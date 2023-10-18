@@ -38,3 +38,5 @@ spec:
                 value: no-verify
               - name: AWS_REGION
                 value: us-east-1
+              - name: CLOUDFRONT_DISTRIBUTION
+                value: E3A2LMGAGPFH5I
