@@ -24,19 +24,17 @@ spec:
             image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.1
             imagePullPolicy: IfNotPresent
             env:
-              - name: PGHOST
-                value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
-              - name: PGPORT
-                value: "5432"
-              - name: PGUSER
-                value: monitoring
-              - name: AWS_REGION
-                value: us-west-2
-              - name: PGDATABASE
-                value: monitoring
-              - name: PGSSLMODE
-                value: no-verify
-              - name: AWS_REGION
-                value: us-east-1
+            - name: PGHOST
+              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+            - name: PGPORT
+              value: "5432"
+            - name: PGUSER
+              value: monitoring
+            - name: AWS_REGION
+              value: us-east-1
+            - name: PGDATABASE
+              value: monitoring
+            - name: PGSSLMODE
+              value: no-verify
               - name: CLOUDFRONT_DISTRIBUTION
                 value: E3A2LMGAGPFH5I
