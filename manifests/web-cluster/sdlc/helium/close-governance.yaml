@@ -1,10 +1,10 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: end-epoch
+  name: close-governance
   namespace: helium
 spec:
-  schedule: "0 0 * * *"
+  schedule: "0 */4 * * *"
   concurrencyPolicy: "Forbid"
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
@@ -14,14 +14,14 @@ spec:
       template:
         metadata:
           labels:
-            app: 'end-epoch'
+            app: 'close-governance'
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: end-epoch
+          - name: close-governance
             image: public.ecr.aws/v0j6k5v6/crons:0.0.9
             imagePullPolicy: IfNotPresent
-            command: ["node", "/usr/src/app/lib/src/end-epoch.js"]
+            command: ["node", "/usr/src/app/lib/src/close-governance.js"]
             env:
               - name: ANCHOR_WALLET
                 value: /usr/src/app/keys/keypair.json
