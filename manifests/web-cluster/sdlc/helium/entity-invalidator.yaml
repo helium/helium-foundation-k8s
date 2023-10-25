@@ -17,7 +17,7 @@ spec:
             app: 'entity-invalidator'
             security-group: public-rds-access
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
           serviceAccountName: invalidation-role
           containers:
           - name: entity-invalidator
