@@ -16,7 +16,7 @@ spec:
           labels:
             app: 'end-epoch'
         spec:
-          restartPolicy: Never
+          restartPolicy: OnFailure
           containers:
           - name: end-epoch
             image: public.ecr.aws/v0j6k5v6/crons:0.0.9
