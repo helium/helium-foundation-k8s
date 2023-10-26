@@ -69,10 +69,10 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              cpu: 100m
-              memory: 200Mi
+              cpu: 250m
+              memory: 1000Mi
             limits:
-              memory: 300Mi
+              memory: 3000Mi
 ---
 apiVersion: v1
 kind: Service
@@ -131,7 +131,7 @@ spec:
         name: memory
         target:
           type: Utilization
-          averageUtilization: 75
+          averageUtilization: 80
     - type: Resource
       resource:
         name: cpu
