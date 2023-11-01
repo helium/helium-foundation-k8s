@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-read-replica-monitoring-user-access
       containers:
         - name: metadata
-          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.14
+          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.15
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
