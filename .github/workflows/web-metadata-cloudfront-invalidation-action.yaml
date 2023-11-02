@@ -15,13 +15,13 @@ jobs:
     - name: Invalidate CloudFront distribution
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+        aws-access-key-id: ${{ secrets.AWS_WEB_SDLC_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_WEB_SDLC_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
     
     - name: Create CloudFront Invalidation
       run: |
-        DISTRIBUTION_ID="YOUR_CLOUDFRONT_DISTRIBUTION_ID" # Replace with your distribution ID
-        PATHS_TO_INVALIDATE="/*"       # Replace with paths you want to invalidate
+        DISTRIBUTION_ID=${{ secrets.AWS_WEB_SDLC_CLOUDFRONT_DISTRIBUTION_ID }}
+        PATHS_TO_INVALIDATE="/*" 
 
         aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths $PATHS_TO_INVALIDATE
