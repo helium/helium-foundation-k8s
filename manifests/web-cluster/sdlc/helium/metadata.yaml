@@ -15,10 +15,10 @@ spec:
         app: metadata
         security-group: public-rds-access
     spec:
-      serviceAccountName: public-monitoring-rds-monitoring-user-access
+      serviceAccountName: public-monitoring-rds-read-replica-monitoring-user-access
       containers:
         - name: metadata
-          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.10
+          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.22
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -38,7 +38,7 @@ spec:
                   name: globals
                   key: solana_url
             - name: PGHOST
-              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+              value: monitoring-rds-read-replica.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER

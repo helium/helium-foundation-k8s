@@ -10,7 +10,7 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
-      backoffLimit: 3
+      backoffLimit: 10
       template:
         metadata:
           labels:
@@ -25,18 +25,18 @@ spec:
             imagePullPolicy: IfNotPresent
             env:
               - name: PGHOST
-                value: monitoring-rds-read-replica.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+                value: monitoring-rds-read-replica.cbhihwhsofyu.us-west-2.rds.amazonaws.com
               - name: PGPORT
                 value: "5432"
               - name: PGUSER
                 value: monitoring
               - name: AWS_REGION
-                value: us-east-1
+                value: us-west-2
               - name: PGDATABASE
                 value: monitoring
               - name: PGSSLMODE
                 value: no-verify
               - name: CLOUDFRONT_DISTRIBUTION
-                value: E3A2LMGAGPFH5I
+                value: EO5ODEGCJ6FK
               - name: DOMAIN
-                value: entities.nft.test-helium.com
+                value: entities.nft.helium.io
