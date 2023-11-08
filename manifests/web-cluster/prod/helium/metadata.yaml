@@ -15,10 +15,10 @@ spec:
         app: metadata
         security-group: public-rds-access
     spec:
-      serviceAccountName: public-monitoring-rds-monitoring-user-access
+      serviceAccountName: public-monitoring-rds-read-replica-monitoring-user-access
       containers:
         - name: metadata
-          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.20
+          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.21
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -38,7 +38,7 @@ spec:
                   name: globals
                   key: solana_url
             - name: PGHOST
-              value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
+              value: monitoring-rds-read-replica.cbhihwhsofyu.us-west-2.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER
@@ -69,9 +69,10 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              cpu: 250m
+              cpu: 750m
               memory: 500Mi
             limits:
+              cpu: 1000m
               memory: 750Mi
 ---
 apiVersion: v1
@@ -97,6 +98,8 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/limit-rps: "10"
     nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+    external-dns.alpha.kubernetes.io/hostname: "d2sqvm859jhkhq.cloudfront.net"
+    external-dns.alpha.kubernetes.io/ingress-hostname-source: "annotation-only"
 spec:
   ingressClassName: nginx
   rules:
