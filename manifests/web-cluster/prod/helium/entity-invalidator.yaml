@@ -21,7 +21,7 @@ spec:
           serviceAccountName: invalidation-role
           containers:
           - name: entity-invalidator
-            image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.4
+            image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.6
             imagePullPolicy: IfNotPresent
             env:
               - name: PGHOST
@@ -38,5 +38,3 @@ spec:
                 value: no-verify
               - name: CLOUDFRONT_DISTRIBUTION
                 value: EO5ODEGCJ6FK
-              - name: DOMAIN
-                value: entities.nft.helium.io
