@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-read-replica-monitoring-user-access
       containers:
         - name: metadata
-          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.23
+          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.24
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -95,8 +95,8 @@ metadata:
   name: metadata
   namespace: helium
   annotations:
-    nginx.ingress.kubernetes.io/limit-rps: "10"
-    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+    nginx.ingress.kubernetes.io/limit-rps: "50"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "50"
     external-dns.alpha.kubernetes.io/hostname: "d2aka7tbwsho2u.cloudfront.net"
     external-dns.alpha.kubernetes.io/ingress-hostname-source: "annotation-only"
 spec:
