@@ -7,6 +7,8 @@ spec:
   concurrencyPolicy: Forbid
   # Rewards run at 12:30-1am, run this after 
   schedule: "0 2 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
       backoffLimit: 10

@@ -7,6 +7,8 @@ spec:
   concurrencyPolicy: Forbid
   # Run 30 minutes after the gold table
   schedule: "30 3 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
       backoffLimit: 10
