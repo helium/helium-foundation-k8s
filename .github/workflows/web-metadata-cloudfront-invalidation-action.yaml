@@ -1,0 +1,27 @@
+name: Invalidate CloudFront Distribution
+
+on:
+  push:
+    paths:
+      - 'manifests/web-cluster/sdlc/helium/metadata.yaml'
+
+jobs:
+  cloudfront-invalidation:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Invalidate CloudFront distribution
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_WEB_SDLC_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_WEB_SDLC_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    
+    - name: Create CloudFront Invalidation
+      run: |
+        DISTRIBUTION_ID=${{ secrets.AWS_WEB_SDLC_CLOUDFRONT_DISTRIBUTION_ID }}
+        PATHS_TO_INVALIDATE="/*" 
+
+        aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths $PATHS_TO_INVALIDATE

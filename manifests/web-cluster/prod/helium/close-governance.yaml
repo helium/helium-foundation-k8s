@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: close-governance
-            image: public.ecr.aws/v0j6k5v6/crons:0.0.9
+            image: public.ecr.aws/v0j6k5v6/crons:0.0.10
             imagePullPolicy: IfNotPresent
             command: ["node", "/usr/src/app/lib/src/close-governance.js"]
             env:
