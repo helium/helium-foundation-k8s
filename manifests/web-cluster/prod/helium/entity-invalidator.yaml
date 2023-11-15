@@ -1,40 +1,40 @@
-# apiVersion: batch/v1
-# kind: CronJob
-# metadata:
-#   name: entity-invalidator
-#   namespace: helium
-# spec:
-#   schedule: "0 2 * * *"
-#   concurrencyPolicy: "Forbid"
-#   successfulJobsHistoryLimit: 3
-#   failedJobsHistoryLimit: 3
-#   jobTemplate:
-#     spec:
-#       backoffLimit: 10
-#       template:
-#         metadata:
-#           labels:
-#             app: 'entity-invalidator'
-#             security-group: public-rds-access
-#         spec:
-#           restartPolicy: OnFailure
-#           serviceAccountName: invalidation-role
-#           containers:
-#           - name: entity-invalidator
-#             image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.6
-#             imagePullPolicy: IfNotPresent
-#             env:
-#               - name: PGHOST
-#                 value: monitoring-rds-read-replica.cbhihwhsofyu.us-west-2.rds.amazonaws.com
-#               - name: PGPORT
-#                 value: "5432"
-#               - name: PGUSER
-#                 value: monitoring
-#               - name: AWS_REGION
-#                 value: us-west-2
-#               - name: PGDATABASE
-#                 value: monitoring
-#               - name: PGSSLMODE
-#                 value: no-verify
-#               - name: CLOUDFRONT_DISTRIBUTION
-#                 value: EO5ODEGCJ6FK
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: entity-invalidator
+  namespace: helium
+spec:
+  schedule: "0 2 * * *"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        metadata:
+          labels:
+            app: 'entity-invalidator'
+            security-group: public-rds-access
+        spec:
+          restartPolicy: OnFailure
+          serviceAccountName: invalidation-role
+          containers:
+          - name: entity-invalidator
+            image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.7
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: PGHOST
+                value: monitoring-rds-read-replica.cbhihwhsofyu.us-west-2.rds.amazonaws.com
+              - name: PGPORT
+                value: "5432"
+              - name: PGUSER
+                value: monitoring
+              - name: AWS_REGION
+                value: us-west-2
+              - name: PGDATABASE
+                value: monitoring
+              - name: PGSSLMODE
+                value: no-verify
+              - name: CLOUDFRONT_DISTRIBUTION
+                value: EO5ODEGCJ6FK
