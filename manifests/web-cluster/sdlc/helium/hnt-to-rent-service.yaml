@@ -24,12 +24,15 @@ spec:
               protocol: TCP
           env:
             - name: SOLANA_URL
-              value: https://solana-rpc.web.helium.io?session-key=Pluto
+              valueFrom:
+                secretKeyRef:
+                  name: rpc-url
+                  key: rpc-url
             - name: ASSET_API_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: asset_api_url
+                secretKeyRef:
+                  name: rpc-url
+                  key: rpc-url
             - name: ANCHOR_WALLET
               value: /usr/src/app/keys/keypair.json
           readinessProbe:

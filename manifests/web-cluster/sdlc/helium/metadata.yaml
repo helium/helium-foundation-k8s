@@ -34,9 +34,9 @@ spec:
                   key: iot_mint
             - name: SOLANA_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: solana_url
+                secretKeyRef:
+                  name: rpc-url
+                  key: rpc-url
             - name: PGHOST
               value: monitoring-rds-read-replica.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PGPORT

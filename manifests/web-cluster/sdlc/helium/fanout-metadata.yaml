@@ -25,9 +25,9 @@ spec:
           env:
             - name: SOLANA_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: solana_url
+                secretKeyRef:
+                  name: rpc-url
+                  key: rpc-url
           readinessProbe:
             failureThreshold: 3
             httpGet:
