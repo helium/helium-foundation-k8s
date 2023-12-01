@@ -36,5 +36,5 @@ spec:
                 value: monitoring
               - name: PGSSLMODE
                 value: no-verify
-              - name: CLOUDFRONT_DISTRIBUTION
-                value: E3A2LMGAGPFH5I
+              - name: DOMAIN
+                value: entities.nft.test-helium.com
