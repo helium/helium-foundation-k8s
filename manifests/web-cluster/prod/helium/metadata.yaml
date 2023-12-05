@@ -49,6 +49,8 @@ spec:
               value: monitoring
             - name: PGSSLMODE
               value: no-verify
+            - name: CLOUDFRONT_DISTRIBUTION
+              value: EO5ODEGCJ6FK
           readinessProbe:
             failureThreshold: 3
             httpGet:
@@ -98,7 +100,8 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/limit-rps: "50"
     nginx.ingress.kubernetes.io/limit-burst-multiplier: "50"
-    external-dns.alpha.kubernetes.io/exclude: "true"
+    external-dns.alpha.kubernetes.io/hostname: "d2sqvm859jhkhq.cloudfront.net"
+    external-dns.alpha.kubernetes.io/ingress-hostname-source: "annotation-only"
 spec:
   ingressClassName: nginx
   rules:
