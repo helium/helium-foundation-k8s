@@ -21,7 +21,7 @@ spec:
           serviceAccountName: invalidation-role
           containers:
           - name: entity-invalidator
-            image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.7
+            image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.8
             imagePullPolicy: IfNotPresent
             env:
               - name: PGHOST
@@ -37,7 +37,7 @@ spec:
               - name: PGSSLMODE
                 value: no-verify
               - name: DOMAIN
-                value: entities.nft.test-helium.com
+                value: https://entities.nft.test-helium.com
               - name: CLOUDFLARE_API_TOKEN
                 valueFrom:
                   secretKeyRef:
