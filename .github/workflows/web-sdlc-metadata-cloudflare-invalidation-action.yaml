@@ -1,0 +1,30 @@
+name: Invalidate Cloudflare Cache for Web SDLC
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'manifests/web-cluster/sdlc/helium/metadata.yaml'
+
+jobs:
+  purge-cloudflare-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Purge Cloudflare Cache for Web SDLC
+        run: |
+          ZONE_ID="${{ secrets.WEB_SDLC_CLOUDFLARE_ZONE_ID }}"
+          API_TOKEN="${{ secrets.WEB_SDLC_CLOUDFLARE_API_TOKEN }}"
+          ENDPOINT="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache"
+
+          DATA='{"purge_everything":true}'
+
+          response=$(curl -X POST "$ENDPOINT" \
+            -H "Authorization: Bearer $API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data "$DATA")
+
+          echo "Response: $response"
