@@ -49,8 +49,6 @@ spec:
               value: monitoring
             - name: PGSSLMODE
               value: no-verify
-            - name: CLOUDFRONT_DISTRIBUTION
-              value: EO5ODEGCJ6FK
           readinessProbe:
             failureThreshold: 3
             httpGet:
