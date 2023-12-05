@@ -38,3 +38,13 @@ spec:
                 value: no-verify
               - name: DOMAIN
                 value: entities.nft.test-helium.com
+              - name: CLOUDFLARE_API_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudflare-secrets
+                    key: CLOUDFLARE_API_TOKEN
+              - name: CLOUDFLARE_ZONE_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudflare-secrets
+                    key: CLOUDFLARE_ZONE_ID

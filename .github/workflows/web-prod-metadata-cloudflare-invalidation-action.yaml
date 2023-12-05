@@ -17,15 +17,13 @@ jobs:
       - name: Purge Cloudflare Cache for Web Prod
         run: |
           ZONE_ID="${{ secrets.WEB_PROD_CLOUDFLARE_ZONE_ID }}"
-          EMAIL="${{ secrets.WEB_PROD_CLOUDFLARE_EMAIL }}"
-          API_KEY="${{ secrets.WEB_PROD_CLOUDFLARE_API_KEY }}"
+          API_TOKEN="${{ secrets.WEB_PROD_CLOUDFLARE_API_TOKEN }}"
           ENDPOINT="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache"
 
           DATA='{"purge_everything":true}'
 
           response=$(curl -X POST "$ENDPOINT" \
-            -H "X-Auth-Email: $EMAIL" \
-            -H "X-Auth-Key: $API_KEY" \
+            -H "Authorization: Bearer $API_TOKEN" \
             -H "Content-Type: application/json" \
             --data "$DATA")
 
