@@ -5,7 +5,7 @@ on:
     branches:
       - develop
     paths:
-      - 'manifests/web-cluster/sdlc/helium/metadata.yaml'
+      - 'manifests/web-cluster/prod/helium/metadata.yaml'
 
 jobs:
   purge-cloudflare-cache:
