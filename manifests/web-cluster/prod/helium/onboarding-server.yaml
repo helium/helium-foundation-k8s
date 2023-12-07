@@ -60,14 +60,14 @@ spec:
                   key: mobile_mint
             - name: SOLANA_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: solana_url
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
             - name: ASSET_API_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: asset_api_url
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
             - name: ECC_VERIFY_ENDPOINT
               value: https://ecc-verifier.web.helium.io/verify
             - name: ECC_VERIFIER
