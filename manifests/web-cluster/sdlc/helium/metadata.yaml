@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-read-replica-monitoring-user-access
       containers:
         - name: metadata
-          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.25
+          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.27
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -34,9 +34,9 @@ spec:
                   key: iot_mint
             - name: SOLANA_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: solana_url
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
             - name: PGHOST
               value: monitoring-rds-read-replica.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PGPORT
@@ -97,8 +97,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/limit-rps: "50"
     nginx.ingress.kubernetes.io/limit-burst-multiplier: "50"
-    external-dns.alpha.kubernetes.io/hostname: "d2aka7tbwsho2u.cloudfront.net"
-    external-dns.alpha.kubernetes.io/ingress-hostname-source: "annotation-only"
+    external-dns.alpha.kubernetes.io/exclude: "true" # Tell external-dns not to manage DNS for metadata ingress since it's being handled out of band in Cloudflare
 spec:
   ingressClassName: nginx
   rules:

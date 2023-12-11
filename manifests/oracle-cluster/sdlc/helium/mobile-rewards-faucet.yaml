@@ -27,9 +27,9 @@ spec:
           env:
             - name: ANCHOR_PROVIDER_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: solana_url
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
             - name: PGDATABASE
               value: mobile_index
             - name: PGHOST

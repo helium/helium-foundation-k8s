@@ -27,9 +27,9 @@ spec:
               value: /usr/src/app/keys/keypair.json
             - name: SOLANA_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: solana_url
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
           readinessProbe:
             failureThreshold: 3
             httpGet:

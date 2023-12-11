@@ -27,9 +27,9 @@ spec:
           env:
             - name: ANCHOR_PROVIDER_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: solana_url
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
             - name: ORACLE_KEYPAIR_PATH
               value: /usr/src/app/keys/keypair.json
             - name: PGDATABASE
@@ -44,9 +44,9 @@ spec:
               value: us-west-2
             - name: ASSET_API_URL
               valueFrom:
-                configMapKeyRef:
-                  name: globals
-                  key: asset_api_url
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
             - name: DNT_MINT
               valueFrom:
                 configMapKeyRef:
