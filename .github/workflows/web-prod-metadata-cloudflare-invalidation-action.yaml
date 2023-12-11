@@ -3,7 +3,7 @@
 # on:
 #   push:
 #     branches:
-#       - develop
+#       - main
 #     paths:
 #       - 'manifests/web-cluster/prod/helium/metadata.yaml'
 
