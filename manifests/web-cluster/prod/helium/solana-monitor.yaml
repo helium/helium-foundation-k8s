@@ -14,10 +14,12 @@ spec:
     metadata:
       labels:
         app: solana-monitor
+        security-group: public-rds-access
     spec:
+      serviceAccountName: public-monitoring-rds-read-replica-monitoring-user-access
       containers:
         - name: solana-monitor
-          image: public.ecr.aws/v0j6k5v6/solana-monitor:0.0.17
+          image: public.ecr.aws/v0j6k5v6/solana-monitor:0.0.18
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
@@ -49,6 +51,18 @@ spec:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
+            - name: PGHOST
+              value: monitoring-rds-read-replica.cbhihwhsofyu.us-west-2.rds.amazonaws.com
+            - name: PGPORT
+              value: "5432"
+            - name: PGUSER
+              value: monitoring
+            - name: AWS_REGION
+              value: us-west-2
+            - name: PGDATABASE
+              value: monitoring
+            - name: PGSSLMODE
+              value: no-verify
           readinessProbe:
             failureThreshold: 3
             httpGet:
