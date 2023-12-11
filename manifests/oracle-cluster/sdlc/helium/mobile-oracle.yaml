@@ -93,6 +93,9 @@ kind: Service
 metadata:
   name: mobile-oracle
   namespace: helium
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
 spec:
   ports:
     - port: 8080
