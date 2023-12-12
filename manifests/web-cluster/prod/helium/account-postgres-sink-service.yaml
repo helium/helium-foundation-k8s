@@ -25,7 +25,7 @@ data:
             { "type": "Registrar", "table": "registrars", "schema": "public" }
           ],
           "crons": [
-            { "schedule": "5 */12 * * *", "type": "refresh-accounts" },
+            { "schedule": "5 */12 * * *", "type": "refresh-accounts" }
           ]
         },
         {
@@ -50,7 +50,7 @@ data:
             }
           ],
           "crons": [
-            { "schedule": "5 */12 * * *", "type": "refresh-accounts" },
+            { "schedule": "5 */12 * * *", "type": "refresh-accounts" }
           ]
         },
         {
