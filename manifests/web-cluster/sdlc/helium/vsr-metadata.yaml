@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: vsr-metadata
-          image: public.ecr.aws/v0j6k5v6/vsr-metadata-service:0.0.3
+          image: public.ecr.aws/v0j6k5v6/vsr-metadata-service:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
