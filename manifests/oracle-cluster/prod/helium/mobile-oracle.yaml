@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-mobile-oracle-user-access
       containers:
         - name: mobile-oracle
-          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.0.50
+          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.0.52
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -93,6 +93,9 @@ kind: Service
 metadata:
   name: mobile-oracle
   namespace: helium
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
 spec:
   ports:
     - port: 8080

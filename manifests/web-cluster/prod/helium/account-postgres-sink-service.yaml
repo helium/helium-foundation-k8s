@@ -23,6 +23,9 @@ data:
           "accounts": [
             { "type": "PositionV0", "table": "positions", "schema": "public" },
             { "type": "Registrar", "table": "registrars", "schema": "public" }
+          ],
+          "crons": [
+            { "schedule": "5 */12 * * *", "type": "refresh-accounts" }
           ]
         },
         {
@@ -45,6 +48,9 @@ data:
               "table": "delegated_positions",
               "schema": "public"
             }
+          ],
+          "crons": [
+            { "schedule": "5 */12 * * *", "type": "refresh-accounts" }
           ]
         },
         {
@@ -127,7 +133,8 @@ data:
         "CREATE UNIQUE INDEX IF NOT EXISTS key_to_asset_asset_index ON key_to_assets(asset);",
         "CREATE UNIQUE INDEX IF NOT EXISTS key_to_asset_entity_key_index ON key_to_assets(entity_key);",
         "CREATE UNIQUE INDEX IF NOT EXISTS iot_hotspot_infos_asset_index ON iot_hotspot_infos(asset);",
-        "CREATE UNIQUE INDEX IF NOT EXISTS mobile_hotspot_infos_asset_index ON mobile_hotspot_infos(asset);"
+        "CREATE UNIQUE INDEX IF NOT EXISTS mobile_hotspot_infos_asset_index ON mobile_hotspot_infos(asset);",
+        "CREATE INDEX IF NOT EXISTS recipient_lazy_distributor_index ON recipients(lazy_distributor);"
       ]
     }
 ---
