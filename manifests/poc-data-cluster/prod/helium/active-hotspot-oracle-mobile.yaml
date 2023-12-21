@@ -4,9 +4,9 @@ metadata:
   name: active-hotspot-oracle-mobile
   namespace: helium
 spec:
-  concurrencyPolicy: Forbid
   # Run 30 minutes after the gold table
   schedule: "30 3 * * *"
+  concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
   jobTemplate:
@@ -15,13 +15,8 @@ spec:
       template:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
-          tolerations: # Schedule executor pods on spot-helium instance group
-            - key: dedicated
-              operator: Equal
-              value: spot-helium
-              effect: NoSchedule
           nodeSelector:
-            nodegroup-type: spot-helium
+            nodegroup-type: medium
           containers:
           - name: active-hotspot-oracle-mobile
             image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.12
