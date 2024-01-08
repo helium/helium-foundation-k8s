@@ -14,6 +14,7 @@ data:
       gateway_reward.witness_amount as witness_amount,
       gateway_reward.dc_transfer_amount as dc_transfer_amount
     FROM iot_reward_share
+    WHERE date >= 2024-01-07
 ---
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: ScheduledSparkApplication
@@ -32,7 +33,7 @@ spec:
     image: "public.ecr.aws/k0m1p4t7/spark:v3.4.0-aws"
     imagePullPolicy: Always
     mainClass: Main
-    mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.3.jar"
+    mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.2.jar"
     sparkVersion: "3.4.0"
     restartPolicy:
       type: OnFailure
@@ -65,11 +66,10 @@ spec:
       envVars:
         TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
         PARTITION_BY: "date"
-        CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-hotspot-rewards2
+        CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-hotspot-rewards3
         OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-hotspot-rewards
         QUERY_PATH: /app/query.sql
         TRIGGER: AvailableNow
-        STARTING_TIMESTAMP: "2024-01-07"
       labels:
         version: 3.4.0
       volumeMounts:
