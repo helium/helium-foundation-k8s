@@ -14,7 +14,6 @@ data:
       gateway_reward.witness_amount as witness_amount,
       gateway_reward.dc_transfer_amount as dc_transfer_amount
     FROM iot_reward_share
-    WHERE date >= 2024-01-07
 ---
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: ScheduledSparkApplication
@@ -66,7 +65,7 @@ spec:
       envVars:
         TABLE_IOT_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/bronze/iot_reward_share
         PARTITION_BY: "date"
-        CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-hotspot-rewards3
+        CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-hotspot-rewards
         OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-hotspot-rewards
         QUERY_PATH: /app/query.sql
         TRIGGER: AvailableNow
