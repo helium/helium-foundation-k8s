@@ -10,7 +10,7 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
-      backoffLimit: 3
+      backoffLimit: 10
       template:
         metadata:
           labels:
@@ -21,7 +21,7 @@ spec:
           serviceAccountName: invalidation-role
           containers:
           - name: entity-invalidator
-            image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.7
+            image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.8
             imagePullPolicy: IfNotPresent
             env:
               - name: PGHOST
@@ -36,5 +36,15 @@ spec:
                 value: monitoring
               - name: PGSSLMODE
                 value: no-verify
-              - name: CLOUDFRONT_DISTRIBUTION
-                value: EO5ODEGCJ6FK
+              - name: DOMAIN
+                value: https://entities.nft.helium.io
+              - name: CLOUDFLARE_API_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudflare-secrets
+                    key: CLOUDFLARE_API_TOKEN
+              - name: CLOUDFLARE_ZONE_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudflare-secrets
+                    key: CLOUDFLARE_ZONE_ID
