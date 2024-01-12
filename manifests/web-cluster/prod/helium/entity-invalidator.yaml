@@ -18,6 +18,7 @@ spec:
             security-group: public-rds-access
         spec:
           restartPolicy: OnFailure
+          serviceAccountName: public-monitoring-rds-read-replica-monitoring-user-access
           containers:
           - name: entity-invalidator
             image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.8
