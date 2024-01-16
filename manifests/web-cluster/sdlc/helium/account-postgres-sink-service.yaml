@@ -152,7 +152,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.65
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.1.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
