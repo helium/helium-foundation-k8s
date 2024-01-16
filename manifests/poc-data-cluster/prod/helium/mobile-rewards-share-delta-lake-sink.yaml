@@ -50,6 +50,8 @@ spec:
               - mapper.proto
               - --source-protos
               - service/poc_mobile.proto
+              - --source-protos
+              - service_provider.proto
               - --target-bucket
               - foundation-data-lake-requester-pays
               - --target-table
