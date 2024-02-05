@@ -11,7 +11,7 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
-      backoffLimit: 10
+      backoffLimit: 25
       template:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
