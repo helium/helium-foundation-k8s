@@ -121,6 +121,17 @@ data:
             },
             { "type": "RecipientV0", "table": "recipients", "schema": "public" }
           ]
+        },
+        {
+          "programId": "hexbnKYoA2GercNNhHUCCfrTRWrHjT6ujKPXTa5NPqJ",
+          "accounts": [
+            {
+              "type": "BoostConfigV0",
+              "table": "boost_configs",
+              "schema": "public"
+            },
+            { "type": "BoostedHexV0", "table": "boosted_hexes", "schema": "public" }
+          ]
         }
       ],
       "indexConfigs": [

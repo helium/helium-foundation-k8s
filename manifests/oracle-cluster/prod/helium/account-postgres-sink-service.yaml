@@ -29,6 +29,20 @@ data:
           "crons": [
             { "schedule": "0 0 * * *", "type": "integrity-check" }
           ]
+        },
+        {
+          "programId": "hexbnKYoA2GercNNhHUCCfrTRWrHjT6ujKPXTa5NPqJ",
+          "accounts": [
+            {
+              "type": "BoostConfigV0",
+              "table": "boost_configs",
+              "schema": "public"
+            },
+            { "type": "BoostedHexV0", "table": "boosted_hexes", "schema": "public" }
+          ],
+          "crons": [
+            { "schedule": "0 0 * * *", "type": "integrity-check" }
+          ]
         }
       ]
     }
