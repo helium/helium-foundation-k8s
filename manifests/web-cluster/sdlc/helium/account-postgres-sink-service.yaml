@@ -135,10 +135,10 @@ data:
         }
       ],
       "indexConfigs": [
-        "CREATE UNIQUE INDEX IF NOT EXISTS key_to_asset_asset_index ON key_to_assets(asset);",
-        "CREATE UNIQUE INDEX IF NOT EXISTS key_to_asset_entity_key_index ON key_to_assets(entity_key);",
-        "CREATE UNIQUE INDEX IF NOT EXISTS iot_hotspot_infos_asset_index ON iot_hotspot_infos(asset);",
-        "CREATE UNIQUE INDEX IF NOT EXISTS mobile_hotspot_infos_asset_index ON mobile_hotspot_infos(asset);"
+        "CREATE INDEX IF NOT EXISTS key_to_asset_asset_index ON key_to_assets(asset);",
+        "CREATE INDEX IF NOT EXISTS key_to_asset_entity_key_index ON key_to_assets(entity_key);",
+        "CREATE INDEX IF NOT EXISTS iot_hotspot_infos_asset_index ON iot_hotspot_infos(asset);",
+        "CREATE INDEX IF NOT EXISTS mobile_hotspot_infos_asset_index ON mobile_hotspot_infos(asset);"
       ]
     }
 ---
@@ -163,7 +163,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.0.65
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.1.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000

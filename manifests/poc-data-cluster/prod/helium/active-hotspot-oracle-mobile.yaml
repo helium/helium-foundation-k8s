@@ -15,6 +15,12 @@ spec:
       template:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
+          # Temporarily commenting out to enable log review
+          # tolerations: # Schedule executor pods on spot-helium instance group
+          #   - key: dedicated
+          #     operator: Equal
+          #     value: spot-helium
+          #     effect: NoSchedule
           nodeSelector:
             nodegroup-type: medium
           containers:
