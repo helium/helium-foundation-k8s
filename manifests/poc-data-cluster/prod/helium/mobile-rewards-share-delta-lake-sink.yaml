@@ -7,11 +7,12 @@ spec:
   concurrencyPolicy: Forbid
   # Rewards run at 12:30-1am, run this after 
   schedule: "0 2 * * *"
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       backoffLimit: 10
+      ttlSecondsAfterFinished: 86400
       template:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
