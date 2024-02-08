@@ -7,11 +7,12 @@ spec:
   # Run 30 minutes after the gold table
   schedule: "30 3 * * *"
   concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       backoffLimit: 10
+      ttlSecondsAfterFinished: 86400
       template:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
