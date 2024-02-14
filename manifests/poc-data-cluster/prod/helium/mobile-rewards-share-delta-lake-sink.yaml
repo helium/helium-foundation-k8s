@@ -50,6 +50,8 @@ spec:
               - --source-protos
               - mapper.proto
               - --source-protos
+              - hex_boosting.proto
+              - --source-protos
               - service/poc_mobile.proto
               - --source-protos
               - service_provider.proto
