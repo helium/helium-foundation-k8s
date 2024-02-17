@@ -115,6 +115,9 @@ data:
                 }
               ]
             }
+          ],
+          "crons": [
+            { "schedule": "0 0 * * *", "type": "integrity-check" }
           ]
         },
         {
