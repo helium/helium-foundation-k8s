@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-read-replica-monitoring-user-access
       containers:
         - name: metadata
-          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.29
+          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.0.30
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -49,6 +49,8 @@ spec:
               value: monitoring
             - name: PGSSLMODE
               value: no-verify
+            - name: RPC_HOST
+              value: config.iot.mainnet.helium.io:6080
           readinessProbe:
             failureThreshold: 3
             httpGet:
