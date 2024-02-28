@@ -75,6 +75,8 @@ spec:
               name: http
               protocol: TCP
           env:
+            - name: SUBSTREAM
+              value: https://github.com/helium/substreams-explorers/releases/download/v0.3.0/solana-explorer-v0.3.0.spkg
             - name: USE_SUBSTREAMS
               value: "true"
             - name: RUN_JOBS_AT_STARTUP
