@@ -23,7 +23,7 @@ metadata:
   namespace: spark
 spec:
   # Run 30 minutes after mobile-reward-share-delta-lake-sink
-  schedule: "30 2 * * *"
+  schedule: "07 3 * * *"
   concurrencyPolicy: Forbid
   successfulRunHistoryLimit: 1
   failedRunHistoryLimit: 5
