@@ -30,7 +30,7 @@ metadata:
   namespace: spark
 spec:
   # Run 30 minutes after the silver pipeliens
-  schedule: "0 3 * * *"
+  schedule: "0 4 * * *"
   concurrencyPolicy: Forbid
   successfulRunHistoryLimit: 1
   failedRunHistoryLimit: 5
