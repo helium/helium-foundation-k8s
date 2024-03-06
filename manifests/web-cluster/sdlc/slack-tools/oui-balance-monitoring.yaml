@@ -26,7 +26,7 @@ spec:
               - name: SOLANA_RPC
                 valueFrom:
                   secretKeyRef:
-                    name: helius-rpc-url-prod
+                    name: helius
                     key: HELIUS_RPC_URL_PROD
               - name: SLACK_TOKEN
                 valueFrom:
