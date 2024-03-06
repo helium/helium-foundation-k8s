@@ -13,3 +13,19 @@ spec:
       server: '*'
   sourceRepos:
     - '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: slack-tools
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - name: '*'
+      namespace: 'slack-tools'
+      server: '*'
+  sourceRepos:
+    - '*'
