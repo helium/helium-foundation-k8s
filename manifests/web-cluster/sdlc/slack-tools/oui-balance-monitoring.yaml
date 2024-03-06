@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: oui-balance-monitoring
+  namespace: slack-tools
+spec:
+  schedule: "0 2 * * *"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 10
+      ttlSecondsAfterFinished: 86400
+      template:
+        metadata:
+          labels:
+            app: 'oui-balance-monitoring'
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: oui-balance-monitoring
+            image: public.ecr.aws/v0j6k5v6/oui-balance-monitoring:0.0.1
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: SOLANA_RPC
+                valueFrom:
+                  secretKeyRef:
+                    name: helius-rpc-url-prod
+                    key: HELIUS_RPC_URL_PROD
+              - name: SLACK_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: slack-token
+                    key: SLACK_TOKEN
+              - name: DUNE_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: dune-key
+                    key: DUNE_KEY

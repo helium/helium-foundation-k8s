@@ -1,0 +1,14 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: helius-rpc-url-prod
+  namespace: slack-tools
+spec:
+  encryptedData:
+    HELIUS_RPC_URL_PROD: AgBoFRMoQVLoohQ/cdN3TCXtiL0f49Ro3E1NzqRjB2vj9/QquoSK2fCKDwfE7h6hTT9ablok/Xs2z79IoZPbFcYwrEg3yu/FISKXPEV09495N5ZO5loNGf1DM28J85KPSn7g37MjXRXX1CcgPyylbc+MuTB6dM5uNmxcHvnJ5I1WK5zAbv5sLUmExHuTO8epUeb4KRwa9anrym72gN6mDJp5sVGvqGSK18/qqxtFXXuAQ87kXAVZYviUf1EUkVLK07rIme0tu9waQCovy0V6OBQchW+QlIRqkJJ26DzQETE/vbfzE7JwbEogIOnaQBM1RP68+4wTW4WSYB9dNuIJCaTjV58kF+ZLitR7cg82z7cVDXaPtcHbZHY8H2qb+cSPz4AWpJeJyatiqrUdbwnTHG55wXWyumA8VyhZGdlSQvcbZDn40cgk35GI5ZeiukEsxJn/sQjseA79pOBtFCLkCpsr7FWOPQ6OL5uhnLg0eh8ifzs9FWzQGEpdRP2FAX1SF1vst3pq431VuZaMtmpoD+A3yj7DQYqZzyqaHTkCXFrPGC1ztR9yExAhXN9J4bpsTfnuU5ZdoZdB7kzRxWuCwES7iSCskMWvys1xMoq188PVjv2DIKxebhudxVNC9laXU1En1wa50rYjJQN/2IcLmZGIEbQi7FBdDtzOs2InyX4/TaBEmu50qwzZPKT8Ss2NFB5/bPqGlSmHy9asU5wquFen1agD+/cum+mWF1v7dkcduCPERTJ4RtHZFiPY3XKpOPNJXCkFNOQLQxJ1bU49aPT1rG7CAV9ydX4+sa172Q==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: helius-rpc-url-prod
+      namespace: slack-tools
