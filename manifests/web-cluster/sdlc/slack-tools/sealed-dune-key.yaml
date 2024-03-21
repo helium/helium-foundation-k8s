@@ -1,0 +1,14 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: dune-key
+  namespace: slack-tools
+spec:
+  encryptedData:
+    DUNE_KEY: AgCK+wRSFoAdU8kzFbRlUUtulOiG1YkYSZWQ6NHtG9LD1piT30oBOOhDMI2C+SeJht3M+GCfF1zarxyyr5Yrmlng1yPko23EE1gtaSg9fnTIYCYuO66jamg4BkCAFg1ohpQjOw4NOaklxnK989kY5DyLcDk4F/G11C6L2cDTefJgpZSoKbdO0FNWW3fqAbbFwQnkaIeUzLjvRV/GDK3b9bevF0nLSFdO5a37U1aYiW+N3qmrSzZ1Q0UGvCED7Ez9+Wu0zOWAuXNl4ZQ0U8cc2QOSXz0LVcjvhipnluzr1A4QgKgFU5VPgXAXHRRgpKkdIiz0J+ZOwd9PcogmLJUiGbK8slUT2lCNzPfjFyYoiQ7HQKBk+wiOWE1t443boZpNL7tac2YW3CiWRmGmYvJI0GoFYupEOhwD63+MGF4s+N/9LpAvgnE3dtJlEdw2SdaEmBwsGOwdS8dvlOyOnfMpUvo8RcJ5GLer1ol49W5S2733MujNYvyYF2bU1wsDVLQtAowfiGGzhB/9RBJAwj8wWjTeeMoNshxA+1hpBwXmyWC47raeNWMTsTSG0tNTxhR49BfDBp9Fk2d9UNYA7DdwWV/j9enaUi95/6bolfVFGYH1Fmosm+iExwk3HxfH0EY1dHozu0albHfhwY2WkNHep1fyEITW7/4WJ1XThfGq/yVjeQ75xSsJ8QKGjEGb+/L2T3i3cYFhJ7hYiY+GsBQBu8nwtnTtqS9Hk+Wp7Y7wMtSBZg==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: dune-key
+      namespace: slack-tools

@@ -20,3 +20,26 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: slack-tools
+  namespace: argocd
+spec:
+  destination:
+    namespace: slack-tools
+    server: https://kubernetes.default.svc
+  project: slack-tools
+  source:
+    repoURL: https://github.com/helium/helium-foundation-k8s
+    path: manifests/web-cluster/sdlc/slack-tools
+    targetRevision: develop
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

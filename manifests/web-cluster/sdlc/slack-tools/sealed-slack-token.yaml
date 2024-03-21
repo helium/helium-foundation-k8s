@@ -1,0 +1,14 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: slack-token
+  namespace: slack-tools
+spec:
+  encryptedData:
+    SLACK_TOKEN: AgCsBKdmc66Kimv6wHdxMoeH1ElaQjlh1Gsb8LiAICte/bm1WEHIdbQHtzjYHtwKRBcLW5ah4Hz9R9XESxYvi0D56sOGLWKV7TKl14pdGRKFcR+7WnZ0Vi2B+ofElCmq1aci1gx6UROfWHksv4QbM4wH+ruzF7/CGtS3L6P3dgg6WHqLJ4xxG+/tU49fv9/9H7f8bxy67j1x7rVlAXsVV03hCcByW8nDxPvdEtzh47s0iPzgAx1idu513FSFTc99sSqJRYyBSqh/ApO7jjA85EHtS1oMxLnQBApqfz1Jl0sMAfyjJvV4xec5p3IC/P3rZ5v/PhhHe8NaQqEe42mcf9jJK5DqRuCjECtr4U0FUdHKGGT1lEoBksHpxTBXaQ4+43Da/y+30xz7cu49k6KobpqP+20VDE8lmLOcWTheWpBx12WDYpufyLMLbdn2o9nLUs0eAo0UAOFsUNG0yVRDUwvVAMFTZGtTWqRxrpHbVP/cwVDqh6h6xObi2oRD/xVDXHrKArpYZPMwX6zgJc1HrTOBY/0ecaWE7ovYj95t0l6yInsRyQNTcdo9LfSF8d5/5VpoyJ1jhubn1md0iI9BCydaUIogDFiZZjCGD+E/oGimrSqdEkZY8GvB4wK2CZbe3oS/BHdf2Si6RGXElqRSoBT1VTUEuXXu7AYFoL21pZTyegsYpXYlwXpzUnJODuoFR1OAN1ayd2dwa/o4uUQC8KaYqEfYvI3cL3J/MvJaViHbYwRuBJ7As0KB3FhgFNFCuA3g/UvhlIEPpNI=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: slack-token
+      namespace: slack-tools
