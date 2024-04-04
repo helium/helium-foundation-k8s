@@ -68,17 +68,28 @@ spec:
       serviceAccountName: rds-metadata-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.1.21
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.1.22
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
               name: http
               protocol: TCP
           env:
-            - name: SUBSTREAM
-              value: https://github.com/helium/substreams-explorers/releases/download/v0.3.0/solana-explorer-v0.3.0.spkg
-            - name: USE_SUBSTREAMS
+            - name: USE_KAFKA
               value: "true"
+            - name: KAFKA_USER
+              value: heliumConsumer
+            - name: KAFKA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-password
+                  key: password
+            - name: KAFKA_BROKERS
+              value: b-1-public.shyftkafka.n40si4.c2.kafka.eu-central-1.amazonaws.com:9196,b-2-public.shyftkafka.n40si4.c2.kafka.eu-central-1.amazonaws.com:9196
+            - name: KAFKA_GROUP_ID
+              value: helium-oracle-prod-account-postgres-sink
+            - name: KAFKA_TOPIC
+              value: helium-accounts
             - name: RUN_JOBS_AT_STARTUP
               value: "true"
             - name: PGHOST
