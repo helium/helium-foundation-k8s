@@ -48,10 +48,10 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              cpu: 250m
+              cpu: 400m
               memory: 500Mi
             limits:
-              cpu: 500m
+              cpu: 800m
               memory: 750Mi
 ---
 apiVersion: v1
@@ -102,7 +102,7 @@ spec:
     kind: Deployment
     name: vsr-metadata
   minReplicas: 2
-  maxReplicas: 5
+  maxReplicas: 7
   metrics:
     - type: Resource
       resource:
