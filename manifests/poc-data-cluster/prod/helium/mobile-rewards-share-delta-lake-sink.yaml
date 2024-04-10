@@ -16,6 +16,7 @@ spec:
       template:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
+          # Temporarily commenting out to enable log review
           tolerations: # Schedule executor pods on spot-helium instance group
             - key: dedicated
               operator: Equal
@@ -25,7 +26,7 @@ spec:
             nodegroup-type: spot-helium
           containers:
           - name: mobile-rewards-delta-lake-sink
-            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.10
+            image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.17
             imagePullPolicy: IfNotPresent
             resources:
               requests:
@@ -49,6 +50,8 @@ spec:
               - https://raw.githubusercontent.com/helium/proto/master/src
               - --source-protos
               - mapper.proto
+              - --source-protos
+              - hex_boosting.proto
               - --source-protos
               - service/poc_mobile.proto
               - --source-protos
