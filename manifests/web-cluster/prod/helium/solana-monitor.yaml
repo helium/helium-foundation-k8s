@@ -49,7 +49,7 @@ spec:
             - name: SOLANA_URL
               valueFrom:
                 secretKeyRef:
-                  name: helius-rpc-url
+                  name: triton-rpc-url
                   key: secret
             - name: PGHOST
               value: monitoring-rds-read-replica.cbhihwhsofyu.us-west-2.rds.amazonaws.com

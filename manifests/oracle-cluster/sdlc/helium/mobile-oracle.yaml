@@ -28,7 +28,7 @@ spec:
             - name: ANCHOR_PROVIDER_URL
               valueFrom:
                 secretKeyRef:
-                  name: helius-rpc-url
+                  name: triton-rpc-url
                   key: secret
             - name: ORACLE_KEYPAIR_PATH
               value: /usr/src/app/keys/keypair.json
@@ -45,7 +45,7 @@ spec:
             - name: ASSET_API_URL
               valueFrom:
                 secretKeyRef:
-                  name: helius-rpc-url
+                  name: triton-rpc-url
                   key: secret
             - name: DNT_MINT
               valueFrom:
