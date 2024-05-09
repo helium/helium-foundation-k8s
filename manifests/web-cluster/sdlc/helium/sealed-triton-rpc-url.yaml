@@ -1,0 +1,14 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: triton-rpc-url
+  namespace: helium
+spec:
+  encryptedData:
+    secret: AgBlXQSnmeyBbg6Ef3CGy/r045YG+hOkaLZ7OawURTWUHqgfxLs5uMqX9oFiMcErqPuzofh3I97B/akzaShsU6tgyXXfe3n7PfwTkhep7eXM8B5eR1zTXWqNiBOed6mzlty43L7UnKnNe/eUYjP0xTPSQTtsCUnEsIoEk9ofFC2KgDQeGRetrWteoQTUr+g7s4nBF9RA43ntKeqRl/5YQo+AA8dW/qPqlQPvczZBHikj4kp2zH2clefFY/2YTKf5ffk2MjJzI7VDrctSW+PdYrn/PUcNZNYWH7yNgiZrF+EPAAk2jHXKlvWmfQQ4vmMUXaXnfIAas8nxNoFbX2nRtsoZAz5hUYaH+Ap4C11GdKDMSxpQ57UhrLQBqErUwC0eDivH42JS08E9CP6iX4ZPkTKOdReXgnmq3TvocSQsdTlDlaAFGI64HmRJc8vQBrnCrM59zLlifOYM3doYATBX0cXtVpSM3El1UZdWom8B+RJn/puAZxVT2TPf8Tb99rO/zNi430YKvmxZy1psgSBGFnuxcB22vrgYk4eQ80zG/VC25G8+ZOxyxP4gAzfJsWlhAGTMGKvYi83cbUEwtpuglER97vKMzm2IkuNYmz+tICE681uFCR/98Yo9BG1pN10U67R5VJhHWMLAbhVxS7rfKP/iF4LJ+BxwIfjjrwgGJjAkf/xhND+CRESLmpz1UGHH+meog7G3bQPzUKGm0PmiJ1WK70he0wTlE4Mz7DSf7dWn3WEhfhkPe28xX7DaAYaquTvGNCkROLnLzxxtktikY1wPFFSbJV+pUPXGaymNH+wIvQwfYQ==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: triton-rpc-url
+      namespace: helium
