@@ -61,12 +61,12 @@ spec:
             - name: SOLANA_URL
               valueFrom:
                 secretKeyRef:
-                  name: helius-rpc-url
+                  name: triton-rpc-url
                   key: secret
             - name: ASSET_API_URL
               valueFrom:
                 secretKeyRef:
-                  name: helius-rpc-url
+                  name: triton-rpc-url
                   key: secret
             - name: ECC_VERIFY_ENDPOINT
               value: https://ecc-verifier.web.helium.io/verify
