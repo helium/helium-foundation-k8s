@@ -85,7 +85,7 @@ spec:
                   name: kafka-password
                   key: password
             - name: KAFKA_BROKERS
-              value: b-1-public.shyftkafka.n40si4.c2.kafka.eu-central-1.amazonaws.com:9196,b-2-public.shyftkafka.n40si4.c2.kafka.eu-central-1.amazonaws.com:9196
+              value: b-2-public.shyftclusternew.wm9wvs.c4.kafka.eu-central-1.amazonaws.com:9196,b-1-public.shyftclusternew.wm9wvs.c4.kafka.eu-central-1.amazonaws.com:9196
             - name: KAFKA_GROUP_ID
               value: helium-oracle-prod-account-postgres-sink
             - name: KAFKA_TOPIC
