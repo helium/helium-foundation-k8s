@@ -75,21 +75,6 @@ spec:
               name: http
               protocol: TCP
           env:
-            - name: USE_KAFKA
-              value: "true"
-            - name: KAFKA_USER
-              value: heliumConsumer
-            - name: KAFKA_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: kafka-password
-                  key: password
-            - name: KAFKA_BROKERS
-              value: b-2-public.shyftclusternew.wm9wvs.c4.kafka.eu-central-1.amazonaws.com:9196,b-1-public.shyftclusternew.wm9wvs.c4.kafka.eu-central-1.amazonaws.com:9196
-            - name: KAFKA_GROUP_ID
-              value: helium-oracle-prod-account-postgres-sink
-            - name: KAFKA_TOPIC
-              value: helium-accounts
             - name: RUN_JOBS_AT_STARTUP
               value: "true"
             - name: PGHOST
