@@ -105,4 +105,4 @@ spec:
   selector:
     app: solana-monitor
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP
