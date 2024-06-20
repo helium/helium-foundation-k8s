@@ -104,7 +104,7 @@ spec:
   selector:
     app: mobile-oracle
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
