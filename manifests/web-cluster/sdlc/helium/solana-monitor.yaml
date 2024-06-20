@@ -100,7 +100,7 @@ spec:
   selector:
     app: solana-monitor
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
