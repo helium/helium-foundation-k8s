@@ -68,7 +68,7 @@ spec:
       serviceAccountName: rds-metadata-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.1.25
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -94,6 +94,23 @@ spec:
                 secretKeyRef:
                   name: triton-rpc-url
                   key: secret
+            - name: YELLOWSTONE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: triton-rpc-url
+                  key: secret
+            - name: YELLOWSTONE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: triton-token
+                  key: token
+            - name: USE_YELLOWSTONE
+              value: "true"
+            - name: REFRESH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-password
+                  key: password
             - name: ASSET_API_URL
               valueFrom:
                 secretKeyRef:
