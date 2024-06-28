@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-web-user-access
       containers:
         - name: helium-vote-service
-          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.1
+          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
