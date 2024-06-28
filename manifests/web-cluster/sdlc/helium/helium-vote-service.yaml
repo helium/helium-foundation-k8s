@@ -18,13 +18,15 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: helium-vote-service
-          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.3
+          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
               name: http
               protocol: TCP
           env:
+            - name: LOG_PG
+              value: "true"
             - name: SOLANA_URL
               valueFrom:
                 secretKeyRef:
@@ -42,6 +44,7 @@ spec:
               value: monitoring
             - name: PGSSLMODE
               value: no-verify
+            
           readinessProbe:
             failureThreshold: 3
             httpGet:
