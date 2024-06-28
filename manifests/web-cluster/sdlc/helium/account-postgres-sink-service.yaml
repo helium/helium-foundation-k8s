@@ -22,7 +22,8 @@ data:
           "programId": "hvsrNC3NKbcryqDs2DocYHZ9yPKEVzdSjQG6RVtK1s8",
           "accounts": [
             { "type": "PositionV0", "table": "positions", "schema": "public" },
-            { "type": "Registrar", "table": "registrars", "schema": "public" }
+            { "type": "Registrar", "table": "registrars", "schema": "public" },
+            { "type": "VoteMarkerV0", "table": "vote_markers", "schema": "public" }
           ]
         },
         {
@@ -132,6 +133,28 @@ data:
             },
             { "type": "BoostedHexV0", "table": "boosted_hexes", "schema": "public" }
           ]
+        },
+        {
+          "programId": "nprx42sXf5rpVnwBWEdRg1d8tuCWsTuVLys1pRWwE6p",
+          "accounts": [
+            { "type": "ProxyAssignmentV0", "table": "proxy_assignments", "schema": "public" }
+          ]
+        },
+        {
+          "programId": "propFYxqmVcufMhk5esNMrexq2ogHbbC2kP9PU1qxKs",
+          "accounts": [
+            { "type": "ProposalV0", "table": "proposals", "schema": "public" }
+          ]
+        },
+        {
+          "programId": "orgdXvHVLkWgBYerptASkAwkZAE563CJUu717dMNx5f",
+          "accounts": [
+            {
+              "type": "OrganizationV0",
+              "table": "organizations",
+              "schema": "public"
+            }
+          ]
         }
       ],
       "indexConfigs": [
@@ -163,13 +186,30 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.1.2
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
               name: http
               protocol: TCP
           env:
+            - name: YELLOWSTONE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: triton-rpc-url
+                  key: secret
+            - name: YELLOWSTONE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: triton-token
+                  key: token
+            - name: USE_YELLOWSTONE
+              value: "true"
+            - name: REFRESH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-password
+                  key: password
             - name: PGHOST
               value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PGPORT
