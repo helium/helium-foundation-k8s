@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: helium-vote-service
-          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.6
+          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.7
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
