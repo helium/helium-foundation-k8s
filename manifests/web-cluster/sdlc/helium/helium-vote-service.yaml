@@ -13,9 +13,9 @@ spec:
     metadata:
       labels:
         app: helium-vote-service
-        security-group: rds-access
+        security-group: public-rds-access
     spec:
-      serviceAccountName: rds-web-user-access
+      serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: helium-vote-service
           image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.2
