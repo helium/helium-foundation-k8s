@@ -31,11 +31,11 @@ spec:
                   name: triton-rpc-url
                   key: secret
             - name: PGHOST
-              value: web-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER
-              value: web
+              value: monitoring
             - name: AWS_REGION
               value: us-east-1
             - name: PGDATABASE
