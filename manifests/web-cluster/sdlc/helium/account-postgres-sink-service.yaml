@@ -137,7 +137,18 @@ data:
         {
           "programId": "nprx42sXf5rpVnwBWEdRg1d8tuCWsTuVLys1pRWwE6p",
           "accounts": [
-            { "type": "ProxyAssignmentV0", "table": "proxy_assignments", "schema": "public" }
+            {
+              "type": "ProxyAssignmentV0",
+              "table": "proxy_assignments",
+              "schema": "public",
+              "ix_side_effects": [
+                {
+                  "ix": "unassign_proxy_v0",
+                  "acc": "proxy_assignment",
+                  "action": "delete"
+                }
+              ]
+            }
           ]
         },
         {
@@ -186,7 +197,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.4
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
