@@ -63,11 +63,11 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
+              cpu: 200m
+              memory: 300Mi
+            limits:
               cpu: 400m
               memory: 400Mi
-            limits:
-              cpu: 800m
-              memory: 600Mi
 ---
 apiVersion: v1
 kind: Service
