@@ -25,7 +25,7 @@ spec:
             nodegroup-type: spot-spark
           containers:
           - name: active-hotspot-oracle-mobile
-            image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.16
+            image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.17
             imagePullPolicy: IfNotPresent
             env:
               - name: PRIORITY_FEE_LAMPORTS
@@ -33,7 +33,7 @@ spec:
               - name: SOLANA_URL
                 valueFrom:
                   secretKeyRef:
-                    name: triton-rpc-url
+                    name: helius-rpc-url
                     key: secret
               - name: ANCHOR_WALLET
                 value: /usr/src/app/keys/keypair.json
