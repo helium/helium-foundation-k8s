@@ -30,7 +30,7 @@ spec:
             imagePullPolicy: IfNotPresent
             env:
               - name: PRIORITY_FEE_LAMPORTS
-                value: "1"
+                value: "2500"
               - name: SOLANA_URL
                 valueFrom:
                   secretKeyRef:
