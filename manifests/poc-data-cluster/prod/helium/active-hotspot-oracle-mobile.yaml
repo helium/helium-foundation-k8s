@@ -25,7 +25,7 @@ spec:
             nodegroup-type: spot-spark
           containers:
           - name: active-hotspot-oracle-mobile
-            image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.14
+            image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.15
             imagePullPolicy: IfNotPresent
             env:
               - name: SOLANA_URL
