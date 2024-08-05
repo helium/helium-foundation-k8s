@@ -17,13 +17,8 @@ spec:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
           # Temporarily commenting out to enable log review
-          tolerations: # Schedule executor pods on spot-helium instance group
-            - key: dedicated
-              operator: Equal
-              value: spot-spark
-              effect: NoSchedule
           nodeSelector:
-            nodegroup-type: spot-spark
+            nodegroup-type: medium
           containers:
           - name: active-hotspot-oracle-iot
             image: public.ecr.aws/k0m1p4t7/active-hotspot-oracle:0.0.17
@@ -57,7 +52,7 @@ spec:
                 memory: 5Gi
               limits:
                 memory: 5Gi
-          restartPolicy: OnFailure
+          restartPolicy: Never
           volumes:
             - name: active-hotspot-oracle-keypair
               secret:
