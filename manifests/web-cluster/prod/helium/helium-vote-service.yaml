@@ -2,21 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: vsr-metadata
-  name: vsr-metadata
+    app: helium-vote-service
+  name: helium-vote-service
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: vsr-metadata 
+      app: helium-vote-service
   template:
     metadata:
       labels:
-        app: vsr-metadata
+        app: helium-vote-service
+        security-group: public-rds-access
     spec:
+      serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
-        - name: vsr-metadata
-          image: public.ecr.aws/v0j6k5v6/vsr-metadata-service:0.0.5
+        - name: helium-vote-service
+          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.16
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -28,6 +30,19 @@ spec:
                 secretKeyRef:
                   name: triton-rpc-url
                   key: secret
+            - name: PGHOST
+              value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
+            - name: PGPORT
+              value: "5432"
+            - name: PGUSER
+              value: monitoring
+            - name: AWS_REGION
+              value: us-west-2
+            - name: PGDATABASE
+              value: monitoring
+            - name: PGSSLMODE
+              value: no-verify
+            
           readinessProbe:
             failureThreshold: 3
             httpGet:
@@ -48,16 +63,16 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              cpu: 100m
-              memory: 200Mi
-            limits:
-              cpu: 300m
+              cpu: 200m
               memory: 300Mi
+            limits:
+              cpu: 400m
+              memory: 400Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: vsr-metadata
+  name: helium-vote-service
   namespace: helium
 spec:
   ports:
@@ -65,14 +80,14 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: vsr-metadata
+    app: helium-vote-service
   sessionAffinity: None
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: vsr-metadata
+  name: helium-vote-service
   namespace: helium
   annotations:
     nginx.ingress.kubernetes.io/limit-rps: "10"
@@ -80,29 +95,29 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: positions.nft.test-helium.com
+  - host: helium-vote-service.web.helium.io
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: vsr-metadata
+            name: helium-vote-service
             port:
               number: 8081
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: vsr-metadata
+  name: helium-vote-service
   namespace: helium
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: vsr-metadata
-  minReplicas: 1
-  maxReplicas: 3
+    name: helium-vote-service
+  minReplicas: 2
+  maxReplicas: 5
   metrics:
     - type: Resource
       resource:
