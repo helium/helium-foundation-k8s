@@ -26,7 +26,7 @@ data:
             { "type": "VoteMarkerV0", "table": "vote_markers", "schema": "public" }
           ],
           "crons": [
-            { "schedule": "5 */12 * * *", "type": "refresh-accounts" }
+            { "schedule": "0 0 * * *", "type": "integrity-check" }
           ]
         },
         {
@@ -146,13 +146,19 @@ data:
                   "action": "delete"
                 }
               ]
-            }
+            },
+            "crons": [
+              { "schedule": "0 0 * * *", "type": "integrity-check" }
+            ]
           ]
         },
         {
           "programId": "propFYxqmVcufMhk5esNMrexq2ogHbbC2kP9PU1qxKs",
           "accounts": [
             { "type": "ProposalV0", "table": "proposals", "schema": "public" }
+          ],
+          "crons": [
+            { "schedule": "0 0 * * *", "type": "integrity-check" }
           ]
         },
         {
@@ -196,13 +202,30 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.1.2
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
               name: http
               protocol: TCP
           env:
+            - name: YELLOWSTONE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: triton-rpc-url
+                  key: secret
+            - name: YELLOWSTONE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: triton-token
+                  key: token
+            - name: USE_YELLOWSTONE
+              value: "true"
+            - name: REFRESH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-password
+                  key: password
             - name: PGHOST
               value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
             - name: PGPORT
