@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: triton-token
+  namespace: helium
+spec:
+  encryptedData:
+    token: AgAGfRT4QxNXhHqS5owWxFd+K7Mjly7ebr8KVrdP5mvDezQvF1FOzUPIaL6kC69qmvvr+YeZujmabyT3fwMizbmT/6Oag8U7TSX+nfg+/7SunWhQnSUJsUQmC6l71bZwZxbtEwXv4xaYMX/Q3vy0Eg6VfGgcfVo0xbwneJT4VfzqeGXeAvau+H4kJWa8j/2J5Ep4689/e8li1AR22su0RCmwDfTL6vmkdj8cazvcevy7X9tSR670WON/7AF6kmRCRGYZS6F2/cX+pl364mkmxexd5pFJmnztSv+w+a4lM31BnqL+F4a7+4hKvneFMYhbLlK1DuJsa6sE8iJF6EA8wOktkG8e3tdou39ZP4miMpFEI906xgs1mkpCxdDN8zRXvSf5BFpyHAVSIlsDQuW+KTfBKiEi1MzB4gAeoy6TcYbxhH+z2svwnkFckDu9gdeIWu6Kx62zmlSpMXTeQ0K20DB0eU1D+DW+N4VFujalhHA6i/0fKroY8nKmtkTk7MDEpsE8j4+FQbkkdctiRp9NnAmbrOKb0Xy5saBSaNpG2KYzvNgzsEnyEFEVe6mMM+UhHG9g4FcReeK8517aZAlAwOOn7DJOhIk6rZ68QBqOFLnzbLaIOrDenaQBx0vuO16+rbcT9k0PWvRARSTOneBT3C+UZViWBJo+piMXhcLZOHUJbbFH3Ypcljq0BOO0jcRaVZasEo2z8OWN5upzE0EFbV4IMb9sbRp0dOLMh4nvTKOfZ4qr4WQ=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: triton-token
+      namespace: helium
