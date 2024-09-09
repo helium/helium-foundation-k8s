@@ -146,10 +146,10 @@ data:
                   "action": "delete"
                 }
               ]
-            },
-            "crons": [
-              { "schedule": "0 0 * * *", "type": "integrity-check" }
-            ]
+            }
+          ],
+          "crons": [
+            { "schedule": "0 0 * * *", "type": "integrity-check" }
           ]
         },
         {
