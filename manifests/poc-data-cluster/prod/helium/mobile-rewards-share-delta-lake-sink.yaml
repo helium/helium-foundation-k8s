@@ -16,14 +16,8 @@ spec:
       template:
         spec:
           serviceAccountName: s3-data-lake-bucket-access
-          # Temporarily commenting out to enable log review
-          tolerations: # Schedule executor pods on spot-helium instance group
-            - key: dedicated
-              operator: Equal
-              value: spot-helium
-              effect: NoSchedule
           nodeSelector:
-            nodegroup-type: spot-helium
+            nodegroup-type: medium
           containers:
           - name: mobile-rewards-delta-lake-sink
             image: public.ecr.aws/k0m1p4t7/protobuf-delta-lake-sink:0.0.17
@@ -31,9 +25,9 @@ spec:
             resources:
               requests:
                 cpu: 1000m
-                memory: 4000Mi
+                memory: 6000Mi
               limits:
-                memory: 4000Mi
+                memory: 6000Mi
             env: 
               - name: AWS_S3_ALLOW_UNSAFE_RENAME
                 value: "true"
@@ -50,6 +44,8 @@ spec:
               - https://raw.githubusercontent.com/helium/proto/master/src
               - --source-protos
               - mapper.proto
+              - --source-protos
+              - decimal.proto
               - --source-protos
               - hex_boosting.proto
               - --source-protos
@@ -68,4 +64,4 @@ spec:
               - "86400"
               - --batch-size
               - "500000000" # Targetting 500mb parquet files, per databricks recs on large tables
-          restartPolicy: OnFailure
+          restartPolicy: Never

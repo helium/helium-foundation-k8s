@@ -26,7 +26,7 @@ spec:
   schedule: "30 2 * * *"
   concurrencyPolicy: Forbid
   successfulRunHistoryLimit: 1
-  failedRunHistoryLimit: 5
+  failedRunHistoryLimit: 1
   template:
     type: Scala
     mode: cluster
@@ -35,6 +35,8 @@ spec:
     mainClass: Main
     mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.2.jar"
     sparkVersion: "3.4.0"
+    failureRetries: 3
+    retryInterval: 10
     restartPolicy:
       type: OnFailure
       onFailureRetries: 3
@@ -61,6 +63,8 @@ spec:
       cores: 1
       coreLimit: "1200m"
       memory: "512m"
+      nodeSelector:
+        nodegroup-type: medium
       envVars:
         TABLE_MOBILE_REWARD_SHARE: s3a://foundation-data-lake-requester-pays/bronze/mobile_reward_share
         PARTITION_BY: "date"
@@ -81,6 +85,7 @@ spec:
       coreLimit: "1200m"
       instances: 1
       memory: "5G"
+      deleteOnTermination: false
       tolerations: # Schedule executor pods on spot-spark instance group
         - key: dedicated
           operator: Equal

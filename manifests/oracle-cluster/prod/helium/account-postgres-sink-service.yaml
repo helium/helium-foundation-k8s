@@ -68,28 +68,13 @@ spec:
       serviceAccountName: rds-metadata-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.1.25
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.12
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
               name: http
               protocol: TCP
           env:
-            - name: USE_KAFKA
-              value: "true"
-            - name: KAFKA_USER
-              value: heliumConsumer
-            - name: KAFKA_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: kafka-password
-                  key: password
-            - name: KAFKA_BROKERS
-              value: b-1-public.shyftkafka.n40si4.c2.kafka.eu-central-1.amazonaws.com:9196,b-2-public.shyftkafka.n40si4.c2.kafka.eu-central-1.amazonaws.com:9196
-            - name: KAFKA_GROUP_ID
-              value: helium-oracle-prod-account-postgres-sink
-            - name: KAFKA_TOPIC
-              value: helium-accounts
             - name: RUN_JOBS_AT_STARTUP
               value: "true"
             - name: PGHOST
@@ -109,6 +94,23 @@ spec:
                 secretKeyRef:
                   name: triton-rpc-url
                   key: secret
+            - name: YELLOWSTONE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: triton-rpc-url
+                  key: secret
+            - name: YELLOWSTONE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: triton-token
+                  key: token
+            - name: USE_YELLOWSTONE
+              value: "true"
+            - name: REFRESH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-password
+                  key: password
             - name: ASSET_API_URL
               valueFrom:
                 secretKeyRef:
@@ -155,7 +157,7 @@ spec:
   selector:
     app: account-postgres-sink-service
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
