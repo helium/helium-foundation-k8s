@@ -38,7 +38,7 @@ spec:
                   name: triton-rpc-url
                   key: secret
             - name: PGHOST
-              value: monitoring-rds-read-replica.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER
