@@ -16,7 +16,7 @@ spec:
         app: solana-monitor
         security-group: public-rds-access
     spec:
-      serviceAccountName: public-monitoring-rds-read-replica-monitoring-user-access
+      serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: solana-monitor
           image: public.ecr.aws/v0j6k5v6/solana-monitor:0.0.23
@@ -52,7 +52,7 @@ spec:
                   name: triton-rpc-url
                   key: secret
             - name: PGHOST
-              value: monitoring-rds-read-replica.cbhihwhsofyu.us-west-2.rds.amazonaws.com
+              value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER

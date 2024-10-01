@@ -19,14 +19,14 @@ spec:
             security-group: public-rds-access
         spec:
           restartPolicy: OnFailure
-          serviceAccountName: public-monitoring-rds-read-replica-monitoring-user-access
+          serviceAccountName: public-monitoring-rds-monitoring-user-access
           containers:
           - name: entity-invalidator
             image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.8
             imagePullPolicy: IfNotPresent
             env:
               - name: PGHOST
-                value: monitoring-rds-read-replica.cbhihwhsofyu.us-west-2.rds.amazonaws.com
+                value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
               - name: PGPORT
                 value: "5432"
               - name: PGUSER
