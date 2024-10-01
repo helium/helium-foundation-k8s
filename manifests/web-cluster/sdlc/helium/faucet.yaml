@@ -103,8 +103,8 @@ metadata:
   name: faucet
   namespace: helium
   annotations:
-    nginx.ingress.kubernetes.io/limit-rpm: "1"
-    nginx.ingress.kubernetes.io/limit-burst-multiplier: "1"
+    nginx.ingress.kubernetes.io/limit-rpm: "100"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "100"
 spec:
   ingressClassName: nginx
   rules:
