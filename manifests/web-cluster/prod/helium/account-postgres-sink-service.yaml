@@ -287,6 +287,9 @@ kind: Service
 metadata:
   name: account-postgres-sink-service
   namespace: helium
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "3000"
 spec:
   ports:
     - port: 3000
