@@ -209,6 +209,8 @@ spec:
               name: http
               protocol: TCP
           env:
+            - name: RUN_JOBS_AT_STARTUP
+              value: "true"
             - name: YELLOWSTONE_URL
               valueFrom:
                 secretKeyRef:
