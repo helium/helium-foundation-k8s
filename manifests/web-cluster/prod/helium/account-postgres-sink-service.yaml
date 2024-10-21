@@ -92,7 +92,6 @@ data:
               "type": "IotHotspotInfoV0",
               "table": "iot_hotspot_infos",
               "schema": "public",
-              "batchSize": 2500,
               "plugins": [
                 {
                   "type": "ExtractHexLocation",
@@ -106,7 +105,6 @@ data:
               "type": "MobileHotspotInfoV0",
               "table": "mobile_hotspot_infos",
               "schema": "public",
-              "batchSize": 2500,
               "plugins": [
                 {
                   "type": "ExtractHexLocation",
@@ -202,7 +200,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.13
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.14
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -238,8 +236,6 @@ spec:
               value: monitoring
             - name: PGSSLMODE
               value: no-verify
-            - name: PG_POOL_SIZE
-              value: "20"
             - name: PHOTON_URL
               value: "https://photon.komoot.io"
             - name: SOLANA_URL
