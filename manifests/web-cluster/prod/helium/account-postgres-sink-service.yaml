@@ -200,7 +200,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.18
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.19
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -255,11 +255,6 @@ spec:
                   key: mapbox-api-key
             - name: PROGRAM_ACCOUNT_CONFIGS
               value: "/usr/src/app/config/config.json"
-            - name: HELIUS_AUTH_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: helius-auth-secret
-                  key: secret
           volumeMounts:
             - name: account-postgres-sink-config
               mountPath: /usr/src/app/config
