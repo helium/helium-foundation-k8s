@@ -51,7 +51,7 @@ data:
             }
           ],
           "crons": [
-            { "schedule": "5 */12 * * *", "type": "refresh-accounts" }
+            { "schedule": "0 0 * * *", "type": "integrity-check" }
           ]
         },
         {
