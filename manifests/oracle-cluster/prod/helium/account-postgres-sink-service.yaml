@@ -51,6 +51,11 @@ data:
               "type": "CarrierV0",
               "table": "carriers",
               "schema": "public"
+            },
+            {
+              "type": "IncentiveEscrowProgramV0",
+              "table": "incentive_escrow_programs",
+              "schema": "public"
             }
           ]
         }
