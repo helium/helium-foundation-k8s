@@ -40,6 +40,16 @@ data:
             },
             { "type": "BoostedHexV0", "table": "boosted_hexes", "schema": "public" }
           ]
+        },
+        {
+          "programId": "hdaoVTCqhfHHo75XdAMxBKdUqvq1i5bF23sisBqVgGR",
+          "accounts": [
+            { "type": "DaoEpochInfoV0", "table": "dao_epoch_infos", "schema": "public" },
+            { "type": "SubDaoEpochInfoV0", "table": "sub_dao_epoch_infos", "schema": "public" }
+          ],
+          "crons": [
+            { "schedule": "0 0 * * *", "type": "integrity-check" }
+          ]
         }
       ]
     }
