@@ -48,7 +48,7 @@ data:
             { "type": "SubDaoEpochInfoV0", "table": "sub_dao_epoch_infos", "schema": "public" }
           ],
           "crons": [
-            { "schedule": "0 0 * * *", "type": "integrity-check" }
+            { "schedule": "2 0 * * *", "type": "integrity-check" }
           ]
         }
       ]
