@@ -231,7 +231,7 @@ spec:
             - name: PGUSER
               value: monitoring
             - name: PG_POOL_SIZE
-              value: 35
+              value: "35"
             - name: AWS_REGION
               value: us-west-2
             - name: PGDATABASE
