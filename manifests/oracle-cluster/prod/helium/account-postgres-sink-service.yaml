@@ -27,7 +27,7 @@ data:
             }
           ],
           "crons": [
-            { "schedule": "0 0 * * *", "type": "integrity-check" }
+            { "schedule": "10 0 * * *", "type": "integrity-check" }
           ]
         },
         {
@@ -41,7 +41,7 @@ data:
             { "type": "BoostedHexV0", "table": "boosted_hexes", "schema": "public" }
           ],
           "crons": [
-            { "schedule": "0 0 * * *", "type": "integrity-check" }
+            { "schedule": "10 0 * * *", "type": "integrity-check" }
           ]
         },
         {
@@ -66,7 +66,7 @@ data:
             { "type": "SubDaoEpochInfoV0", "table": "sub_dao_epoch_infos", "schema": "public" }
           ],
           "crons": [
-            { "schedule": "2 0 * * *", "type": "integrity-check" }
+            { "schedule": "10 0 * * *", "type": "integrity-check" }
           ]
         }
       ]
