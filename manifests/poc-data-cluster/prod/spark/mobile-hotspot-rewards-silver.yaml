@@ -9,11 +9,17 @@ data:
       date,
       start_period,
       end_period,
-      coalesce(b58encodeChecked(radio_reward.hotspot_key), b58encodeChecked(gateway_reward.hotspot_key)) as entity_key,
+      coalesce(
+        b58encodeChecked(case when radio_reward_v2.hotspot_key = '' then null else radio_reward_v2.hotspot_key end),
+        b58encodeChecked(case when radio_reward.hotspot_key = '' then null else radio_reward.hotspot_key end),
+        b58encodeChecked(case when gateway_reward.hotspot_key = '' then null else gateway_reward.hotspot_key end)
+      ) as entity_key,
       gateway_reward.dc_transfer_reward as dc_transfer_amount,
       radio_reward.poc_reward as poc_amount,
       radio_reward.coverage_points as coverage_points,
-      radio_reward.cbsd_id as cbsd_id
+      coalesce(radio_reward_v2.cbsd_id, radio_reward.cbsd_id) as cbsd_id,
+      radio_reward_v2.base_poc_reward as base_poc_reward,
+      radio_reward_v2.boosted_poc_reward as boosted_poc_reward
     FROM mobile_reward_share
 ---
 apiVersion: "sparkoperator.k8s.io/v1beta2"
