@@ -200,25 +200,24 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.22
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.23
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
               name: http
               protocol: TCP
           env:
-            - name: YELLOWSTONE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: triton-rpc-url
-                  key: secret
-            - name: YELLOWSTONE_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: triton-token
-                  key: token
-            - name: USE_YELLOWSTONE
+            - name: USE_SUBSTREAM
               value: "true"
+            - name: SUBSTREAM_URL
+              value: "https://accounts.mainnet.sol.streamingfast.io"
+            - name: SUBSTREAM
+              value: "https://spkg.io/v1/packages/solana_accounts_foundational/v0.1.1"
+            - name: SUBSTREAM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: substream-api-key
+                  key: secret
             - name: REFRESH_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -255,11 +254,6 @@ spec:
                 secretKeyRef:
                   name: mapbox-api-key
                   key: mapbox-api-key
-            - name: SUBSTREAM_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: substream-api-key
-                  key: secret
             - name: PROGRAM_ACCOUNT_CONFIGS
               value: "/usr/src/app/config/config.json"
           volumeMounts:
