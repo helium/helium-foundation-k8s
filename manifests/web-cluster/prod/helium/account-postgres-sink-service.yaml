@@ -221,7 +221,7 @@ spec:
                   name: substream-api-key
                   key: secret
             - name: SUBSTREAM_CURSOR_MAX_AGE_DAYS
-              value: 0.5
+              value: "0.5"
             - name: REFRESH_PASSWORD
               valueFrom:
                 secretKeyRef:
