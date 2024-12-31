@@ -200,7 +200,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.26
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.2.27
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -220,8 +220,6 @@ spec:
                 secretKeyRef:
                   name: substream-api-key
                   key: secret
-            - name: SUBSTREAM_CURSOR_MAX_AGE_DAYS
-              value: "0.5"
             - name: REFRESH_PASSWORD
               valueFrom:
                 secretKeyRef:
