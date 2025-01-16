@@ -77,10 +77,10 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              cpu: 100m
+              cpu: 150m
               memory: 200Mi
             limits:
-              cpu: 100m
+              cpu: 150m
               memory: 300Mi
       volumes:
         - name: oracle-keypair
@@ -148,10 +148,10 @@ spec:
         name: memory
         target:
           type: Utilization
-          averageUtilization: 75
+          averageUtilization: 90
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 75
+          averageUtilization: 90
