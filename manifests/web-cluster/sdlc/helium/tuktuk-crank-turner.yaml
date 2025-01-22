@@ -19,18 +19,18 @@ spec:
           image: public.ecr.aws/v0j6k5v6/tuktuk-crank-turner:0.0.1
           imagePullPolicy: IfNotPresent
           env:
-            - name: TUKTUK_RPC_URL
+            - name: TUKTUK__RPC_URL
               valueFrom:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
-            - name: TUKTUK_MAX_RETRIES
+            - name: TUKTUK__MAX_RETRIES
               value: "5"
-            - name: TUKTUK_MIN_CRANK_FEE
+            - name: TUKTUK__MIN_CRANK_FEE
               value: "10000"
-            - name: TUKTUK_LOG
+            - name: TUKTUK__LOG
               value: "info"
-            - name: TUKTUK_KEY_PATH
+            - name: TUKTUK__KEY_PATH
               value: "/app/keys/keypair.json"
           volumeMounts:
             - name: cron-keypair
