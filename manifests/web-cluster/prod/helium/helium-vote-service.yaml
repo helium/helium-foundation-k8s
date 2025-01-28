@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: helium-vote-service
-          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.16
+          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.18
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -42,7 +42,7 @@ spec:
               value: monitoring
             - name: PGSSLMODE
               value: no-verify
-            
+
           readinessProbe:
             failureThreshold: 3
             httpGet:
@@ -95,16 +95,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: helium-vote-service.web.helium.io
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: helium-vote-service
-            port:
-              number: 8081
+    - host: helium-vote-service.web.helium.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: helium-vote-service
+                port:
+                  number: 8081
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
