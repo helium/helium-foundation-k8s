@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: iot-rewards-faucet
-  name: iot-rewards-faucet
+    app: hnt-rewards-faucet
+  name: hnt-rewards-faucet
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: iot-rewards-faucet
+      app: hnt-rewards-faucet
   template:
     metadata:
       labels:
-        app: iot-rewards-faucet
+        app: hnt-rewards-faucet
         security-group: rds-access
     spec:
-      serviceAccountName: rds-iot-oracle-user-access
+      serviceAccountName: rds-hnt-oracle-user-access
       containers:
-        - name: iot-rewards-faucet
+        - name: hnt-rewards-faucet
           image: public.ecr.aws/v0j6k5v6/rewards-oracle-faucet-service:0.0.6
           imagePullPolicy: IfNotPresent
           ports:
@@ -31,13 +31,13 @@ spec:
                   name: triton-rpc-url
                   key: secret
             - name: PGDATABASE
-              value: iot_index
+              value: hnt_index
             - name: PGHOST
               value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER
-              value: iot_oracle
+              value: hnt_oracle
             - name: AWS_REGION
               value: us-east-1
           readinessProbe:
@@ -69,7 +69,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: iot-rewards-faucet
+  name: hnt-rewards-faucet
   namespace: helium
 spec:
   ports:
@@ -77,14 +77,14 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: iot-rewards-faucet
+    app: hnt-rewards-faucet
   sessionAffinity: None
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: iot-rewards-faucet
+  name: hnt-rewards-faucet
   namespace: helium
   annotations:
     nginx.ingress.kubernetes.io/limit-rps: "1"
@@ -92,13 +92,13 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: iot-rewards-faucet.oracle.test-helium.com
+  - host: hnt-rewards-faucet.oracle.test-helium.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: iot-rewards-faucet
+            name: hnt-rewards-faucet
             port:
               number: 3000

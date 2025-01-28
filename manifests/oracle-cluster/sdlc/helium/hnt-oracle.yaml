@@ -2,22 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: mobile-oracle
-  name: mobile-oracle
+    app: hnt-oracle
+  name: hnt-oracle
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: mobile-oracle
+      app: hnt-oracle
+  replicas: 1
   template:
     metadata:
       labels:
-        app: mobile-oracle
+        app: hnt-oracle
         security-group: rds-access
     spec:
-      serviceAccountName: rds-mobile-oracle-user-access
+      serviceAccountName: rds-hnt-oracle-user-access
       containers:
-        - name: mobile-oracle
+        - name: hnt-oracle
           image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.0.58
           imagePullPolicy: IfNotPresent
           ports:
@@ -33,13 +34,13 @@ spec:
             - name: ORACLE_KEYPAIR_PATH
               value: /usr/src/app/keys/keypair.json
             - name: PGDATABASE
-              value: mobile_index
+              value: hnt_index
             - name: PGHOST
               value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
             - name: PGPORT
               value: "5432"
             - name: PGUSER
-              value: mobile_oracle
+              value: hnt_oracle
             - name: AWS_REGION
               value: us-east-1
             - name: ASSET_API_URL
@@ -51,7 +52,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: globals
-                  key: mobile_mint
+                  key: hnt_mint
           volumeMounts:
             - name: oracle-keypair
               mountPath: /usr/src/app/keys
@@ -92,7 +93,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mobile-oracle
+  name: hnt-oracle
   namespace: helium
   annotations:
     prometheus.io/scrape: "true"
@@ -103,14 +104,14 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: mobile-oracle
+    app: hnt-oracle
   sessionAffinity: None
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mobile-oracle
+  name: hnt-oracle
   namespace: helium
   annotations:
     nginx.ingress.kubernetes.io/limit-rps: "10"
@@ -118,27 +119,27 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: mobile-rewards.oracle.test-helium.com
+  - host: hnt-rewards.oracle.test-helium.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: mobile-oracle
+            name: hnt-oracle
             port:
               number: 8080
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: mobile-oracle
+  name: hnt-oracle
   namespace: helium
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: mobile-oracle
+    name: hnt-oracle
   minReplicas: 1
   maxReplicas: 3
   metrics:
