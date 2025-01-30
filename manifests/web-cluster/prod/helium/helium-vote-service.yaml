@@ -1,134 +1,134 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: helium-vote-service
-  name: helium-vote-service
-  namespace: helium
-spec:
-  selector:
-    matchLabels:
-      app: helium-vote-service
-  template:
-    metadata:
-      labels:
-        app: helium-vote-service
-        security-group: public-rds-access
-    spec:
-      serviceAccountName: public-monitoring-rds-monitoring-user-access
-      containers:
-        - name: helium-vote-service
-          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.22
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 8081
-              name: http
-              protocol: TCP
-          env:
-            - name: SOLANA_URL
-              valueFrom:
-                secretKeyRef:
-                  name: helius-rpc-url
-                  key: secret
-            - name: PGHOST
-              value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
-            - name: PGPORT
-              value: "5432"
-            - name: PGUSER
-              value: monitoring
-            - name: AWS_REGION
-              value: us-west-2
-            - name: PGDATABASE
-              value: monitoring
-            - name: PGSSLMODE
-              value: no-verify
-            - name: MODIFY_DB
-              value: "false"
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   labels:
+#     app: helium-vote-service
+#   name: helium-vote-service
+#   namespace: helium
+# spec:
+#   selector:
+#     matchLabels:
+#       app: helium-vote-service
+#   template:
+#     metadata:
+#       labels:
+#         app: helium-vote-service
+#         security-group: public-rds-access
+#     spec:
+#       serviceAccountName: public-monitoring-rds-monitoring-user-access
+#       containers:
+#         - name: helium-vote-service
+#           image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.22
+#           imagePullPolicy: IfNotPresent
+#           ports:
+#             - containerPort: 8081
+#               name: http
+#               protocol: TCP
+#           env:
+#             - name: SOLANA_URL
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: helius-rpc-url
+#                   key: secret
+#             - name: PGHOST
+#               value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
+#             - name: PGPORT
+#               value: "5432"
+#             - name: PGUSER
+#               value: monitoring
+#             - name: AWS_REGION
+#               value: us-west-2
+#             - name: PGDATABASE
+#               value: monitoring
+#             - name: PGSSLMODE
+#               value: no-verify
+#             - name: MODIFY_DB
+#               value: "false"
 
-          readinessProbe:
-            failureThreshold: 5
-            httpGet:
-              path: /health
-              port: 8081
-              scheme: HTTP
-            initialDelaySeconds: 30
-            periodSeconds: 30
-            successThreshold: 1
-            timeoutSeconds: 2
-          livenessProbe:
-            failureThreshold: 3
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            successThreshold: 1
-            tcpSocket:
-              port: 8081
-            timeoutSeconds: 1
-          resources:
-            requests:
-              cpu: 300m
-              memory: 500Mi
-            limits:
-              memory: 800Mi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: helium-vote-service
-  namespace: helium
-spec:
-  ports:
-    - port: 8081
-      protocol: TCP
-      targetPort: http
-  selector:
-    app: helium-vote-service
-  sessionAffinity: None
-  type: ClusterIP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: helium-vote-service
-  namespace: helium
-  annotations:
-    nginx.ingress.kubernetes.io/limit-rps: "10"
-    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: helium-vote-service.web.helium.io
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: helium-vote-service
-                port:
-                  number: 8081
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: helium-vote-service
-  namespace: helium
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: helium-vote-service
-  minReplicas: 2
-  maxReplicas: 5
-  metrics:
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: 75
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 75
+#           readinessProbe:
+#             failureThreshold: 5
+#             httpGet:
+#               path: /health
+#               port: 8081
+#               scheme: HTTP
+#             initialDelaySeconds: 30
+#             periodSeconds: 30
+#             successThreshold: 1
+#             timeoutSeconds: 2
+#           livenessProbe:
+#             failureThreshold: 3
+#             initialDelaySeconds: 30
+#             periodSeconds: 10
+#             successThreshold: 1
+#             tcpSocket:
+#               port: 8081
+#             timeoutSeconds: 1
+#           resources:
+#             requests:
+#               cpu: 300m
+#               memory: 500Mi
+#             limits:
+#               memory: 800Mi
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: helium-vote-service
+#   namespace: helium
+# spec:
+#   ports:
+#     - port: 8081
+#       protocol: TCP
+#       targetPort: http
+#   selector:
+#     app: helium-vote-service
+#   sessionAffinity: None
+#   type: ClusterIP
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: helium-vote-service
+#   namespace: helium
+#   annotations:
+#     nginx.ingress.kubernetes.io/limit-rps: "10"
+#     nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#     - host: helium-vote-service.web.helium.io
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: helium-vote-service
+#                 port:
+#                   number: 8081
+# ---
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: helium-vote-service
+#   namespace: helium
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: helium-vote-service
+#   minReplicas: 2
+#   maxReplicas: 5
+#   metrics:
+#     - type: Resource
+#       resource:
+#         name: memory
+#         target:
+#           type: Utilization
+#           averageUtilization: 75
+#     - type: Resource
+#       resource:
+#         name: cpu
+#         target:
+#           type: Utilization
+#           averageUtilization: 75
