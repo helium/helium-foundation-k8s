@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: helium-vote-service
-          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.19
+          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.21
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -42,6 +42,8 @@ spec:
               value: monitoring
             - name: PGSSLMODE
               value: no-verify
+            - name: MODIFY_DB
+              value: "false"
 
           readinessProbe:
             failureThreshold: 3
