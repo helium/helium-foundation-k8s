@@ -44,12 +44,12 @@ spec:
               value: no-verify
 
           readinessProbe:
-            failureThreshold: 3
+            failureThreshold: 5
             httpGet:
               path: /health
               port: 8081
               scheme: HTTP
-            initialDelaySeconds: 10
+            initialDelaySeconds: 30
             periodSeconds: 30
             successThreshold: 1
             timeoutSeconds: 2
