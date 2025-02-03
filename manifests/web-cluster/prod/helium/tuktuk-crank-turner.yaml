@@ -18,6 +18,10 @@ spec:
         - name: tuktuk-crank-turner
           image: public.ecr.aws/v0j6k5v6/tuktuk-crank-turner:0.1.1
           imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
           env:
             - name: TUKTUK__RPC_URL
               valueFrom:
