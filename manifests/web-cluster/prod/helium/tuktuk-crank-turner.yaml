@@ -50,3 +50,21 @@ spec:
             items:
               - key: keypair.json
                 path: keypair.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tktuk-crank-turner
+  namespace: helium
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: tktuk-crank-turner
+  sessionAffinity: None
+  type: ClusterIP
