@@ -58,7 +58,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tktuk-crank-turner
+  name: tuktuk-crank-turner
   namespace: helium
   annotations:
     prometheus.io/scrape: "true"
@@ -69,6 +69,6 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: tktuk-crank-turner
+    app: tuktuk-crank-turner
   sessionAffinity: None
   type: ClusterIP
