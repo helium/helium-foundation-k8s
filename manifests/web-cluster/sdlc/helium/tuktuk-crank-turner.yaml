@@ -72,3 +72,25 @@ spec:
     app: tuktuk-crank-turner
   sessionAffinity: None
   type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tuktuk-crank-turner
+  namespace: helium
+  annotations:
+    nginx.ingress.kubernetes.io/limit-rps: "10"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: tuktuk-crank-turner.web.test-helium.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: tuktuk-crank-turner
+            port:
+              number: 8080
