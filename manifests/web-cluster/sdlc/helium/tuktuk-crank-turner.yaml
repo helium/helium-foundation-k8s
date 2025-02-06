@@ -16,8 +16,12 @@ spec:
     spec:
       containers:
         - name: tuktuk-crank-turner
-          image: public.ecr.aws/v0j6k5v6/tuktuk-crank-turner:0.0.1
+          image: public.ecr.aws/v0j6k5v6/tuktuk-crank-turner:0.1.12
           imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
           env:
             - name: TUKTUK__RPC_URL
               valueFrom:
@@ -50,3 +54,21 @@ spec:
             items:
               - key: keypair.json
                 path: keypair.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tuktuk-crank-turner
+  namespace: helium
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: tuktuk-crank-turner
+  sessionAffinity: None
+  type: ClusterIP
