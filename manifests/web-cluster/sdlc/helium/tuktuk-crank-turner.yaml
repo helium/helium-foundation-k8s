@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tuktuk-crank-turner
-          image: public.ecr.aws/v0j6k5v6/tuktuk-crank-turner:0.1.15
+          image: public.ecr.aws/v0j6k5v6/tuktuk-crank-turner:0.1.16
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
