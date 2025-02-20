@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: helium-vote-service
-          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.18
+          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.22
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -42,14 +42,16 @@ spec:
               value: monitoring
             - name: PGSSLMODE
               value: no-verify
+            - name: MODIFY_DB
+              value: "false"
 
           readinessProbe:
-            failureThreshold: 3
+            failureThreshold: 5
             httpGet:
               path: /health
               port: 8081
               scheme: HTTP
-            initialDelaySeconds: 10
+            initialDelaySeconds: 30
             periodSeconds: 30
             successThreshold: 1
             timeoutSeconds: 2
@@ -63,11 +65,10 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              cpu: 200m
-              memory: 300Mi
+              cpu: 300m
+              memory: 500Mi
             limits:
-              cpu: 400m
-              memory: 400Mi
+              memory: 800Mi
 ---
 apiVersion: v1
 kind: Service
