@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: helium-vote-service-keypair
+  namespace: keypair.json
+spec:
+  encryptedData:
+    secret: AgARwoKI+nXld1cw3OMvNzlaReFkkBtRWm8ImtpYdtr0FwTILEUHEy7kWjOuaOcSWlqkrsWWkwiX363AqRQQnLJld1ZE+AamsHgUlc+i8fcGi5JTCibAg/1vmfWlm5TEiOmrnBbR+JnU5gTkrym5e/n6ogJLIt4Ke/GbLa1Gy2cJ8rKmb+Uk+0w67v1XoMYqRpq6M8HOhI7mceGSzDQckA27ocp56R9xynHPWEQH0CAq4woY5NMU2rla6AzFF/vyrQ+csVnV32fmphxzrAKLaq3o2WiCxfBlJ/+aXZAimwOXwKQTqpsFPX/rr3xafgOuZLglnCnmxndbKGj0cZVn7Rlq+7w18QjHwpFVt/e4nO+WTanRGWFNEhNH5vAexaAhM5D3U/FuKOpo8uomjad/BbKms3lqKeJptakyF1qqJ57exWBhIt0D0R/9LocWk1mnpJOsVtmvvcHurLs0dkMmY/8/0yLlehO5s/SwI19+qjpBBpFN4Bh3jD/Uf4Xi2F8u7X/u3hL+pdE/6mxEDnxsreLZhzUYmBYEnSP13nLxyqK5Aa2MieU3dKtuQf+ixFB1xmhOL6GS7oRIScHw9snio4N+W831zvwkTUynsdbg/Y7I7lrRK6nnP8A3dSjFoZaIJ7XwacL8hpdmhSzYXwMIHGUEwJxvrsUCLFQqIYwcg0swgt3OGKPkrmJ/rza6huQas31WnzGsYnN2P9kP+MoIUyU4XqsjCv1ATc2rqsmCrrKHgYZwDH26G14o7s+JX3Cx3oaSgeJH66NfGXxDh/nv16VHKpTNASMLD2GvlG5MDN7TxQLwWuirx4sYkp/MCMfPgEdLsFSiEnvRLJddZnEWTpcWBWZv1R65MtPeE9X4+XJgT9HdGFIT0j7/P7cu739Ooz5SG/Dj022R5gwa50V/HfOvQk/PNxMy32YLnu7GM20ZO4AozVs0WRmfmAFe4Sm/qfxwayWa+ygJGmUt5f4sh91LRSR8hQvBrDIGh4DyyCc=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: helium-vote-service-keypair
+      namespace: keypair.json

@@ -44,6 +44,8 @@ spec:
               value: no-verify
             - name: MODIFY_DB
               value: "false"
+            - name: ANCHOR_WALLET
+              value: /usr/src/app/keys/keypair.json
 
           readinessProbe:
             failureThreshold: 3
@@ -63,6 +65,10 @@ spec:
             tcpSocket:
               port: 8081
             timeoutSeconds: 1
+          volumeMounts:
+            - name: helium-vote-service-keypair
+              mountPath: /usr/src/app/keys
+              readOnly: true
           resources:
             requests:
               cpu: 200m
@@ -70,6 +76,13 @@ spec:
             limits:
               cpu: 400m
               memory: 400Mi
+      volumes:
+        - name: helium-vote-service-keypair
+          secret:
+            secretName: helium-vote-service-keypair
+            items:
+              - key: keypair.json
+                path: keypair.json
 ---
 apiVersion: v1
 kind: Service
