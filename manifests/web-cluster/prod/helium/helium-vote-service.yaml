@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: helium-vote-service
-          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.23
+          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.28
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -63,12 +63,23 @@ spec:
             tcpSocket:
               port: 8081
             timeoutSeconds: 1
+          volumeMounts:
+            - name: helium-vote-service-keypair
+              mountPath: /usr/src/app/keys
+              readOnly: true
           resources:
             requests:
               cpu: 300m
               memory: 500Mi
             limits:
               memory: 800Mi
+      volumes:
+        - name: helium-vote-service-keypair
+          secret:
+            secretName: helium-vote-service-keypair
+            items:
+              - key: keypair.json
+                path: keypair.json
 ---
 apiVersion: v1
 kind: Service
