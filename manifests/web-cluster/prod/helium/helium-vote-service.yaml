@@ -44,6 +44,8 @@ spec:
               value: no-verify
             - name: MODIFY_DB
               value: "false"
+            - name: ANCHOR_WALLET
+              value: /usr/src/app/keys/keypair.json
 
           readinessProbe:
             failureThreshold: 5
