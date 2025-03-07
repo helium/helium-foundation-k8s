@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-mobile-oracle-user-access
       containers:
         - name: mobile-oracle
-          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.0.59
+          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.0.60
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -117,16 +117,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: mobile-rewards.oracle.helium.io
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: mobile-oracle
-            port:
-              number: 8080
+    - host: mobile-rewards.oracle.helium.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mobile-oracle
+                port:
+                  number: 8080
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
