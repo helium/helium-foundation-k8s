@@ -1,74 +1,74 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: tuktuk-crank-turner
-  name: tuktuk-crank-turner
-  namespace: helium
-spec:
-  selector:
-    matchLabels:
-      app: tuktuk-crank-turner
-  template:
-    metadata:
-      labels:
-        app: tuktuk-crank-turner
-    spec:
-      containers:
-        - name: tuktuk-crank-turner
-          image: public.ecr.aws/v0j6k5v6/tuktuk-crank-turner:0.2.1
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 8080
-              name: http
-              protocol: TCP
-          env:
-            - name: TUKTUK__RPC_URL
-              valueFrom:
-                secretKeyRef:
-                  name: helius-rpc-url
-                  key: secret
-            - name: TUKTUK__MAX_RETRIES
-              value: "5"
-            - name: TUKTUK__MIN_CRANK_FEE
-              value: "10000"
-            - name: TUKTUK__LOG
-              value: "info"
-            - name: TUKTUK__KEY_PATH
-              value: "/app/keys/keypair.json"
-          volumeMounts:
-            - name: cron-keypair
-              mountPath: /app/keys
-              readOnly: true
-          resources:
-            requests:
-              cpu: 250m
-              memory: 500Mi
-            limits:
-              cpu: 750m
-              memory: 750Mi
-      volumes:
-        - name: cron-keypair
-          secret:
-            secretName: cron-keypair
-            items:
-              - key: keypair.json
-                path: keypair.json
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: tuktuk-crank-turner
-  namespace: helium
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8080"
-spec:
-  ports:
-    - port: 8080
-      protocol: TCP
-      targetPort: http
-  selector:
-    app: tuktuk-crank-turner
-  sessionAffinity: None
-  type: ClusterIP
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   labels:
+#     app: tuktuk-crank-turner
+#   name: tuktuk-crank-turner
+#   namespace: helium
+# spec:
+#   selector:
+#     matchLabels:
+#       app: tuktuk-crank-turner
+#   template:
+#     metadata:
+#       labels:
+#         app: tuktuk-crank-turner
+#     spec:
+#       containers:
+#         - name: tuktuk-crank-turner
+#           image: public.ecr.aws/v0j6k5v6/tuktuk-crank-turner:0.2.1
+#           imagePullPolicy: IfNotPresent
+#           ports:
+#             - containerPort: 8080
+#               name: http
+#               protocol: TCP
+#           env:
+#             - name: TUKTUK__RPC_URL
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: helius-rpc-url
+#                   key: secret
+#             - name: TUKTUK__MAX_RETRIES
+#               value: "5"
+#             - name: TUKTUK__MIN_CRANK_FEE
+#               value: "10000"
+#             - name: TUKTUK__LOG
+#               value: "info"
+#             - name: TUKTUK__KEY_PATH
+#               value: "/app/keys/keypair.json"
+#           volumeMounts:
+#             - name: cron-keypair
+#               mountPath: /app/keys
+#               readOnly: true
+#           resources:
+#             requests:
+#               cpu: 250m
+#               memory: 500Mi
+#             limits:
+#               cpu: 750m
+#               memory: 750Mi
+#       volumes:
+#         - name: cron-keypair
+#           secret:
+#             secretName: cron-keypair
+#             items:
+#               - key: keypair.json
+#                 path: keypair.json
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: tuktuk-crank-turner
+#   namespace: helium
+#   annotations:
+#     prometheus.io/scrape: "true"
+#     prometheus.io/port: "8080"
+# spec:
+#   ports:
+#     - port: 8080
+#       protocol: TCP
+#       targetPort: http
+#   selector:
+#     app: tuktuk-crank-turner
+#   sessionAffinity: None
+#   type: ClusterIP
