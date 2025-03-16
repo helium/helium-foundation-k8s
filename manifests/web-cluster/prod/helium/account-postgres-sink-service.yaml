@@ -210,17 +210,18 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
-            - name: USE_SUBSTREAM
-              value: "true"
-            - name: SUBSTREAM_URL
-              value: "https://accounts.mainnet.sol.streamingfast.io"
-            - name: SUBSTREAM
-              value: "https://spkg.io/v1/packages/solana_accounts_foundational/v0.1.1"
-            - name: SUBSTREAM_API_KEY
+            - name: YELLOWSTONE_URL
               valueFrom:
                 secretKeyRef:
-                  name: substream-api-key
+                  name: triton-rpc-url
                   key: secret
+            - name: YELLOWSTONE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: triton-token
+                  key: token
+            - name: USE_YELLOWSTONE
+              value: "true"
             - name: REFRESH_PASSWORD
               valueFrom:
                 secretKeyRef:
