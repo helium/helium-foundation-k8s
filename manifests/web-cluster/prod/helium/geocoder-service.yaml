@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: geocoder-service
+  namespace: helium
   labels:
     app: geocoder-service
 spec:
@@ -16,6 +17,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: geocoder-service
+  namespace: helium
 spec:
   serviceName: geocoder-service
   replicas: 1
