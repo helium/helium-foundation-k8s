@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: geocoder-service
-          image: public.ecr.aws/v0j6k5v6/geocoder-service:0.1.4
+          image: public.ecr.aws/v0j6k5v6/geocoder-service:0.1.5
           volumeMounts:
             - name: photon-data
               mountPath: /data
