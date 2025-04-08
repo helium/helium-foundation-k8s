@@ -21,7 +21,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: entity-invalidator
-            image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.0.8
+            image: public.ecr.aws/v0j6k5v6/entity-invalidator:0.1.1
             imagePullPolicy: IfNotPresent
             env:
               - name: PGHOST
