@@ -234,7 +234,7 @@ spec:
             - name: PGSSLMODE
               value: no-verify
             - name: PHOTON_URL
-              value: "https://photon.komoot.io"
+              value: "http://geocoder-service-0.geocoder-service.helium.svc.cluster.local"
             - name: MAPBOX_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
