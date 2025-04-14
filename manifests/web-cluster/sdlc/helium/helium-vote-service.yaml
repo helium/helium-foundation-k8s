@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: helium-vote-service
-          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.0.35
+          image: public.ecr.aws/v0j6k5v6/helium-vote-service:0.1.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -28,7 +28,7 @@ spec:
             - name: SOLANA_URL
               valueFrom:
                 secretKeyRef:
-                  name: triton-rpc-url
+                  name: helius-rpc-url
                   key: secret
             - name: PGHOST
               value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
