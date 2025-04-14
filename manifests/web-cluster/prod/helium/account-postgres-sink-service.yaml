@@ -240,7 +240,7 @@ spec:
             - name: PGSSLMODE
               value: no-verify
             - name: PHOTON_URL
-              value: "http://geocoder-service-0.geocoder-service.helium.svc.cluster.local"
+              value: "https://photon.komoot.io"
             - name: SOLANA_URL
               valueFrom:
                 secretKeyRef:
