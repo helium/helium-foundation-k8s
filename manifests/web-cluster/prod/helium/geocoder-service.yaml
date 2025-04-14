@@ -6,11 +6,12 @@ metadata:
   labels:
     app: geocoder-service
 spec:
-  clusterIP: None 
+  clusterIP: None
   selector:
     app: geocoder-service
   ports:
     - port: 80
+      targetPort: 8000
       name: http
 ---
 apiVersion: apps/v1
@@ -40,7 +41,7 @@ spec:
         name: photon-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: gp3  # Replace if you have a different class
+        storageClassName: gp3 # Replace if you have a different class
         resources:
           requests:
             storage: 200Gi
