@@ -147,7 +147,6 @@ data:
             }
           ],
           "crons": [
-            { "schedule": "*/10 * * * *", "type": "refresh-accounts" },
             { "schedule": "10 0 * * *", "type": "integrity-check" }
           ]
         },
