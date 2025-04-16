@@ -75,7 +75,7 @@ spec:
       serviceAccountName: rds-metadata-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.3
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -99,12 +99,12 @@ spec:
             - name: SOLANA_URL
               valueFrom:
                 secretKeyRef:
-                  name: triton-rpc-url
+                  name: helius-rpc-url
                   key: secret
             - name: ASSET_API_URL
               valueFrom:
                 secretKeyRef:
-                  name: triton-rpc-url
+                  name: helius-rpc-url
                   key: secret
             - name: PROGRAM_ACCOUNT_CONFIGS
               value: "/usr/src/app/config/config.json"
