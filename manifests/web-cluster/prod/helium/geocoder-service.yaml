@@ -33,6 +33,10 @@ spec:
       containers:
         - name: geocoder-service
           image: public.ecr.aws/v0j6k5v6/geocoder-service:0.1.5
+          ports:
+            - containerPort: 8000
+              name: http
+              protocol: TCP
           volumeMounts:
             - name: photon-data
               mountPath: /data
