@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iot-payload-totals-silver-query
+  namespace: spark
+data:
+  query.sql: |
+    SELECT 
+      date, sum(payload_size) AS payload_total
+    FROM iot_packets
+---
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: iot-payload-totals-silver
+  namespace: spark
+spec:
+  type: Scala
+  mode: cluster
+  image: "public.ecr.aws/k0m1p4t7/spark:v3.4.0-aws"
+  imagePullPolicy: Always
+  mainClass: Main
+  mainApplicationFile: "s3a://foundation-data-lake-requester-pays/jars/spark-streaming-sql-assembly-1.0.jar"
+  sparkVersion: "3.4.0"
+  restartPolicy:
+    type: OnFailure
+    onFailureRetries: 3
+    onFailureRetryInterval: 10
+    onSubmissionFailureRetries: 3
+    onSubmissionFailureRetryInterval: 10
+  sparkConf:
+    spark.databricks.delta.autoCompact.enabled: "true"
+  hadoopConf:
+    fs.s3a.aws.credentials.provider: com.amazonaws.auth.WebIdentityTokenCredentialsProvider
+  volumes:
+    - name: "tmp"
+      hostPath:
+        path: "/tmp"
+        type: Directory
+    - name: config-vol
+      configMap:
+        name: iot-payload-totals-silver-query
+        items:
+          - key: query.sql
+            path: query.sql
+  driver:
+    serviceAccount: spark-data-lake-access
+    cores: 1
+    coreLimit: "1200m"
+    memory: "512m"
+    nodeSelector:
+      node.kubernetes.io/instance-type: m5.large
+    envVars:
+      TABLE_IOT_PACKETS: s3a://foundation-data-lake-requester-pays/silver/iot-packets
+      PARTITION_BY: "date"
+      CHECKPOINT: s3a://foundation-data-lake-requester-pays/checkpoints/iot-payload-totals
+      OUTPUT: s3a://foundation-data-lake-requester-pays/silver/iot-payload-totals
+      QUERY_PATH: /app/query.sql
+    labels:
+      version: 3.4.0
+    volumeMounts:
+      - name: "test-volume"
+        mountPath: "/tmp"
+      - name: config-vol
+        mountPath: /app
+  executor:
+    serviceAccount: spark-data-lake-access
+    cores: 1
+    coreLimit: "1200m"
+    instances: 3
+    memory: "10G"
+    tolerations: # Schedule executor pods on spot instance group
+      - key: dedicated
+        operator: Equal
+        value: spark
+        effect: NoSchedule
+    nodeSelector:
+      nodegroup-type: spot
+    labels:
+      version: 3.4.0
+    volumeMounts:
+      - name: "tmp"
+        mountPath: "/tmp"
