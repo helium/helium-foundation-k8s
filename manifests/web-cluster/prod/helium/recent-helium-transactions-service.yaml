@@ -1164,9 +1164,7 @@ spec:
     metadata:
       labels:
         app: recent-helium-transactions-service
-        security-group: public-rds-access
     spec:
-      serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: recent-helium-transactions-service
           image: public.ecr.aws/v0j6k5v6/recent-helium-transactions-service:0.0.1
