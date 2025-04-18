@@ -1167,7 +1167,7 @@ spec:
     spec:
       containers:
         - name: recent-helium-transactions-service
-          image: public.ecr.aws/v0j6k5v6/recent-helium-transactions-service:0.0.1
+          image: public.ecr.aws/v0j6k5v6/recent-helium-transactions-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -1184,6 +1184,8 @@ spec:
             - name: POLLING_INTERVAL
               value: "5000"
             - name: MAX_BUFFER_SIZE
+              value: "5000"
+            - name: MAX_LOOKBACK_SIZE
               value: "100"
             - name: LOG_LEVEL
               value: "debug"
