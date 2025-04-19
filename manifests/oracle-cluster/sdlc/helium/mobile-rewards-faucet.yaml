@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-mobile-oracle-user-access
       containers:
         - name: mobile-rewards-faucet
-          image: public.ecr.aws/v0j6k5v6/rewards-oracle-faucet-service:0.1.0
+          image: public.ecr.aws/v0j6k5v6/rewards-oracle-faucet-service:0.1.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
