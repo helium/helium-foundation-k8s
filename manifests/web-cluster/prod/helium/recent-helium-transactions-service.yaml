@@ -1182,9 +1182,11 @@ spec:
             - name: PORT
               value: "3000"
             - name: POLLING_INTERVAL
-              value: "5000"
+              value: "60000"
             - name: MAX_BUFFER_SIZE
-              value: "100"
+              value: "5000"
+            - name: MAX_LOOKBACK_SIZE
+              value: "50"
             - name: LOG_LEVEL
               value: "debug"
             - name: CONFIG_PATH
