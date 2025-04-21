@@ -40,6 +40,13 @@ spec:
           volumeMounts:
             - name: photon-data
               mountPath: /data
+          resources:
+            requests:
+              cpu: 200m
+              memory: 2Gi
+            limits:
+              cpu: 400m
+              memory: 3Gi
   volumeClaimTemplates:
     - metadata:
         name: photon-data
