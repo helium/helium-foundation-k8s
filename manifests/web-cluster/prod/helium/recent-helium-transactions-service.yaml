@@ -1167,7 +1167,7 @@ spec:
     spec:
       containers:
         - name: recent-helium-transactions-service
-          image: public.ecr.aws/v0j6k5v6/recent-helium-transactions-service:0.0.1
+          image: public.ecr.aws/v0j6k5v6/recent-helium-transactions-service:0.0.3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
