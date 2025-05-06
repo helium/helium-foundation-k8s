@@ -6,11 +6,12 @@ metadata:
   labels:
     app: geocoder-service
 spec:
-  clusterIP: None 
+  clusterIP: None
   selector:
     app: geocoder-service
   ports:
     - port: 80
+      targetPort: 8000
       name: http
 ---
 apiVersion: apps/v1
@@ -32,15 +33,26 @@ spec:
       containers:
         - name: geocoder-service
           image: public.ecr.aws/v0j6k5v6/geocoder-service:0.1.5
+          ports:
+            - containerPort: 8000
+              name: http
+              protocol: TCP
           volumeMounts:
             - name: photon-data
               mountPath: /data
+          resources:
+            requests:
+              cpu: 200m
+              memory: 2Gi
+            limits:
+              cpu: 400m
+              memory: 3Gi
   volumeClaimTemplates:
     - metadata:
         name: photon-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: gp3  # Replace if you have a different class
+        storageClassName: gp3 # Replace if you have a different class
         resources:
           requests:
             storage: 200Gi
