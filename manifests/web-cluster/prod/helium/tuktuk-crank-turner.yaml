@@ -40,6 +40,16 @@ spec:
             - name: cron-keypair
               mountPath: /app/keys
               readOnly: true
+          livenessProbe:
+            failureThreshold: 2
+            httpGet:
+              path: /metrics
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
           resources:
             requests:
               cpu: 250m
