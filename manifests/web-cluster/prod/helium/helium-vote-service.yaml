@@ -46,6 +46,11 @@ spec:
               value: "false"
             - name: ANCHOR_WALLET
               value: /usr/src/app/keys/keypair.json
+            - name: DUNE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: dune-api-key
+                  key: dune-api-key
 
           readinessProbe:
             failureThreshold: 5

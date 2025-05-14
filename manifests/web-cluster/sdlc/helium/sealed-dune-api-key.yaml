@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: dune-api-key
+  namespace: helium
+spec:
+  encryptedData:
+    dune-api-key: AgBVU5UnCsGFGbo9nxw9A6kmdSNlkCEUpFd+5FfqK08t9eKBsdSYUI9l1Wtd6+xiTw/pCWF5z8aTcSXFBPIJnhY7Dy03q8QZn+CdbxIxVpfrtWCznf+SxdozpccRfOUmztZAzK/R448a2nKll+vpyuKNOZn8Uce1ayD6haD/26NO7cFvbxuUMgZm5gGb3jynpc94NHIilOb7zrQrVJsrX/NgFdgTdUzlk/M7KdeNu/jxFuXxXGGOiNQ2i8WAGW9Bxf3BGJ7TlkQ6BK/6TJVCcf6Yfiaf5YdtLqn5dbcenJ4prHyPQs8pe/oVXCWCtSsmb/XcUzN+iwVa81FernEiaKkm0XrT0WgbwsZPD1GOmGggj3KJOc/NhvDCafwoIsHAuFQtgWsXhar8ic888nwAq+dDfTy6q+s5fsOE368E9wg4B4GbDVB6BwjNKcl/tZ7e1dICihfNoEKkOi7HFrlHtYz3rQ4OYJi4pKckd2Lj4dtN9Au9PIDjffZBp9shtldOr3MpgEvnZJEJJIQn+Nnz1HMokO0BnNx+Gz16qs+YI20844zL/8ZXN53OnXXOEISeuTHLs7SAzNRvNxJKRyPa4yh1FTCv/SjPd5ryK6bPkT88h7neQiUiROS927rUEU8I73aEH+uYQEQ+w+oVzXiRIEzNTkHn3HkJFt8RMd9EPCq7cNmKrEA55br0QLb52BmErL0ds2k1Q3Z+3TcGAkQYLUgGK/iU/ZxrHYpjnCtxtn55Hw==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: dune-api-key
+      namespace: helium
