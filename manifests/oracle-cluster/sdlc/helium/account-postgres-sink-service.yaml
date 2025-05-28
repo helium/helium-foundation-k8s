@@ -75,7 +75,7 @@ spec:
       serviceAccountName: rds-metadata-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.8
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.10
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -84,17 +84,17 @@ spec:
           env:
             - name: RUN_JOBS_AT_STARTUP
               value: "true"
-            - name: PGHOST
+            - name: PG_HOST
               value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
-            - name: PGPORT
+            - name: PG_PORT
               value: "5432"
-            - name: PGUSER
+            - name: PG_USER
               value: metadata
             - name: AWS_REGION
               value: us-east-1
-            - name: PGDATABASE
+            - name: PG_DATABASE
               value: metadata
-            - name: PGSSLMODE
+            - name: PG_SSL_MODE
               value: no-verify
             - name: SOLANA_URL
               valueFrom:
