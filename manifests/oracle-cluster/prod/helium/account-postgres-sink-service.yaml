@@ -93,7 +93,7 @@ spec:
       serviceAccountName: rds-metadata-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.10
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.8
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -113,24 +113,24 @@ spec:
                 secretKeyRef:
                   name: substream-api-key
                   key: secret
-            - name: PG_HOST
+            - name: PGHOST
               value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
-            - name: PG_PORT
+            - name: PGPORT
               value: "5432"
-            - name: PG_USER
+            - name: PGUSER
               value: metadata
             - name: AWS_REGION
               value: us-west-2
-            - name: PG_DATABASE
+            - name: PGDATABASE
               value: metadata
-            - name: PG_SSL_MODE
+            - name: PGSSLMODE
               value: no-verify
             - name: SOLANA_URL
               valueFrom:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
-            - name: ADMIN_PASSWORD
+            - name: REFRESH_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: refresh-password

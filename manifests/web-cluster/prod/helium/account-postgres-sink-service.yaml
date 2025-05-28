@@ -200,7 +200,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.10
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.8
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -220,24 +220,24 @@ spec:
                 secretKeyRef:
                   name: substream-api-key
                   key: secret
-            - name: ADMIN_PASSWORD
+            - name: REFRESH_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: refresh-password
                   key: password
-            - name: PG_HOST
+            - name: PGHOST
               value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
-            - name: PG_PORT
+            - name: PGPORT
               value: "5432"
-            - name: PG_USER
+            - name: PGUSER
               value: monitoring
-            - name: PG_POOL_SIZE
+            - name: PGPOOLSIZE
               value: "35"
             - name: AWS_REGION
               value: us-west-2
-            - name: PG_DATABASE
+            - name: PGDATABASE
               value: monitoring
-            - name: PG_SSL_MODE
+            - name: PGSSLMODE
               value: no-verify
             - name: PHOTON_URL
               value: "http://geocoder-service-0.geocoder-service:8000"
