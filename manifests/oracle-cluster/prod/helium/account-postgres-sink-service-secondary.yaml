@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: account-postgres-sink-config
+  name: account-postgres-sink-secondary-config
   namespace: helium
 data:
   config.json: |
@@ -78,23 +78,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: account-postgres-sink-service
-  name: account-postgres-sink-service
+    app: account-postgres-sink-service-secondary
+  name: account-postgres-sink-service-secondary
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: account-postgres-sink-service
+      app: account-postgres-sink-service-secondary
   replicas: 1
   template:
     metadata:
       labels:
-        app: account-postgres-sink-service
+        app: account-postgres-sink-service-secondary
         security-group: rds-access
     spec:
       serviceAccountName: rds-chain-indexer-user-access
       containers:
-        - name: account-postgres-sink-service
+        - name: account-postgres-sink-service-secondary
           image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.11
           imagePullPolicy: IfNotPresent
           ports:
@@ -145,7 +145,7 @@ spec:
             - name: PROGRAM_ACCOUNT_CONFIGS
               value: "/usr/src/app/config/config.json"
           volumeMounts:
-            - name: account-postgres-sink-config
+            - name: account-postgres-sink-secondary-config
               mountPath: /usr/src/app/config
               readOnly: true
           resources:
@@ -155,9 +155,9 @@ spec:
             limits:
               memory: 5Gi
       volumes:
-        - name: account-postgres-sink-config
+        - name: account-postgres-sink-secondary-config
           configMap:
-            name: account-postgres-sink-config
+            name: account-postgres-sink-secondary-config
             items:
               - key: config.json
                 path: config.json
@@ -165,7 +165,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: account-postgres-sink-service
+  name: account-postgres-sink-service-secondary
   namespace: helium
   annotations:
     prometheus.io/scrape: "true"
@@ -176,25 +176,25 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: account-postgres-sink-service
+    app: account-postgres-sink-service-secondary
   sessionAffinity: None
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: account-postgres-sink-service
+  name: account-postgres-sink-service-secondary
   namespace: helium
 spec:
   ingressClassName: nginx
   rules:
-    - host: account-sink.oracle.helium.io
+    - host: account-sink-secondary.oracle.helium.io
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: account-postgres-sink-service
+                name: account-postgres-sink-service-secondary
                 port:
                   number: 3000
