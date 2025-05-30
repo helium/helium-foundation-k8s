@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: asset-ownership-service
+  name: asset-ownership-service
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: asset-ownership-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: asset-ownership-service
+        security-group: rds-access
+    spec:
+      serviceAccountName: rds-chain-indexer-user-access
+      containers:
+        - name: asset-ownership-service
+          image: public.ecr.aws/v0j6k5v6/asset-ownership-service:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: USE_SUBSTREAM
+              value: "true"
+            - name: SUBSTREAM_URL
+              value: "https://mainnet.sol.streamingfast.io"
+            - name: SUBSTREAM
+              value: "https://spkg.io/v1/packages/solana_common/v0.3.3"
+            - name: SUBSTREAM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: substream-api-key
+                  key: secret
+            - name: PG_HOST
+              value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
+            - name: PG_PORT
+              value: "5432"
+            - name: PG_USER
+              value: chain_indexer
+            - name: AWS_REGION
+              value: us-west-2
+            - name: PG_DATABASE
+              value: hnt_index
+            - name: PG_SSL_MODE
+              value: no-verify
+            - name: PG_MAKER_TABLE
+              value: makers
+            - name: PG_DATA_ONLY_TABLE
+              value: data_only_configs
+            - name: PG_ASSET_TABLE
+              value: key_to_assets
+            - name: PG_CARRIER_TABLE
+              value: carriers
+            - name: SOLANA_URL
+              valueFrom:
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-password
+                  key: password
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 2Gi
+            limits:
+              memory: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: asset-ownership-service
+  namespace: helium
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "3000"
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: asset-ownership-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: asset-ownership-service
+  namespace: helium
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: asset-ownership.oracle.helium.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: asset-ownership-service
+                port:
+                  number: 3000
