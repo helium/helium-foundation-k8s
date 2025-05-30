@@ -10,6 +10,8 @@ data:
         {
           "programId": "hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8",
           "accounts": [
+            { "type": "DataOnlyConfigV0", "table": "data_only_configs", "schema": "public" },
+            { "type": "MakerV0", "table": "makers", "schema": "public" },
             {
               "type": "KeyToAssetV0",
               "table": "key_to_assets",
@@ -90,7 +92,7 @@ spec:
         app: account-postgres-sink-service
         security-group: rds-access
     spec:
-      serviceAccountName: rds-metadata-user-access
+      serviceAccountName: rds-chain-indexer-user-access
       containers:
         - name: account-postgres-sink-service
           image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.11
@@ -118,11 +120,11 @@ spec:
             - name: PG_PORT
               value: "5432"
             - name: PG_USER
-              value: metadata
+              value: chain_indexer
             - name: AWS_REGION
               value: us-west-2
             - name: PG_DATABASE
-              value: metadata
+              value: hnt_index
             - name: PG_SSL_MODE
               value: no-verify
             - name: SOLANA_URL
