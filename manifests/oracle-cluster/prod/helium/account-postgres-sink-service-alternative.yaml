@@ -93,7 +93,7 @@ spec:
       serviceAccountName: rds-metadata-user-access
       containers:
         - name: account-postgres-sink-alternative-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-alternative-service:0.3.11
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.11
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
