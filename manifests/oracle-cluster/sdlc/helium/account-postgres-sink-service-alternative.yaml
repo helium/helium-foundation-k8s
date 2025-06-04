@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: account-postgres-sink-config
+  name: account-postgres-sink-alternative-config
   namespace: helium
 data:
   config.json: |
@@ -10,20 +10,10 @@ data:
         {
           "programId": "hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8",
           "accounts": [
-            { "type": "DataOnlyConfigV0", "table": "data_only_configs", "schema": "public" },
-            { "type": "MakerV0", "table": "makers", "schema": "public" },
             {
               "type": "KeyToAssetV0",
               "table": "key_to_assets",
-              "schema": "public",
-              "plugins": [
-                {
-                  "type": "EncodeEntityKey",
-                  "config": {
-                    "field": "entity_key"
-                  }
-                }
-              ]
+              "schema": "public"
             },
             {
               "type": "IotHotspotInfoV0",
@@ -49,24 +39,6 @@ data:
               "schema": "public"
             },
             { "type": "BoostedHexV0", "table": "boosted_hexes", "schema": "public" }
-          ],
-          "crons": [
-            { "schedule": "10 0 * * *", "type": "integrity-check" }
-          ]
-        },
-        {
-          "programId": "memMa1HG4odAFmUbGWfPwS1WWfK95k99F2YTkGvyxZr",
-          "accounts": [
-            {
-              "type": "CarrierV0",
-              "table": "carriers",
-              "schema": "public"
-            },
-            {
-              "type": "IncentiveEscrowProgramV0",
-              "table": "incentive_escrow_programs",
-              "schema": "public"
-            }
           ]
         },
         {
@@ -86,23 +58,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: account-postgres-sink-service
-  name: account-postgres-sink-service
+    app: account-postgres-sink-alternative-service
+  name: account-postgres-sink-alternative-service
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: account-postgres-sink-service
+      app: account-postgres-sink-alternative-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: account-postgres-sink-service
+        app: account-postgres-sink-alternative-service
         security-group: rds-access
     spec:
-      serviceAccountName: rds-chain-indexer-user-access
+      serviceAccountName: rds-metadata-user-access
       containers:
-        - name: account-postgres-sink-service
+        - name: account-postgres-sink-alternative-service
           image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.12
           imagePullPolicy: IfNotPresent
           ports:
@@ -110,29 +82,18 @@ spec:
               name: http
               protocol: TCP
           env:
-            - name: NODE_ENV
-              value: "production"
-            - name: USE_SUBSTREAM
+            - name: RUN_JOBS_AT_STARTUP
               value: "true"
-            - name: SUBSTREAM_URL
-              value: "https://accounts.mainnet.sol.streamingfast.io"
-            - name: SUBSTREAM
-              value: "https://spkg.io/v1/packages/solana_accounts_foundational/v0.1.1"
-            - name: SUBSTREAM_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: substream-api-key
-                  key: secret
             - name: PG_HOST
-              value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
+              value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
             - name: PG_PORT
               value: "5432"
             - name: PG_USER
-              value: chain_indexer
+              value: metadata
             - name: AWS_REGION
-              value: us-west-2
+              value: us-east-1
             - name: PG_DATABASE
-              value: hnt_index
+              value: metadata
             - name: PG_SSL_MODE
               value: no-verify
             - name: SOLANA_URL
@@ -140,11 +101,6 @@ spec:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
-            - name: ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: refresh-password
-                  key: password
             - name: ASSET_API_URL
               valueFrom:
                 secretKeyRef:
@@ -152,20 +108,26 @@ spec:
                   key: secret
             - name: PROGRAM_ACCOUNT_CONFIGS
               value: "/usr/src/app/config/config.json"
+            - name: HELIUS_AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: helius-auth-secret
+                  key: secret
           volumeMounts:
-            - name: account-postgres-sink-config
+            - name: account-postgres-sink-alternative-config
               mountPath: /usr/src/app/config
               readOnly: true
           resources:
             requests:
-              cpu: 1000m
-              memory: 2Gi
+              cpu: 100m
+              memory: 500Mi
             limits:
-              memory: 5Gi
+              cpu: 250m
+              memory: 2Gi
       volumes:
-        - name: account-postgres-sink-config
+        - name: account-postgres-sink-alternative-config
           configMap:
-            name: account-postgres-sink-config
+            name: account-postgres-sink-alternative-config
             items:
               - key: config.json
                 path: config.json
@@ -173,36 +135,33 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: account-postgres-sink-service
+  name: account-postgres-sink-alternative-service
   namespace: helium
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "3000"
 spec:
   ports:
     - port: 3000
       protocol: TCP
       targetPort: http
   selector:
-    app: account-postgres-sink-service
+    app: account-postgres-sink-alternative-service
   sessionAffinity: None
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: account-postgres-sink-service
+  name: account-postgres-sink-alternative-service
   namespace: helium
 spec:
   ingressClassName: nginx
   rules:
-    - host: account-sink.oracle.helium.io
+    - host: account-sink-alternative.oracle.test-helium.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: account-postgres-sink-service
+                name: account-postgres-sink-alternative-service
                 port:
                   number: 3000
