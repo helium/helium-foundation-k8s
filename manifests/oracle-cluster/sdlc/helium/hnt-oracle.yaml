@@ -19,7 +19,7 @@ spec:
       serviceAccountName: rds-hnt-oracle-user-access
       containers:
         - name: hnt-oracle
-          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.1.7
+          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.1.8
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -119,16 +119,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: hnt-rewards.oracle.test-helium.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: hnt-oracle
-            port:
-              number: 8080
+    - host: hnt-rewards.oracle.test-helium.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hnt-oracle
+                port:
+                  number: 8080
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
