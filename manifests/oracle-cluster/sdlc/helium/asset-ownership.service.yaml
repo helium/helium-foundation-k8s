@@ -28,25 +28,14 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
-            - name: USE_SUBSTREAM
-              value: "true"
-            - name: SUBSTREAM_URL
-              value: "https://mainnet.sol.streamingfast.io"
-            - name: SUBSTREAM
-              value: "https://spkg.io/v1/packages/solana_common/v0.3.3"
-            - name: SUBSTREAM_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: substream-api-key
-                  key: secret
             - name: PG_HOST
-              value: oracle-rds.cjfnfp6fnm1y.us-west-2.rds.amazonaws.com
+              value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
             - name: PG_PORT
               value: "5432"
             - name: PG_USER
               value: chain_indexer
             - name: AWS_REGION
-              value: us-west-2
+              value: us-east-1
             - name: PG_DATABASE
               value: hnt_index
             - name: PG_SSL_MODE
@@ -71,19 +60,17 @@ spec:
                   key: password
           resources:
             requests:
-              cpu: 1000m
-              memory: 2Gi
+              cpu: 100m
+              memory: 500Mi
             limits:
-              memory: 5Gi
+              cpu: 250m
+              memory: 2Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: asset-ownership-service
   namespace: helium
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "3000"
 spec:
   ports:
     - port: 3000
@@ -102,7 +89,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: asset-ownership.oracle.helium.io
+    - host: asset-ownership.oracle.test-helium.io
       http:
         paths:
           - path: /
