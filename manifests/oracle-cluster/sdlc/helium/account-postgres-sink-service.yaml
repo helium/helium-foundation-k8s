@@ -35,9 +35,6 @@ data:
               "table": "mobile_hotspot_infos",
               "schema": "public"
             }
-          ],
-          "crons": [
-            { "schedule": "10 0 * * *", "type": "integrity-check" }
           ]
         },
         {
@@ -49,9 +46,6 @@ data:
               "schema": "public"
             },
             { "type": "BoostedHexV0", "table": "boosted_hexes", "schema": "public" }
-          ],
-          "crons": [
-            { "schedule": "10 0 * * *", "type": "integrity-check" }
           ]
         },
         {
@@ -74,9 +68,6 @@ data:
           "accounts": [
             { "type": "DaoEpochInfoV0", "table": "dao_epoch_infos", "schema": "public" },
             { "type": "SubDaoEpochInfoV0", "table": "sub_dao_epoch_infos", "schema": "public" }
-          ],
-          "crons": [
-            { "schedule": "10 0 * * *", "type": "integrity-check" }
           ]
         },
         {
