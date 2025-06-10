@@ -53,11 +53,6 @@ spec:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
-            - name: ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: refresh-password
-                  key: password
           resources:
             requests:
               cpu: 100m
