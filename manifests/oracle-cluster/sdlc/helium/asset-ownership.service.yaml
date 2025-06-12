@@ -84,7 +84,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: asset-ownership.oracle.test-helium.io
+    - host: asset-ownership.oracle.test-helium.com
       http:
         paths:
           - path: /
