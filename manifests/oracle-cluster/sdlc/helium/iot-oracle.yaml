@@ -119,16 +119,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: iot-rewards.oracle.test-helium.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: iot-oracle
-            port:
-              number: 8080
+    - host: iot-rewards.oracle.test-helium.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: iot-oracle
+                port:
+                  number: 8080
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
