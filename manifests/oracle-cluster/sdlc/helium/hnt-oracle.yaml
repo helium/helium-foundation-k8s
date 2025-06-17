@@ -19,7 +19,7 @@ spec:
       serviceAccountName: rds-hnt-oracle-user-access
       containers:
         - name: hnt-oracle
-          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.1.8
+          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.1.9
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -29,7 +29,7 @@ spec:
             - name: ANCHOR_PROVIDER_URL
               valueFrom:
                 secretKeyRef:
-                  name: triton-rpc-url
+                  name: helius-rpc-url
                   key: secret
             - name: ORACLE_KEYPAIR_PATH
               value: /usr/src/app/keys/keypair.json
@@ -46,7 +46,7 @@ spec:
             - name: ASSET_API_URL
               valueFrom:
                 secretKeyRef:
-                  name: triton-rpc-url
+                  name: helius-rpc-url
                   key: secret
             - name: DNT_MINT
               valueFrom:

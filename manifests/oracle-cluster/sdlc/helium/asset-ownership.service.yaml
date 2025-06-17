@@ -19,7 +19,7 @@ spec:
       serviceAccountName: rds-chain-indexer-user-access
       containers:
         - name: asset-ownership-service
-          image: public.ecr.aws/v0j6k5v6/asset-ownership-service:0.1.1
+          image: public.ecr.aws/v0j6k5v6/asset-ownership-service:0.1.3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -53,11 +53,6 @@ spec:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
-            - name: ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: refresh-password
-                  key: password
           resources:
             requests:
               cpu: 100m
@@ -89,7 +84,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: asset-ownership.oracle.test-helium.io
+    - host: asset-ownership.oracle.test-helium.com
       http:
         paths:
           - path: /
