@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.0.1
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.0.3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -40,7 +40,7 @@ spec:
               value: monitoring
             - name: AWS_REGION
               value: us-east-1
-            - name: PG_DATABASE
+            - name: PG_NAME
               value: monitoring
             - name: NEXT_PUBLIC_PRIVY_APP_ID
               valueFrom:
