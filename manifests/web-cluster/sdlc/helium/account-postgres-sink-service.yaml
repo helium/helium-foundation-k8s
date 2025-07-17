@@ -67,6 +67,11 @@ data:
           "programId": "hemjuPXBpNvggtaUnN1MwT3wrdhttKEfosTcc2P9Pg8",
           "accounts": [
             {
+              "type": "DataOnlyConfigV0",
+              "table": "data_only_configs",
+              "schema": "public"
+            },
+            {
               "type": "RewardableEntityConfigV0",
               "table": "rewardable_entity_configs",
               "schema": "public"
