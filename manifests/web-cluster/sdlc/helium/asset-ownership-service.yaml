@@ -14,9 +14,9 @@ spec:
     metadata:
       labels:
         app: asset-ownership-service
-        security-group: rds-access
+        security-group: public-rds-access
     spec:
-      serviceAccountName: rds-chain-indexer-user-access
+      serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: asset-ownership-service
           image: public.ecr.aws/v0j6k5v6/asset-ownership-service:0.1.8
@@ -29,15 +29,15 @@ spec:
             - name: NODE_ENV
               value: "production"
             - name: PG_HOST
-              value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
+              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PG_PORT
               value: "5432"
             - name: PG_USER
-              value: chain_indexer
+              value: monitoring
             - name: AWS_REGION
               value: us-east-1
             - name: PG_DATABASE
-              value: hnt_index
+              value: monitoring
             - name: PG_SSL_MODE
               value: no-verify
             - name: PG_MAKER_TABLE
@@ -84,7 +84,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: asset-ownership.oracle.test-helium.com
+    - host: asset-ownership.web.test-helium.com
       http:
         paths:
           - path: /
