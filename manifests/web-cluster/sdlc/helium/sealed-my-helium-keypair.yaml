@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: my-helium-keypair
+  namespace: helium
+spec:
+  encryptedData:
+    keypair.json: AgBqMjIsfStgtGfxHONR5twPwJbkPBJ/RP+S8bT90N5WzC0oNhQoRLKWsEBIedQYf2cezUgko1X2mNBs1jNLtXUa/Y3FmUpaLQdlE0cE9Vl7RoCwL56wt52gPK5hzdwKuBjfbuziiLwLGnAAn4nWok0BbdsBjiyHlWehw0Fbcwq5baR2G00NJ+zz0xDPEaHRFJBeEw7DnW1fn+e/qNwUyzrnX5tB6GFqNUaoaTeRU8JgfHPnHh5Rob6uxXNMhOHHVVYyRHBFiGqnBFuXzDdbEzZSH50Fhm9Aj/pK70EiwQnnTKANEciVExQ+gOs1O4v3x7Pj2iqU7BSWKyzZb6CXb9n8nQhD8Ay6yDQO5OMWzSZUnzxt2D20rFUBrzgYeyyGEwjZo6utVWJf7aCufMLsJvkIuuR5unJv2ER+q4Yhr2bOfc4MPJAXcuAGuO9Y7Xqa32bxV7Ia60s98v8BeC9UkjFiEbLn+JdHzT8pkTL/BbUDGfblt9OK9PzaoRoAzby6tcvVAb6LLtczcDJ2Z2f8mkmR3Myla0OC7oyQzs3PwQMfEqcPDXD/E6KZvqel2hZtqMIw1+AYyf0ON8iIu4s0pwfqT8g752yoo+O6Qsx9k8kSCh+7mj28QShspi3QxEegonc6rfqZgScg6fsRjms0SwWLnTmdHdrxr4RvCSd9xIC44CROYXGoui1iILn2NiVVeQ+YUSMgLenPQpGH4ubCXH/19KNd+6ZaXfuc5t4xnF/8+Q+nROSYssH7BXzMijGkS2QG3eWYzfm5QEmpKgBF/zykAnOMcaQ0qyB3mskZ12u1j950Pl3OzZ2GpgjyqKAFdR9BLLyxM+LHFrHRppEdM2OimwXNqwJHyHbKmipKnL86wl+XQrvdb+cM4+VgKIJPep+qgeIHBttn/GztC3hs993viU4Y4Z9maTniQwC5Yprq2UVp/Nknn+6pnRvothEK58aOxCInwIqgKNdWLNKafRVunJLsykxiS0wl+l77iK4WEDIe48DfRfk=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: my-helium-keypair
+      namespace: helium

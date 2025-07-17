@@ -1,0 +1,168 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-helium
+  name: my-helium
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: my-helium
+  template:
+    metadata:
+      labels:
+        app: my-helium
+        security-group: public-rds-access
+    spec:
+      serviceAccountName: public-monitoring-rds-monitoring-user-access
+      containers:
+        - name: my-helium
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: SOLANA_RPC_URL
+              valueFrom:
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
+            - name: PG_HOST
+              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+            - name: PG_PORT
+              value: "5432"
+            - name: PG_USER
+              value: monitoring
+            - name: AWS_REGION
+              value: us-east-1
+            - name: PG_DATABASE
+              value: monitoring
+            - name: NEXT_PUBLIC_PRIVY_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: privy-app-id
+                  key: app-id
+            - name: NEXT_PUBLIC_SOLANA_CLUSTER
+              value: devnet
+            - name: HPL_CRONS_TASK_QUEUE
+              value: H39gEszvsi6AT4rYBiJTuZHJSF5hMHy6CKGTd7wzhsg7
+            - name: FEE_PAYER_WALLET_PATH
+              value: /usr/src/app/keys/keypair.json
+            - name: ACCOUNT_INDEXER_URL
+              value: "http://account-postgres-sink-service-0.account-postgres-sink-service:3000"
+            - name: ASSET_OWNER_INDEXER_URL
+              value: "http://asset-ownership-service-0.asset-ownership-service:3000"
+            - name: ACCOUNT_INDEXER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-password
+                  key: password
+            - name: ASSET_OWNER_INDEXER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-password
+                  key: password
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 3000
+            timeoutSeconds: 1
+          volumeMounts:
+            - name: my-helium-keypair
+              mountPath: /usr/src/app/keys
+              readOnly: true
+          resources:
+            requests:
+              cpu: 300m
+              memory: 500Mi
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+      volumes:
+        - name: my-helium-keypair
+          secret:
+            secretName: my-helium-keypair
+            items:
+              - key: keypair.json
+                path: keypair.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-helium
+  namespace: helium
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: my-helium
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-helium
+  namespace: helium
+  annotations:
+    nginx.ingress.kubernetes.io/limit-rps: "10"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: my-helium.web.test-helium.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-helium
+            port:
+              number: 3000
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-helium
+  namespace: helium
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-helium
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
