@@ -166,6 +166,41 @@ data:
               "schema": "public"
             }
           ]
+        },
+        {
+          "programId": "memMa1HG4odAFmUbGWfPwS1WWfK95k99F2YTkGvyxZr",
+          "accounts": [
+            {
+              "type": "CarrierV0",
+              "table": "carriers",
+              "schema": "public"
+            },
+            {
+              "type": "IncentiveEscrowProgramV0",
+              "table": "incentive_escrow_programs",
+              "schema": "public"
+            }
+          ]
+        },
+        {
+          "programId": "we1cGnTxTkDP9Sk49dw1d3T7ik7V2NfnY4qDGCDHXfC",
+          "accounts": [
+            {
+              "type": "WelcomePackV0",
+              "table": "welcome_packs",
+              "schema": "public"
+            }
+          ]
+        },
+        {
+          "programId": "mfanLprNnaiP4RX9Zz1BMcDosYHCqnG24H1fMEbi9Gn",
+          "accounts": [
+            {
+              "type": "MiniFanoutV0",
+              "table": "mini_fanouts",
+              "schema": "public"
+            }
+          ]
         }
       ],
       "indexConfigs": [
@@ -197,7 +232,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.19
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.25
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
