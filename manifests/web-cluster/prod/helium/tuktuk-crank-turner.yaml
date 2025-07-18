@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tuktuk-crank-turner
-          image: public.ecr.aws/v0j6k5v6/tuktuk-crank-turner:0.2.21
+          image: public.ecr.aws/v0j6k5v6/tuktuk-crank-turner:0.2.24
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -26,7 +26,7 @@ spec:
             - name: TUKTUK__RPC_URL
               valueFrom:
                 secretKeyRef:
-                  name: triton-rpc-url
+                  name: helius-rpc-url
                   key: secret
             - name: TUKTUK__MAX_RETRIES
               value: "5"
