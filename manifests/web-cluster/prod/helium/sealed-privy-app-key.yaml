@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: privy-app-id
+  namespace: helium
+spec:
+  encryptedData:
+    app-id: AgAHhng4BcRDMmUrFr50wPPlvHXttKUSqHeqdz5Ro92WqJ6Od3P5rBk/YSJq4+D1h8ezVnC3XV5RPqttawjfVkIc7PNK1VNqy6SIbIFoZcvPh3EPtcvzaA+0NU/s1nbhjrJyQbuKNl6f9A3KcE8jb7lkVblhs19oIvKSBYURkyNq+z+KFb6nECl9laKecCyybzx9RxOfAVzeENlxZPXKlFcc3f0hevN57f8Z/2eC5TFoDW4gWCwJsfjoNB2Lj2Rn6scIx6yqoZhw6pzB4zrxHfeo3a1Vi1wkSEkBPDxIFd3yvqgNRqTCpWjrPPLbs67DAgLSZW8Bd0nTHMJWORLM8ZPipX92NR5rtK0kj8DLUI7BsY6SHXDCrtFvtREd1/UN8ueWcLkBW5g5CsshDN6rYkxHCtLKx5xp/JJGzI7WKOw+w81WmaCI4qdvkBS6kxPS3Y8hBGvMvnV9pzhhwor20bvZpMfLON9Xz3G25fW6XMeBtcQknLtdHhhqVsqYhVCZhGAsSpntFBqm+28KIra4xXhoX0tbGzKyzhb74Oi4qbJ4AcPL460b4oE1965XN5Bolu2ZvXLIphhWUDxqAFzLpDPLutfLIwpXpaSmIjDqlNUNptl+7fKYoNgGJgZhwxlLE+UGP3GZYFlI15e4eefrE4mg7Enm93scUGI7fS2Mj6Iq34D8MvOjvrJRscXKl1/fm0thcRlTIL03bnqOk17fujbewZ47aRMrK+sG
+  template:
+    metadata:
+      creationTimestamp: null
+      name: privy-app-id
+      namespace: helium
