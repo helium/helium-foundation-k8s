@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: asset-ownership-service
+  name: asset-ownership-service
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: asset-ownership-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: asset-ownership-service
+        security-group: public-rds-access
+    spec:
+      serviceAccountName: public-monitoring-rds-monitoring-user-access
+      containers:
+        - name: asset-ownership-service
+          image: public.ecr.aws/v0j6k5v6/asset-ownership-service:0.1.8
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PG_HOST
+              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+            - name: PG_PORT
+              value: "5432"
+            - name: PG_USER
+              value: monitoring
+            - name: AWS_REGION
+              value: us-east-1
+            - name: PG_DATABASE
+              value: monitoring
+            - name: PG_SSL_MODE
+              value: no-verify
+            - name: PG_MAKER_TABLE
+              value: makers
+            - name: PG_DATA_ONLY_TABLE
+              value: data_only_configs
+            - name: PG_ASSET_TABLE
+              value: key_to_assets
+            - name: PG_CARRIER_TABLE
+              value: carriers
+            - name: SOLANA_URL
+              valueFrom:
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
+          resources:
+            requests:
+              cpu: 100m
+              memory: 500Mi
+            limits:
+              cpu: 250m
+              memory: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: asset-ownership-service
+  namespace: helium
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: asset-ownership-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: asset-ownership-service
+  namespace: helium
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: asset-ownership.web.test-helium.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: asset-ownership-service
+                port:
+                  number: 3000
