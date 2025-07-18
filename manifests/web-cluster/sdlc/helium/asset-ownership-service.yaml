@@ -16,6 +16,7 @@ spec:
         app: asset-ownership-service
         security-group: public-rds-access
     spec:
+      serviceName: asset-ownership-service
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: asset-ownership-service

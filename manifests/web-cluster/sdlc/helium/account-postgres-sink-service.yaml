@@ -234,6 +234,7 @@ spec:
         app: account-postgres-sink-service
         security-group: public-rds-access
     spec:
+      serviceName: account-postgres-sink-service
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
