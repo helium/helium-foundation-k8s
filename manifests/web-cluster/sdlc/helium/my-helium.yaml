@@ -54,9 +54,9 @@ spec:
             - name: FEE_PAYER_WALLET_PATH
               value: /usr/src/app/keys/keypair.json
             - name: ACCOUNT_INDEXER_URL
-              value: "http://account-postgres-sink-service-0.account-postgres-sink-service:3000"
+              value: "https://account-sink.web.test-helium.com"
             - name: ASSET_OWNER_INDEXER_URL
-              value: "http://asset-ownership-service-0.asset-ownership-service:3000"
+              value: "https://asset-ownership.web.test-helium.com"
             - name: ACCOUNT_INDEXER_PASSWORD
               valueFrom:
                 secretKeyRef:
