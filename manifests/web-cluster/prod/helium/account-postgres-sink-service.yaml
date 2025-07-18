@@ -216,6 +216,7 @@ data:
         "CREATE INDEX IF NOT EXISTS iot_hotspot_infos_asset_index ON iot_hotspot_infos(asset);",
         "CREATE INDEX IF NOT EXISTS mobile_hotspot_infos_asset_index ON mobile_hotspot_infos(asset);",
         "CREATE INDEX IF NOT EXISTS recipient_lazy_distributor_index ON recipients(lazy_distributor);"
+        "CREATE INDEX IF NOT EXISTS recipient_asset_index ON recipients(asset);"
       ]
     }
 ---
