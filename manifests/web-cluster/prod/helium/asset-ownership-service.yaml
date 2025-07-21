@@ -28,6 +28,17 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
+            - name: USE_SUBSTREAM
+              value: "true"
+            - name: SUBSTREAM_URL
+              value: "https://mainnet.sol.streamingfast.io"
+            - name: SUBSTREAM
+              value: "https://spkg.io/v1/packages/solana_common/v0.3.3"
+            - name: SUBSTREAM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: substream-api-key
+                  key: secret
             - name: PG_HOST
               value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
             - name: PG_PORT
@@ -60,17 +71,19 @@ spec:
                   key: password
           resources:
             requests:
-              cpu: 100m
-              memory: 500Mi
-            limits:
-              cpu: 250m
+              cpu: 1000m
               memory: 2Gi
+            limits:
+              memory: 5Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: asset-ownership-service
   namespace: helium
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "3000"
 spec:
   ports:
     - port: 3000
