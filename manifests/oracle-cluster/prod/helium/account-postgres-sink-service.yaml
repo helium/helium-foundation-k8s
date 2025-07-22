@@ -122,7 +122,7 @@ spec:
       serviceAccountName: rds-chain-indexer-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.26
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.27
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
