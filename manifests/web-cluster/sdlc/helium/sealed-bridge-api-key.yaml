@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: bridge-api-key
+  namespace: helium
+spec:
+  encryptedData:
+    secret: AgA8KPd/fwdSMrOI1YjP81jE5LkGfTo8S4SghlQNFHBQ+XjWf5Pf0uZm+v6gzW4eNThm7FE8IBz1LF7qGCPE1BkAxtTR9Ap7Mua8Il1/QG5eFu/WbrbjSmTldU4q/sSg58yQhXqz6e0ERC6LL6c0AJR56LCgWdSNpks11C9cwjb9QH4LSOYb0S7c5D/akS2cTr8xRuno2al2KdnGoY9Cgvmy7yMUlcW/AkFpiGtGVTaTxsUp1LZPE4uPtXd6bQxCv+DDOurZQP19nsAH8P/4pyQRx3h72cafCUa4SHSDExZY3cBVgGMNoz/AIeu+9Nq+fyIC2ujHlLwmUkvW5D73cWt762bpJoUCxGhYeCgwTFt5RcJP8wCWxr/ZcuRzLHAxmV7oyY4/l68t6UFMtG8AdSwN+s88cYMsvWAX3HSbNJ46fEU61F2QKNbmA8TxkYtlAJTBxwVgpyGZsKnrw2W54pUCgtg3N8JFJtINySvQStWp4AiV++sBysbMxaxujjBAvVrCXQNIhcgRVbpqFbHe8CEEPUOG3yT3nF8QgtzW53GY1mUcIwedy1IqEzwpy4qsjLNgajN97+Uebb/mTBsBG2vqsOCBhtXS+/V/2RHpi+IrstgWj/kxTIkw5lQckxPpxmQ4MW0jvM4Nykl2g69wgAwBA/JOyM669NOqd97DbMTqwNGl4MpoNavkluc95aFvGx1JdCztnldxUY1mLk6g7/wUJ7NzmzIiHC6ziAXkbDnyPo1PhNvBl0sM
+  template:
+    metadata:
+      creationTimestamp: null
+      name: bridge-api-key
+      namespace: helium
