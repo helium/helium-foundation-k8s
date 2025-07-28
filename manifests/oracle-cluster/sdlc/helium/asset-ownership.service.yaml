@@ -19,7 +19,7 @@ spec:
       serviceAccountName: rds-chain-indexer-user-access
       containers:
         - name: asset-ownership-service
-          image: public.ecr.aws/v0j6k5v6/asset-ownership-service:0.1.8
+          image: public.ecr.aws/v0j6k5v6/asset-ownership-service:0.1.9
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
