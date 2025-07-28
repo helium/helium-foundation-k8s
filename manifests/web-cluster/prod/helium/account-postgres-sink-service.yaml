@@ -91,7 +91,15 @@ data:
             {
               "type": "KeyToAssetV0",
               "table": "key_to_assets",
-              "schema": "public"
+              "schema": "public",
+              "plugins": [
+                {
+                  "type": "EncodeEntityKey",
+                  "config": {
+                    "field": "entity_key"
+                  }
+                }
+              ]
             },
             {
               "type": "IotHotspotInfoV0",
