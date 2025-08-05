@@ -144,6 +144,7 @@ data:
               "type": "RecipientV0",
               "table": "recipients",
               "schema": "public",
+              "batchSize": "20000",
               "plugins": [
                 {
                   "type": "ExplodeRecipientDestinationOwnership",
