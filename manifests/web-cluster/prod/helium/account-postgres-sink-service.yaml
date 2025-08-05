@@ -92,6 +92,7 @@ data:
               "type": "KeyToAssetV0",
               "table": "key_to_assets",
               "schema": "public",
+              "batchSize": "20000",
               "plugins": [
                 {
                   "type": "EncodeEntityKey",
