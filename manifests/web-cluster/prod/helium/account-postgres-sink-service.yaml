@@ -143,7 +143,13 @@ data:
             {
               "type": "RecipientV0",
               "table": "recipients",
-              "schema": "public"
+              "schema": "public",
+              "plugins": [
+                {
+                  "type": "ExplodeRecipientDestinationOwnership",
+                  "config": {}
+                }
+              ]
             }
           ]
         },
