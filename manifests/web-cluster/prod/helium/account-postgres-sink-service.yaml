@@ -371,3 +371,4 @@ spec:
                 name: account-postgres-sink-service
                 port:
                   number: 3000
+
