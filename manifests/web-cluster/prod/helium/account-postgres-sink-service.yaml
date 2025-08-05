@@ -143,13 +143,7 @@ data:
             {
               "type": "RecipientV0",
               "table": "recipients",
-              "schema": "public",
-              "plugins": [
-                {
-                  "type": "ExplodeRecipientDestinationOwnership",
-                  "config": {}
-                }
-              ]
+              "schema": "public"
             }
           ]
         },
@@ -223,13 +217,7 @@ data:
             {
               "type": "MiniFanoutV0",
               "table": "mini_fanouts",
-              "schema": "public",
-              "plugins": [
-                {
-                  "type": "ExplodeMiniFanoutOwnership",
-                  "config": {}
-                }
-              ]
+              "schema": "public"
             }
           ]
         }
@@ -330,7 +318,7 @@ spec:
           resources:
             requests:
               cpu: 1000m
-              memory: 2Gi
+              memory: 3Gi
             limits:
               memory: 5Gi
       volumes:
