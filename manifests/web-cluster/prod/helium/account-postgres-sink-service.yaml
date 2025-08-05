@@ -139,17 +139,6 @@ data:
               "type": "LazyDistributorV0",
               "table": "lazy_distributors",
               "schema": "public"
-            },
-            {
-              "type": "RecipientV0",
-              "table": "recipients",
-              "schema": "public",
-              "plugins": [
-                {
-                  "type": "ExplodeRecipientDestinationOwnership",
-                  "config": {}
-                }
-              ]
             }
           ]
         },
