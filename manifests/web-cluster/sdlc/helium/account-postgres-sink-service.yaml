@@ -85,7 +85,15 @@ data:
             {
               "type": "KeyToAssetV0",
               "table": "key_to_assets",
-              "schema": "public"
+              "schema": "public",
+              "plugins": [
+                {
+                  "type": "EncodeEntityKey",
+                  "config": {
+                    "field": "entity_key"
+                  }
+                }
+              ]
             },
             {
               "type": "IotHotspotInfoV0",
@@ -125,7 +133,17 @@ data:
               "table": "lazy_distributors",
               "schema": "public"
             },
-            { "type": "RecipientV0", "table": "recipients", "schema": "public" }
+            {
+              "type": "RecipientV0",
+              "table": "recipients",
+              "schema": "public",
+              "plugins": [
+                {
+                  "type": "ExplodeRecipientDestinationOwnership",
+                  "config": {}
+                }
+              ]
+            }
           ]
         },
         {
@@ -203,7 +221,13 @@ data:
             {
               "type": "MiniFanoutV0",
               "table": "mini_fanouts",
-              "schema": "public"
+              "schema": "public",
+              "plugins": [
+                {
+                  "type": "ExplodeMiniFanoutOwnership",
+                  "config": {}
+                }
+              ]
             }
           ]
         }
@@ -237,7 +261,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.27
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.30
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
