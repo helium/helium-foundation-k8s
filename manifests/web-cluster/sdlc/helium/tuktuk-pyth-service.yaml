@@ -1,0 +1,148 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tuktuk-pyth-service
+  name: tuktuk-pyth-service
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: tuktuk-pyth-service
+  template:
+    metadata:
+      labels:
+        app: tuktuk-pyth-service
+        security-group: public-rds-access
+    spec:
+      serviceAccountName: public-monitoring-rds-monitoring-user-access
+      containers:
+        - name: tuktuk-pyth-service
+          image: public.ecr.aws/v0j6k5v6/tuktuk-pyth-service:0.1.8
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+              name: http
+              protocol: TCP
+          env:
+            - name: SOLANA_URL
+              valueFrom:
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
+            - name: PGHOST
+              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+            - name: PGPORT
+              value: "5432"
+            - name: PGUSER
+              value: monitoring
+            - name: AWS_REGION
+              value: us-east-1
+            - name: PGDATABASE
+              value: monitoring
+            - name: PGSSLMODE
+              value: no-verify
+            - name: KEYPAIR_PATH
+              value: /usr/src/app/keys/keypair.json
+            - name: ORIGIN
+              value: https://tuktuk-pyth.web.test-helium.com
+
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8081
+            timeoutSeconds: 1
+          volumeMounts:
+            - name: tuktuk-pyth-service-keypair
+              mountPath: /usr/src/app/keys
+              readOnly: true
+          resources:
+            requests:
+              cpu: 200m
+              memory: 300Mi
+            limits:
+              cpu: 400m
+              memory: 400Mi
+      volumes:
+        - name: tuktuk-pyth-service-keypair
+          secret:
+            secretName: tuktuk-pyth-service-keypair
+            items:
+              - key: keypair.json
+                path: keypair.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tuktuk-pyth-service
+  namespace: helium
+spec:
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: tuktuk-pyth-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tuktuk-pyth-service
+  namespace: helium
+  annotations:
+    nginx.ingress.kubernetes.io/limit-rps: "10"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: tuktuk-pyth.web.test-helium.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tuktuk-pyth-service
+                port:
+                  number: 8081
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: tuktuk-pyth-service
+  namespace: helium
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: tuktuk-pyth-service
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
