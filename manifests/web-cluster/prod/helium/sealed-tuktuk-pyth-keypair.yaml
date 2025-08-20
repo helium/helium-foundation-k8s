@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: tuktuk-pyth-keypair
+  namespace: helium
+spec:
+  encryptedData:
+    keypair.json: AgC2ETLAol12pbAAGJ0peXmvi1+d2g8LH+H3Z/0tOUlEunFFE9HJUjQx478iDbBfLSn0u6lrk1kzxNu2I+iL2niUd+tZqJynSW5nYRnBe54t6WH4wt0lb8XjlIdco4h/fF67rOhXTwiuAxonVxHjI9TqnRvPlO1Fc9d6p4ZrH5wGUGRcud6yGnAD7sFhP1dLDKTlKT7qJPwUvH9Ybi0p47uSPWfccLOjvAI/PdbT2dWmqt1BWp7spOh336sTK8n4sJd8Z5Kv9589n3LJAQ0HqPZawQ46kQtxjbD0km5JKFNt9iJI+eFfVOc30CrL2uqBgqMlWRTd6YlFT/L1aFrvfKOMQdanmn64aTOvhQJZccES7/78cyhDtNTXVHV45IiPc0Mop3v4oih9y2p11OE6vFrWt4k86JQrzUybYFMKMWNgmhGedYwhZmcrCZrmpnsR6qwR0fnPGKUw3exNpm9HbiyZ9Qt0BxXTAFtgoTPgDsyMjvLBTQ/GRR8CJnbHPQ3SYnDYVLkdeZhBkKwEh782B35rj8JlM9FSentWS8/AfFbEWVxTIRkMy5QpRPQEQu0hhiZ0Abm+pBMHmY+DUacjfS2iwODeNTuYhUQqVsgMRtjamMASlUrCKPFVBcYDrXYGv0Dvl+fQVhL/CAjSiUsKxVqs3Vm9dg8KdopA3Y33F5az5wZ21H4NBCNHsfqUYlMQgC/fRYCu14dN8ME05fwRPLmLML8PHM1mC/FSxFEGsgx8/ewrsngnoh5wYF3rpZ/WQMUjTCWd4B2Jcbl6DVjVexYcU/TonAx+NzotXjw8WrXXx3JFnazKtmkTb/QFPIE0YYZZfZgwmbdF2WWJEK9lbA1a7KD52xrDmlU5PMKlig7naOJH8XlbmKLSeZl1Ge8ozNrgdUpFD4pFYO7U/drO3CqKE99BGjCSF7NpLylv/7wdJ9+FJFM6HsxgQG4OS81jYQ52bc5YGI9Th+OlggqXDjcfHoZgxiPy6TVzphs7FSViSyZ4KOjvDFQ=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: tuktuk-pyth-keypair
+      namespace: helium
