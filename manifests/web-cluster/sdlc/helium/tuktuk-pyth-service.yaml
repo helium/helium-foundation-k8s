@@ -66,7 +66,7 @@ spec:
               port: 8081
             timeoutSeconds: 1
           volumeMounts:
-            - name: tuktuk-pyth-service-keypair
+            - name: tuktuk-pyth-keypair
               mountPath: /usr/src/app/keys
               readOnly: true
           resources:
@@ -77,9 +77,9 @@ spec:
               cpu: 400m
               memory: 400Mi
       volumes:
-        - name: tuktuk-pyth-service-keypair
+        - name: tuktuk-pyth-keypair
           secret:
-            secretName: tuktuk-pyth-service-keypair
+            secretName: tuktuk-pyth-keypair
             items:
               - key: keypair.json
                 path: keypair.json
