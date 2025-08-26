@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: metadata
-          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.1.6
+          image: public.ecr.aws/v0j6k5v6/entity-metadata-service:0.1.7
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -104,16 +104,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: entities.nft.helium.io
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: metadata
-            port:
-              number: 8081
+    - host: entities.nft.helium.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: metadata
+                port:
+                  number: 8081
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
