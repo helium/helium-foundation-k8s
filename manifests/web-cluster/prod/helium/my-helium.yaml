@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.0.55
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.0.56
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -65,6 +65,11 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: bridge-api-key
+                  key: secret
+            - name: JITO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jito-api-key
                   key: secret
             - name: PRIVY_APP_SECRET
               valueFrom:

@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: jito-api-key
+  namespace: helium
+spec:
+  encryptedData:
+    secret: AgANupp/4WlF4pl2IqpjUKFwjzuoKtATeC0twVXujHOAEqmKeH0HbjjvtlwRMGomN2EMzHK/zKuD1s7Bchf5o7Tsf39ZbjzAYFb0uS8NGnMb5oaWwqtpaXPLPEr69uMhGoNgUCBLcLOxCtMIBFzWTj89rgUFPHfKw5DmWALZBwiQEJm3UKe0DQG8anQxF5Cq8IX3VLo9+76nhChtAdX/BIe3dp6seC9gGe0LbUyFY1QnPQDti/DrOlmi7giWVI31RVT3F2NB3CE/6/9ukWGVx51P8cSrqkz+iVEoniGgw4/pNOR/vwxA4JsOYoxdZkhwcmnNfM+JmrQWXk9nZ6690wc0i2EEJncmZ+hfKHCpO6niFqTr4ihlXafh3JXhM5zTUvXqrp0n/PV1TB4mpAN4sjsCyOnAkxSMQ5MfPD/uK738oLBeUHLrS3Gu3Bevjyhnk/fP1UOJCCi6h1UMxIl43xlzogiwyGXdxV7WI4fRU+NNUFdMuu2+dHvHoAFrUGNTWHxhTP1OIF7nKgxDgTDdJOX5Br1fRucOJTpn7pDTDIzwn0cqNQ6f9W6tnZS9SFl+5sX8obMKl/jfI1Gg8JAWNmto4+p6XEdaHoYLhUQN+ID9rSEalJjp05+LS8vtRaDLXLuBEtLnlha7WPrbbiAQjncJNN9AQ+/a+98HzFsNuDdp4sseIX7PF34QbuAiMtOUbJoRbD4Ydwx8hfaIhGgOzYER7WoJi724xZvJYvNYIpZMaAyropPr
+  template:
+    metadata:
+      creationTimestamp: null
+      name: jito-api-key
+      namespace: helium
