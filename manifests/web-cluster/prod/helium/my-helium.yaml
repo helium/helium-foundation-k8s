@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.0.41
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.0.59
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -66,11 +66,20 @@ spec:
                 secretKeyRef:
                   name: bridge-api-key
                   key: secret
+            - name: JITO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jito-api-key
+                  key: secret
             - name: PRIVY_APP_SECRET
               valueFrom:
                 secretKeyRef:
                   name: privy-app-secret
                   key: secret
+            - name: ORACLE_SIGNER
+              value: orc1TYY5L4B4ZWDEMayTqu99ikPM9bQo9fqzoaCPP5Q
+            - name: ORACLE_URL
+              value: https://hnt-rewards.oracle.helium.io
           readinessProbe:
             failureThreshold: 3
             httpGet:

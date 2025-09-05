@@ -91,7 +91,7 @@ data:
             {
               "type": "KeyToAssetV0",
               "table": "key_to_assets",
-              "schema": "public"
+              "schema": "public",
               "plugins": [
                 {
                   "type": "EncodeEntityKey",
@@ -144,6 +144,7 @@ data:
               "type": "RecipientV0",
               "table": "recipients",
               "schema": "public",
+              "batchSize": "20000",
               "plugins": [
                 {
                   "type": "ExplodeRecipientDestinationOwnership",
@@ -265,7 +266,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.30
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.37
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -377,3 +378,4 @@ spec:
                 name: account-postgres-sink-service
                 port:
                   number: 3000
+
