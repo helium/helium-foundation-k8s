@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-web-user-access
       containers:
         - name: onboarding-server
-          image: public.ecr.aws/v0j6k5v6/onboarding-server:0.0.59
+          image: public.ecr.aws/v0j6k5v6/onboarding-server:0.0.60
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3002
