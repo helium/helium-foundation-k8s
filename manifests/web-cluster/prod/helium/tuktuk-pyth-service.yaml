@@ -2,89 +2,56 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: my-helium
-  name: my-helium
+    app: tuktuk-pyth-service
+  name: tuktuk-pyth-service
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: my-helium
+      app: tuktuk-pyth-service
   template:
     metadata:
       labels:
-        app: my-helium
+        app: tuktuk-pyth-service
         security-group: public-rds-access
     spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
-        - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.0.61
+        - name: tuktuk-pyth-service
+          image: public.ecr.aws/v0j6k5v6/tuktuk-pyth-service:0.0.1
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3000
+            - containerPort: 8081
               name: http
               protocol: TCP
           env:
-            - name: NODE_ENV
-              value: "production"
-            - name: SOLANA_RPC_URL
+            - name: SOLANA_URL
               valueFrom:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
-
-            - name: NEXT_PUBLIC_SOLANA_URL
-              valueFrom:
-                secretKeyRef:
-                  name: rpc-proxy-url
-                  key: secret
-            - name: PG_HOST
+            - name: PGHOST
               value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
-            - name: PG_PORT
+            - name: PGPORT
               value: "5432"
-            - name: PG_USER
+            - name: PGUSER
               value: monitoring
             - name: AWS_REGION
               value: us-west-2
-            - name: PG_NAME
+            - name: PGDATABASE
               value: monitoring
-            - name: NEXT_PUBLIC_PRIVY_APP_ID
-              valueFrom:
-                secretKeyRef:
-                  name: privy-app-id
-                  key: app-id
-            - name: NEXT_PUBLIC_SOLANA_CLUSTER
-              value: mainnet-beta
-            - name: HPL_CRONS_TASK_QUEUE
-              value: H39gEszvsi6AT4rYBiJTuZHJSF5hMHy6CKGTd7wzhsg7
-            - name: FEE_PAYER_WALLET_PATH
+            - name: PGSSLMODE
+              value: no-verify
+            - name: KEYPAIR_PATH
               value: /usr/src/app/keys/keypair.json
-            - name: BRIDGE_API_URL
-              value: "https://api.bridge.xyz/v0"
-            - name: BRIDGE_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: bridge-api-key
-                  key: secret
-            - name: JITO_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: jito-api-key
-                  key: secret
-            - name: PRIVY_APP_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: privy-app-secret
-                  key: secret
-            - name: ORACLE_SIGNER
-              value: orc1TYY5L4B4ZWDEMayTqu99ikPM9bQo9fqzoaCPP5Q
-            - name: ORACLE_URL
-              value: https://hnt-rewards.oracle.helium.io
+            - name: ORIGIN
+              value: https://tuktuk-pyth.web.helium.io
+
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /api/health
-              port: 3000
+              path: /health
+              port: 8081
               scheme: HTTP
             initialDelaySeconds: 10
             periodSeconds: 30
@@ -96,23 +63,23 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             tcpSocket:
-              port: 3000
+              port: 8081
             timeoutSeconds: 1
           volumeMounts:
-            - name: my-helium-keypair
+            - name: tuktuk-pyth-keypair
               mountPath: /usr/src/app/keys
               readOnly: true
           resources:
             requests:
-              cpu: 500m
-              memory: 1200Mi
+              cpu: 200m
+              memory: 300Mi
             limits:
-              cpu: 1000m
-              memory: 2000Mi
+              cpu: 400m
+              memory: 400Mi
       volumes:
-        - name: my-helium-keypair
+        - name: tuktuk-pyth-keypair
           secret:
-            secretName: my-helium-keypair
+            secretName: tuktuk-pyth-keypair
             items:
               - key: keypair.json
                 path: keypair.json
@@ -120,22 +87,22 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-helium
+  name: tuktuk-pyth-service
   namespace: helium
 spec:
   ports:
-    - port: 3000
+    - port: 8081
       protocol: TCP
       targetPort: http
   selector:
-    app: my-helium
+    app: tuktuk-pyth-service
   sessionAffinity: None
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: my-helium
+  name: tuktuk-pyth-service
   namespace: helium
   annotations:
     nginx.ingress.kubernetes.io/limit-rps: "10"
@@ -143,27 +110,27 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: my-helium.web.helium.io
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: my-helium
-            port:
-              number: 3000
+    - host: tuktuk-pyth.web.helium.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tuktuk-pyth-service
+                port:
+                  number: 8081
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: my-helium
+  name: tuktuk-pyth-service
   namespace: helium
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: my-helium
+    name: tuktuk-pyth-service
   minReplicas: 1
   maxReplicas: 3
   metrics:
