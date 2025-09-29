@@ -13,17 +13,20 @@ data:
             {
               "type": "KeyToAssetV0",
               "table": "key_to_assets",
-              "schema": "public"
+              "schema": "public",
+              "batchSize": 25000
             },
             {
               "type": "IotHotspotInfoV0",
               "table": "iot_hotspot_infos",
-              "schema": "public"
+              "schema": "public",
+              "batchSize": 25000
             },
             {
               "type": "MobileHotspotInfoV0",
               "table": "mobile_hotspot_infos",
-              "schema": "public"
+              "schema": "public",
+              "batchSize": 25000
             }
           ],
           "crons": [
