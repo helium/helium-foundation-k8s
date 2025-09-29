@@ -163,11 +163,10 @@ spec:
               readOnly: true
           resources:
             requests:
-              cpu: 100m
-              memory: 500Mi
-            limits:
-              cpu: 250m
+              cpu: 1000m
               memory: 2Gi
+            limits:
+              memory: 5Gi
       volumes:
         - name: account-postgres-sink-config
           configMap:
