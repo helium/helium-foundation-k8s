@@ -94,8 +94,8 @@ data:
         }
       ],
       "indexConfigs": [
-        "CREATE INDEX IF NOT EXISTS idx_key_to_asset_asset ON key_to_assets(asset);",
-        "CREATE INDEX IF NOT EXISTS idx_recipients_asset_index ON recipients(asset);",
+        "CREATE INDEX IF NOT EXISTS idx_key_to_assets_asset_block ON key_to_assets(asset, last_block);",
+        "CREATE INDEX IF NOT EXISTS idx_recipients_asset_block ON recipients(asset, last_block);",
         "CREATE INDEX IF NOT EXISTS idx_recipients_destination_index ON recipients(destination);",
         "CREATE INDEX IF NOT EXISTS idx_recipients_lazy_distributor ON recipients(lazy_distributor);"
       ]
@@ -122,7 +122,7 @@ spec:
       serviceAccountName: rds-chain-indexer-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.37
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.4.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
