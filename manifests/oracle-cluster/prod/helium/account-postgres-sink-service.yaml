@@ -87,7 +87,7 @@ data:
               "table": "recipients",
               "schema": "public"
             }
-          ],`
+          ],
           "crons": [
             { "schedule": "10 0 * * *", "type": "integrity-check" }
           ]
