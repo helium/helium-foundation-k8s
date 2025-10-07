@@ -53,6 +53,16 @@ data:
           "crons": [
             { "schedule": "10 0 * * *", "type": "integrity-check" }
           ]
+        },
+        {
+          "programId": "1azyuavdMyvsivtNxPoz6SucD18eDHeXzFCUPq5XU7w",
+          "accounts": [
+            {
+              "type": "RecipientV0",
+              "table": "recipients",
+              "schema": "public"
+            }
+          ]
         }
       ],
       "indexConfigs": [
