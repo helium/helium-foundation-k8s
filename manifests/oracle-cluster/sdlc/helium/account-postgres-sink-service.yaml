@@ -91,8 +91,8 @@ data:
         }
       ],
       "indexConfigs": [
-        "DROP INDEX IF EXISTS idx_key_to_asset_asset ON key_to_assets(asset);",
-        "DROP INDEX IF EXISTS idx_recipients_asset_index ON recipients(asset);",
+        "DROP INDEX IF EXISTS idx_key_to_asset_asset;",
+        "DROP INDEX IF EXISTS idx_recipients_asset_index;",
         "CREATE INDEX IF NOT EXISTS idx_key_to_assets_asset_block ON key_to_assets(asset, last_block);",
         "CREATE INDEX IF NOT EXISTS idx_recipients_asset_block ON recipients(asset, last_block);",
         "CREATE INDEX IF NOT EXISTS idx_recipients_destination_index ON recipients(destination);",
