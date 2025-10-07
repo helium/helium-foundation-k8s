@@ -236,12 +236,20 @@ data:
         }
       ],
       "indexConfigs": [
-        "CREATE INDEX IF NOT EXISTS key_to_asset_asset_index ON key_to_assets(asset);",
+        "DROP INDEX IF EXISTS key_to_asset_asset_index;",
+        "DROP INDEX IF EXISTS iot_hotspot_infos_asset_index;",
+        "DROP INDEX IF EXISTS mobile_hotspot_infos_asset_index;",
+        "DROP INDEX IF EXISTS recipient_asset_index;",
         "CREATE INDEX IF NOT EXISTS key_to_asset_entity_key_index ON key_to_assets(entity_key);",
-        "CREATE INDEX IF NOT EXISTS iot_hotspot_infos_asset_index ON iot_hotspot_infos(asset);",
-        "CREATE INDEX IF NOT EXISTS mobile_hotspot_infos_asset_index ON mobile_hotspot_infos(asset);",
         "CREATE INDEX IF NOT EXISTS recipient_lazy_distributor_index ON recipients(lazy_distributor);",
-        "CREATE INDEX IF NOT EXISTS recipient_asset_index ON recipients(asset);"
+        "CREATE INDEX IF NOT EXISTS idx_welcome_packs_owner ON welcome_packs(owner);",
+        "CREATE INDEX IF NOT EXISTS idx_mini_fanouts_owner ON mini_fanouts(owner);",
+        "CREATE INDEX IF NOT EXISTS idx_key_to_assets_asset_block ON key_to_assets(asset, last_block);",
+        "CREATE INDEX IF NOT EXISTS idx_recipients_asset_block ON recipients(asset, last_block);",
+        "CREATE INDEX IF NOT EXISTS idx_mobile_hotspot_infos_asset_block ON mobile_hotspot_infos(asset, last_block);",
+        "CREATE INDEX IF NOT EXISTS idx_iot_hotspot_infos_asset_block ON iot_hotspot_infos(asset, last_block);",
+        "CREATE INDEX IF NOT EXISTS idx_welcome_packs_asset_block ON welcome_packs(asset, last_block);",
+        "CREATE INDEX IF NOT EXISTS idx_key_to_assets_encoded_entity_key ON key_to_assets(encoded_entity_key);"
       ]
     }
 ---
@@ -266,7 +274,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: account-postgres-sink-service
-          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.3.37
+          image: public.ecr.aws/v0j6k5v6/account-postgres-sink-service:0.4.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -378,4 +386,3 @@ spec:
                 name: account-postgres-sink-service
                 port:
                   number: 3000
-
