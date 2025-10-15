@@ -83,7 +83,7 @@ spec:
             - name: DATABASE__DATABASE_NAME
               value: monitoring
             - name: DATABASE__SSL_MODE
-              value: no-verify
+              value: require
             - name: INGESTOR__ENDPOINT
               value: https://alb.mobile.devnet.helium.wtf:9091
             - name: SERVICE__DRY_RUN
