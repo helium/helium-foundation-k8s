@@ -1,0 +1,154 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: atomic-data-publisher-settings
+  namespace: helium
+data:
+  settings.toml: |
+    # ===================================
+    # Static Configuration
+    # ===================================
+    # This file defines polling jobs and required database tables.
+    # All other settings (database connection, ingestor, logging, signing, service params)
+    # must be provided via environment variables.
+
+    # Database tables required for operation
+    [database]
+    required_tables = [
+      "asset_owners",
+      "key_to_assets",
+      "recipients",
+      "welcome_packs",
+      "rewards_recipients",
+      "mini_fanouts"
+    ]
+
+    # Polling job definitions
+    [[service.polling_jobs]]
+    name = "atomic_mobile_hotspots"
+    query_name = "construct_atomic_hotspots"
+    parameters = { change_type = "mobile_hotspot", hotspot_type = "mobile" }
+
+    [[service.polling_jobs]]
+    name = "atomic_iot_hotspots"
+    query_name = "construct_atomic_hotspots"
+    parameters = { change_type = "iot_hotspot", hotspot_type = "iot" }
+
+    [[service.polling_jobs]]
+    name = "entity_ownership_changes"
+    query_name = "construct_entity_ownership_changes"
+    parameters = { change_type = "entity_ownership" }
+
+    [[service.polling_jobs]]
+    name = "entity_reward_destination_changes"
+    query_name = "construct_entity_reward_destination_changes"
+    parameters = { change_type = "entity_reward_destination" }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: atomic-data-publisher-service
+  name: atomic-data-publisher-service
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: atomic-data-publisher-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: atomic-data-publisher-service
+        security-group: public-rds-access
+    spec:
+      serviceAccountName: public-monitoring-rds-monitoring-user-access
+      containers:
+        - name: atomic-data-publisher-service
+          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          env:
+            - name: DATABASE__HOST
+              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+            - name: DATABASE__PORT
+              value: "5432"
+            - name: DATABASE__USERNAME
+              value: monitoring
+            - name: DATABASE__AWS_REGION
+              value: us-east-1
+            - name: DATABASE__DATABASE_NAME
+              value: monitoring
+            - name: DATABASE__SSL_MODE
+              value: no-verify
+            - name: INGESTOR__ENDPOINT
+              value: https://alb.mobile.devnet.helium.wtf:9091
+            - name: SERVICE__DRY_RUN
+              value: "true"
+            - name: SIGNING__KEYPAIR_PATH
+              value: /app/keypair.bin
+          volumeMounts:
+            - name: atomic-data-publisher-settings
+              mountPath: /app/settings.toml
+              subPath: settings.toml
+              readOnly: true
+            - name: atomic-data-publisher-signing-keypair
+              mountPath: /app/keypair.bin
+              subPath: keypair.bin
+              readOnly: true
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 2Gi
+            limits:
+              memory: 5Gi
+      volumes:
+        - name: atomic-data-publisher-settings
+          configMap:
+            name: atomic-data-publisher-settings
+            items:
+              - key: settings.toml
+                path: settings.toml
+        - name: atomic-data-publisher-signing-keypair
+          secret:
+            secretName: atomic-data-publisher-signing-keypair
+            items:
+              - key: keypair.bin
+                path: keypair.bin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atomic-data-publisher-service
+  namespace: helium
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: atomic-data-publisher-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: atomic-data-publisher-service
+  namespace: helium
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: atomic-data-publisher.web.test-helium.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: atomic-data-publisher-service
+                port:
+                  number: 3000
