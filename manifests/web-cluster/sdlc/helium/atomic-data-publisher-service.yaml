@@ -67,12 +67,6 @@ spec:
         - name: atomic-data-publisher-service
           image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.3
           imagePullPolicy: IfNotPresent
-          command:
-            [
-              "/bin/sh",
-              "-c",
-              "cd /etc/atomic-data-publisher && /app/atomic-data-publisher",
-            ]
           ports:
             - containerPort: 3000
               name: http
@@ -98,7 +92,8 @@ spec:
               value: /app/keypair.bin
           volumeMounts:
             - name: atomic-data-publisher-settings
-              mountPath: /etc/atomic-data-publisher
+              mountPath: /app/settings.toml
+              subPath: settings.toml
               readOnly: true
             - name: atomic-data-publisher-signing-keypair
               mountPath: /app/keypair.bin
