@@ -86,6 +86,8 @@ spec:
               value: require
             - name: INGESTOR__ENDPOINT
               value: https://alb.mobile.devnet.helium.wtf:9091
+            - name: SERVICE__DRY_RUN
+              value: "true"
             - name: SERVICE__MAX_CONCURRENT_PUBLISHES
               value: "10"
             - name: INGESTOR__TIMEOUT_SECONDS
