@@ -86,10 +86,10 @@ spec:
               value: require
             - name: INGESTOR__ENDPOINT
               value: https://alb.mobile.devnet.helium.wtf:9091
-            - name: SERVICE__DRY_RUN
-              value: "true"
             - name: SERVICE__MAX_CONCURRENT_PUBLISHES
-              value: "10"
+              value: "5"
+            - name: SERVICE__BATCH_SIZE
+              value: "100"
             - name: INGESTOR__TIMEOUT_SECONDS
               value: "60"
             - name: SIGNING__KEYPAIR_PATH
