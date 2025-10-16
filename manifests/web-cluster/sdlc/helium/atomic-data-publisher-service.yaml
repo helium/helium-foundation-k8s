@@ -90,6 +90,8 @@ spec:
               value: "5"
             - name: SERVICE__BATCH_SIZE
               value: "500"
+            - name: SERVICE__DRY_RUN
+              value: "true"
             - name: INGESTOR__TIMEOUT_SECONDS
               value: "60"
             - name: SIGNING__KEYPAIR_PATH
