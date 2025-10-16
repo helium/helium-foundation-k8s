@@ -65,7 +65,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: atomic-data-publisher-service
-          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.9
+          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.10
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -90,8 +90,6 @@ spec:
               value: "5"
             - name: SERVICE__BATCH_SIZE
               value: "500"
-            - name: SERVICE__DRY_RUN
-              value: "true"
             - name: INGESTOR__TIMEOUT_SECONDS
               value: "60"
             - name: SIGNING__KEYPAIR_PATH
