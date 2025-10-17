@@ -65,7 +65,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: atomic-data-publisher-service
-          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.28
+          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.29
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
