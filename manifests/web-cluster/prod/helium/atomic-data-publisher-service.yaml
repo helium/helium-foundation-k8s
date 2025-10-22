@@ -85,7 +85,7 @@ spec:
             - name: DATABASE__SSL_MODE
               value: require
             - name: INGESTOR__ENDPOINT
-              value: https://alb.mobile.mainnet.helium.wtf:9091
+              value: https://alb.mobile.mainnet.helium.io:9091
             - name: SIGNING__KEYPAIR_PATH
               value: /usr/src/app/keypair.bin
           volumeMounts:
