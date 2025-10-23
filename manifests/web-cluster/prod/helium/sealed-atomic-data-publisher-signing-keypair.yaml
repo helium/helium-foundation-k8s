@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: atomic-data-publisher-signing-keypair
+  namespace: helium
+spec:
+  encryptedData:
+    keypair.bin: AgBiybZCCfj4A0dp8HqEbXD0+s4KiDBf2fIF9TsUrz1fIaU+Y60kuBwWVzdxkDhws5I6bM3zXF7IjkSCCMLqeSepElTLnekdRWyYP2ad0zgkGnRd6TS31BAN2PGPHjjJmLlBjVUas6A+tCiNaO3412/wE9yy5sCJ/t2R7c520C5NoWVGEXIGb6PMAfWgncp7sRcAk4jUEiJIRGRvCl69Pwa5OBpA7Y+eMfz6SurOVY3GkwCBfn0fKECZ0iKBbyx+4xIUY4jrP7HBZV0AysM1A+2mngisaeGnAvgiGMhehteBddIdMgYeK0UPwmylRihhSKRJaEFUHzc+bQlv8/1lNf+6BozJrQ5JB0xbR+7Oiv4HUWA1vxv8w6bksE5wDDtKcsR4xf1gV8ySavm9u4thlJImClC/KHkB/bvicxdZA/LOL5HDaV4OGZzqE/gEI5M4hhtfAl72wv/v8k9bDuwXDH+dSo3LpoQXhHoMyRv5h7qtZHHwak0DCcYLQW6JG09ucPwkEdvzrA2uPPnADt27u0bQyWhhC0LqytRTXlcKwbTgAm5Wq6t3+QIzvEiSKx0Lhd5QJfhrUgimjxNSB5bjpTB6s3Pfum0lQ0ggFGQo56U7xr0MC62v40Q0djaf9tASO6sz3uBQZfNeV6A6VkAaHTbJKGuBcxelpfo+EEy5SKNJaXftqNAdOSJiI5oXWR2IGHWaWULmR2qnVjbddl/GVCR3fLLq9CvIsHpYiOyTiWl0G5Uks0gRM7ghssx9Jfd29AEfdBPHA7k2LD9JBYIIolHwO5u284ichW4l4URPY3xXV56phB4fyRisCUws0MqATVNkQw==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: atomic-data-publisher-signing-keypair
+      namespace: helium
+---
