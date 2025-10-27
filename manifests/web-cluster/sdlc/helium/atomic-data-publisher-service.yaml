@@ -88,6 +88,8 @@ spec:
               value: https://alb.mobile.devnet.helium.wtf:9091
             - name: SIGNING__KEYPAIR_PATH
               value: /usr/src/app/keypair.bin
+            - name: SERVICE__DRY_RUN
+              value: "true"
           volumeMounts:
             - name: atomic-data-publisher-settings
               mountPath: /usr/src/app/settings.toml
