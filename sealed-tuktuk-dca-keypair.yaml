@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: tuktuk-dca-keypair
+  namespace: helium
+spec:
+  encryptedData:
+    keypair.json: AgCbysPUjjVbmOA2AH5r5c7w/eb+rmdA1aLTXvL3S4DIKpJksADd6anEFK1Aw9yEbVQyPMR0jrsupm6szBS9ToTpoWHm0cHBaFb5IKOI4CbEf/A60HeETht6bZEiEc+E0MIO8kFBW3glW3iTGh7mD6prI8SXpTyKf7zBCuDYx/lpYA2EIjDSu14cZXsPRpoERlygpxIbhV8Qv17yGt6eaOUPYSRkJ7DKJ0oAvhCnqqvUx8ia520no+/fkPqQws7hqPAKhf2/7fjzRdfa3pxsuYtvo1GgeQtmLrdzyfudlcxy3N7IS6J9ofUqkZba6PNRg3Cw78FVRYI9ekHjHjH3a9DHcxMK4E0Kj/BOZQT5B+7Q43yXhXcbv2ZVG/eQwXvSE6nOooCCEOPQYMY2oF3+h5DKLwuCdyq8rM9b1CN6iyhlG9aqpJef7Rd/8Xx/UzPOEVeSwE9qRpbXlRhpKMhn/9CIIKQbCF9D4ohWHyHs4vCnRZdH5Tfv3ACeq4qNXrsFCQaBzSBAwwwGggF7iDT9l1A1dpVODhcfr1+FwEgA/KAcC3iAfXnZhTl2xIqOjor5Q4wSHayGO2lpTSqqLLSRWL9D211KqXIoBNoC3NI2r4qQmSKNbdOvmAbKxgQjcjQTBWcUdhjBOxi5z2T1g/+dEZcubwb8gKuwvJsjtivThPOclQnJkzH0f4nksmtoXQSE9Sb4tcX85BBuRfZlQyH7m2mTJjyFpKNWMzZbLW3ID2ixVBCwNGZD+dZkeO6NkaO6BLLRurw2QnQ0QP2GxCIUW4wMMrdz6mXhg+rvHvl2zFw4TxS7MR2F7QF3ydyrbMQuKUMvOpErAygMwAMg75jd0CQ6nlAV4g1TTbT9c7VgIC7gV1hjgT1OPrkPFGgWEKKCOt4M+ovHXCP8aCF40bQ4AJiIuXivN/cQevXJn/0f6YHyFn0cvWjRQLze6LMyIGf7OmxQTc8Hxu2t6lDiH0bSN6duyEHZRV4OjPPLLDKHsgrYVg==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: tuktuk-dca-keypair
+      namespace: helium
