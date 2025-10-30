@@ -65,7 +65,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: atomic-data-publisher-service
-          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.38
+          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.42
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -88,8 +88,6 @@ spec:
               value: https://alb.mobile.devnet.helium.wtf:9091
             - name: SIGNING__KEYPAIR_PATH
               value: /usr/src/app/keypair.bin
-            - name: SERVICE__DRY_RUN
-              value: "true"
           volumeMounts:
             - name: atomic-data-publisher-settings
               mountPath: /usr/src/app/settings.toml
