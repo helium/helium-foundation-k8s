@@ -19,7 +19,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: solana-monitor
-          image: public.ecr.aws/v0j6k5v6/solana-monitor:0.1.8
+          image: public.ecr.aws/v0j6k5v6/solana-monitor:0.1.9
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
