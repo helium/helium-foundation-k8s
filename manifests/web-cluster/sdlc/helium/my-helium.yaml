@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.0.64
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.1.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -86,7 +86,7 @@ spec:
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /api/health
+              path: /api/v1/health
               port: 3000
               scheme: HTTP
             initialDelaySeconds: 10
@@ -146,16 +146,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: my-helium.web.test-helium.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: my-helium
-            port:
-              number: 3000
+    - host: my-helium.web.test-helium.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-helium
+                port:
+                  number: 3000
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
