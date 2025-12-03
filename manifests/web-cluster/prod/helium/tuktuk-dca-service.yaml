@@ -46,6 +46,13 @@ spec:
               value: /usr/src/app/keys/keypair.json
             - name: ORIGIN
               value: https://tuktuk-dca.web.helium.io
+            - name: JUPITER_API_URL
+              value: "https://api.jup.ag/ultra"
+            - name: JUPITER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jupiter-api-key
+                  key: jupiter-api-key
 
           readinessProbe:
             failureThreshold: 3

@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: jupiter-api-key
+  namespace: helium
+spec:
+  encryptedData:
+    jupiter-api-key: AgCiecuZXYW3CW9Az0fIRv10NFFP594xwoUWk/nGhhRR/wbEuXJI/LwwsCNiKmCRQfaW2A1arOTHnwYz13Ap9K04gSFoNqyfFshLqUdrX3JxeQKly1yRdigtXIZEqw2Pk//7OKD0eYNUVDezxDq5QtAjhTo/7nn8S/mlRBHcH57fBm/jzOzxnKpcDReT3jwAsA/tmg0zJYlMq+u2glCwPQmoUhvIIkR71v2nAeEJhEzgktDnv0OXBKBwj+CFmHzHAcnN4sPNUaoc+Bb/l7yoQ/dzS/9WS3Ou7vSJvP6v06ic0RICPXJqOaa0EtihKop9+FeSHRPnAAxwl/im8cu5For8P1vwID5H/dblmM66B/y7Y4nmXeXRBcD0ABAJtPrJ+PjQ2wwyVjyx+ZQO5pPHteTDN3vvjgK0qlo/lTkPEZO2efKhOptVUiiIV013nFU+zAHkZ6XzjvXOmJOqDPpGX4HQ+SEHpUlASBrevwU1yLuubSDu0dcIz9mKctSkwgu9ggGr8U6kttq+E5aWUmc3FTydLOd+mhGN274qGtXGm+YijmBi0eTIJU9z2IEXuFTxipicMsJajHu6mBG4OxHdCr86+j9pFhA5iCutTIRylEuIqwyg6J4qp9eNSgcWX91sWdHj6oBcgWPZpN3TOp9WaANsBokKGzHtxQhahuRFbFf0p4MfxerYV09lP0gFiQlOJ4GY9f0k1P476VcV+0enQBKCZvC8Sc5YtHtX9YNrnoWImPwncs9F
+  template:
+    metadata:
+      creationTimestamp: null
+      name: jupiter-api-key
+      namespace: helium
