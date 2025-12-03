@@ -47,7 +47,7 @@ spec:
             - name: ORIGIN
               value: https://tuktuk-dca.web.helium.io
             - name: JUPITER_API_URL
-              value: "https://api.jup.ag/ultra"
+              value: "https://api.jup.ag"
             - name: JUPITER_API_KEY
               valueFrom:
                 secretKeyRef:

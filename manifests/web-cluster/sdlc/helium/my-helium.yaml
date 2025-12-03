@@ -84,7 +84,7 @@ spec:
             - name: ORACLE_URL
               value: https://hnt-rewards.oracle.test-helium.com
             - name: JUPITER_API_URL
-              value: "https://api.jup.ag/ultra"
+              value: "https://api.jup.ag"
             - name: JUPITER_API_KEY
               valueFrom:
                 secretKeyRef:
