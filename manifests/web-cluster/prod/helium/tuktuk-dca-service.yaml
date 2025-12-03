@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: tuktuk-dca-service
-          image: public.ecr.aws/v0j6k5v6/tuktuk-dca-service:0.0.2
+          image: public.ecr.aws/v0j6k5v6/tuktuk-dca-service:0.0.3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8123
