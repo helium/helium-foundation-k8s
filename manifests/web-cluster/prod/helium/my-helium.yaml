@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.1.2
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.1.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -80,6 +80,14 @@ spec:
               value: orc1TYY5L4B4ZWDEMayTqu99ikPM9bQo9fqzoaCPP5Q
             - name: ORACLE_URL
               value: https://hnt-rewards.oracle.helium.io
+            - name: JUPITER_API_URL
+              value: "https://api.jup.ag"
+            - name: JUPITER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jupiter-api-key
+                  key: jupiter-api-key
+
           readinessProbe:
             failureThreshold: 3
             httpGet:
