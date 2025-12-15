@@ -53,7 +53,7 @@ spec:
                   name: globals
                   key: hnt_mint
             - name: WILL_PAY_RECIPIENT
-              value: "true"
+              value: "false"
           volumeMounts:
             - name: oracle-keypair
               mountPath: /usr/src/app/keys
