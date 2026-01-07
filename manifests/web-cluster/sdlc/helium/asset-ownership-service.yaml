@@ -48,6 +48,11 @@ spec:
               value: key_to_assets
             - name: PG_CARRIER_TABLE
               value: carriers
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-password
+                  key: password
             - name: SOLANA_URL
               valueFrom:
                 secretKeyRef:

@@ -19,7 +19,7 @@ spec:
       serviceAccountName: rds-hnt-oracle-user-access
       containers:
         - name: hnt-oracle
-          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.1.17
+          image: public.ecr.aws/s2o4r1i6/distributor-oracle:0.1.19
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
