@@ -164,6 +164,16 @@ spec:
                 name: my-helium
                 port:
                   number: 3000
+    - host: blockchain-api.web.test-helium.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-helium
+                port:
+                  number: 3000
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
