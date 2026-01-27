@@ -300,7 +300,7 @@ spec:
             - name: SUBSTREAM_URL
               value: "https://accounts.devnet.sol.streamingfast.io"
             - name: SUBSTREAM
-              value: "https://spkg.io/v1/packages/solana_common/v0.3.3"
+              value: "https://spkg.io/v1/packages/solana_accounts_foundational/v0.1.1"
             - name: SUBSTREAM_API_KEY
               valueFrom:
                 secretKeyRef:
