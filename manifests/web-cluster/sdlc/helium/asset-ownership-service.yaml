@@ -34,17 +34,6 @@ spec:
               value: "5432"
             - name: PG_USER
               value: monitoring
-            - name: USE_SUBSTREAM
-              value: "true"
-            - name: SUBSTREAM_URL
-              value: "https://devnet.sol.streamingfast.io"
-            - name: SUBSTREAM
-              value: "https://spkg.io/v1/packages/solana_common/v0.3.3"
-            - name: SUBSTREAM_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: substream-api-key
-                  key: secret
             - name: AWS_REGION
               value: us-east-1
             - name: PG_DATABASE
