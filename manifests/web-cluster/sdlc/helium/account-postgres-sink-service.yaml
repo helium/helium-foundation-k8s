@@ -278,18 +278,6 @@ spec:
               name: http
               protocol: TCP
           env:
-            - name: YELLOWSTONE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: triton-rpc-url
-                  key: secret
-            - name: YELLOWSTONE_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: triton-token
-                  key: token
-            - name: USE_YELLOWSTONE
-              value: "true"
             - name: ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
