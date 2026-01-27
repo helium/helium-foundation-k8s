@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.1.19
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -90,6 +90,8 @@ spec:
                 secretKeyRef:
                   name: jupiter-api-key
                   key: jupiter-api-key
+            - name: ONBOARDING_ENDPOINT
+              value: "https://onboarding.web.test-helium.com/api/v3"
 
           readinessProbe:
             failureThreshold: 3
