@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.1
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -59,6 +59,11 @@ spec:
               value: H39gEszvsi6AT4rYBiJTuZHJSF5hMHy6CKGTd7wzhsg7
             - name: FEE_PAYER_WALLET_PATH
               value: /usr/src/app/keys/keypair.json
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: sentry-dsn
+                  key: secret
             - name: BRIDGE_API_URL
               value: "https://api.bridge.xyz/v0"
             - name: BRIDGE_API_KEY

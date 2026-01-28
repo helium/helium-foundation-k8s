@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: sentry-dsn
+  namespace: helium
+spec:
+  encryptedData:
+    secret: AgC6MuPTDN8TVK5+b6qnRxeaYlppZeUdZbNn7V58nQFvJpzi5rmQUJaua2WK6kcsWITehmTF547HyaooeXeOEXPAaPRFH+ARlQEzul9Vt+Fl75fQRBAPJqZata1n02AelEZYm9s/RuUnzD9FEd2R5fuQ4MlNISwzE5mMp1D/2RbxMczEdzGKUuzxZ/0tf8WfkJQZzU26gB041D+DN+ZGF0tZNnFBMVZcgx+ZNkivoqgcQT+4gij9RDcfScjUjzpfcM0LTxJVBV3GWYKjYQKPK/sfTLQOoWFtUjvmDa55hnn9LyoTtDKqILs5ZzsDymOh3VlTKNAZHv7YBKCNfYdbGgG9Ptvr2JPW9HkrH9FOJL8AH8sURVXHaSXtFiLTZBrpe7GzcECssN1/k16+ej/04zwncXKMw27ZWVWcqARv0xnS4A3wpPr+T7h8CtubbI1EyrDkSQGhXlCCaCSYBAQJsjkGfNuMx9K1MXUxKcIc0+jrMfv8vk7BuRZSicFKvHp72OzBHFtGlzJsv2M/q1X5xPJOJ1BS69gCDR4BhQi+BSdnLYLnWxztREoGm/04fInjVEck/uKOAnWqm9tlbqWmZcLm++DoPnFJ9N7zH440WuG71XA34xsULUSH//llat5fQn21AC5Md+WdarQ6z014pgMjPsNVxvpbNOa9HxfTiLPW1bMO8h/3MsWjPXhMgqJRhItyXg/ZY7UVcpSutTCJulP/uws6nHYkZfXBVK7Pbq3dTsihl0Rq9b4WqzcgQJUN72owouRtWOEfCr5ZDuiDuw7Dxtcqfm8xEZfKgfDRS/ArUQwOoyhaEQ==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: sentry-dsn
+      namespace: helium
