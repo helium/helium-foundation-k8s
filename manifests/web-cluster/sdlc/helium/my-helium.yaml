@@ -156,8 +156,16 @@ metadata:
   name: my-helium
   namespace: helium
   annotations:
-    nginx.ingress.kubernetes.io/limit-rps: "10"
-    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+    # API keys loaded from /etc/nginx/unlimited-rate-api-keys/unlimited-rate-api-keys.conf (mounted from secret)
+    # See sealed-unlimited-rate-api-keys.yaml (secret mounted via ingress-nginx deployment)
+    nginx.ingress.kubernetes.io/server-snippet: |
+      map $http_x_api_key $my_helium_rate_limit_key {
+        default $binary_remote_addr;
+        include /etc/nginx/unlimited-rate-api-keys/unlimited-rate-api-keys.conf;
+      }
+      limit_req_zone $my_helium_rate_limit_key zone=my-helium-limit:10m rate=10r/s;
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      limit_req zone=my-helium-limit burst=100 nodelay;
 spec:
   ingressClassName: nginx
   rules:
