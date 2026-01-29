@@ -25,6 +25,8 @@ spec:
               name: http
               protocol: TCP
           env:
+            - name: NEXT_RUNTIME
+              value: "nodejs"
             - name: NODE_ENV
               value: "production"
             - name: SOLANA_RPC_URL
