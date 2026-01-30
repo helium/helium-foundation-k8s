@@ -1,0 +1,25 @@
+---
+# SealedSecret for API keys that bypass rate limiting
+# This decrypts to a Secret that gets mounted in the nginx ingress controller
+#
+# The secret contains nginx map entries in format:
+#   "your-api-key-1" "";
+#   "your-api-key-2" "";
+#
+# NOTE: This secret is in the ingress-nginx namespace and mounted by the controller
+# via the volumeMount added to helium-terraform/modules/k8s/lb/ingress-nginx.yaml
+#
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: unlimited-rate-api-keys
+  namespace: ingress-nginx
+spec:
+  encryptedData:
+    unlimited-rate-api-keys.conf: AgAeRVadlGxWL2eNWbgJcHy6wUUO2vY7hR09701sm+Lj5pNuszG7ac5ZGhLLA/7OMKtHNUS4j81luUZ7zjNn/BhCIkjcr+9ewvcJpGLwuei/t/sSkPcTxJu+vXdS/PJgdtR41Xqmrx/L8wng/YI+HPBk7eeb+7pxPVleGldtgQgz4ROhZzavHUYCmmeSYV72NAvimHG+bj49gD/GcpQzUS4TmjFtMyTbeiYnuSb0LPTNMIdLnts9gcCE3cLP/SCoVzbBib7q5sr+RYDBqM+Nq5UWSBXOkmjXZ7Y/hsYAIdaVZYS4KUZUS7NmorJV73BUKuZXyRAOjWEaUuDKTWGKzzVLW37bBVlXZEOgNSCbMKISbTKX8dHZEgSmy1AlkvWGFzDhZ+CNlXJtNdBGZ3ziJe8ZFYv7urdxnsmxqZxZ4KFetF2TnmVw2G7JlU2tpipFgOSdB2xHwLCnhL+MAt0m+47oxaJR++oSH5PZWTaQnI4G90vCGSSCFjQ6b+MQO5ibQ04HC95RLYF7/eZ/TegZYxeDsEnIiXfJDhFpcKzUyHyk4v1pXI09TkrY+68Z4Yiqkil1OID59NSmsQEUkuqO0/IYHXV6Pcl4rV/lqf+VQ3g+iSK5fVZlDlvfgjE49DRfuIxy8+sQFQVzwy00xkbrGDo4yClvCs0s/L0LpwT2v7RDEFKXJhRjb1K82xTd8QWBQ/u/ibigs1SMyEUAgnQnhm4=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: unlimited-rate-api-keys
+      namespace: ingress-nginx

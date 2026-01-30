@@ -1,0 +1,14 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: unlimited-rate-api-keys
+  namespace: ingress-nginx
+spec:
+  encryptedData:
+    unlimited-rate-api-keys.conf: AgB8LP4n0MnV3TjTrqhy5Q5hrfYlXR8IF++ubZUZRebIJeyiRkXjGKhZlPCFNGMOe7P2fFaWFpUEImPRDDDSgVUrRG7rBlJP14imx3Pj4BZ7S6LJsMThBzmnWpm8knxGvq05nexhqSgziHxGThBRJB8WDphn5Z0Cw+qYWxKuUOBhxjwV26m8F/n2GaM1kMucqiIGw5Th/aJ4pOP/si0rkHPbvGurZ7DSYn5QUQe9SLwSbXaXcS415m4O/GXiyemfd2scpmXVyFiyKDaGFiBcGA1mpVinBC+R5HckotrF/DWXL5q7UqJw3oxQCVlxyMiddQXNLpaU09wz0DwIueEmTUDQsZJ+GlWRVG3LfpfyaKcHhibsc/DZb00aAzzwgwqgZ7jDYNnoPk6DLwPc7m/Xp1baUPh1wN5l9X5UqsZc7oPvptBXAcTvqhjh1iPxvQNARrPiQGyDdKJSc3R8VMyL2PYh1hxIndOtnti++S6ccjTars0tj8i6TaROLORQVGlJ7xKCYeJ+J1X3c0ki+woMm9dclvCwAZ8QMPB0VmGFfVlyTJ3iyALqV7A8zZyiEQ/p/J4gatpe6W/2oNaMLEX0YS/drdz1kOj4SmoyKRdEfN4mI/KivTwx2at1uXPG6kAB9Ne7ivJMyfrJMHQ3UEcOm+SgljOvvMzs7eZnxeny1p6euxHA6z09OK39tmDW1eqKZCcSuijUyAwMQVu+/fTK4HDzLdMdteDeiV3ynsg=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: unlimited-rate-api-keys
+      namespace: ingress-nginx
