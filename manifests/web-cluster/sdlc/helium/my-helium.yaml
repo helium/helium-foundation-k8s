@@ -166,9 +166,9 @@ metadata:
         default $binary_remote_addr;
         include /etc/nginx/unlimited-rate-api-keys/unlimited-rate-api-keys.conf;
       }
-      limit_req_zone $my_helium_rate_limit_key zone=my-helium-limit:1m rate=1r/s;
+      limit_req_zone $my_helium_rate_limit_key zone=my_helium_limit:10m rate=1r/s;
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      limit_req zone=my-helium-limit burst=10 nodelay;
+      limit_req zone=my_helium_limit burst=10 nodelay;
 spec:
   ingressClassName: nginx
   rules:
