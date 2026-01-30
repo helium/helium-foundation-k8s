@@ -158,15 +158,9 @@ metadata:
   name: my-helium
   namespace: helium
   annotations:
-    # API keys loaded from /etc/nginx/unlimited-rate-api-keys/unlimited-rate-api-keys.conf (mounted from secret)
-    # See sealed-unlimited-rate-api-keys.yaml (secret mounted via ingress-nginx deployment)
-    # Map and zone must be at http level, so use http-snippet
-    nginx.ingress.kubernetes.io/http-snippet: |
-      map $http_x_api_key $my_helium_rate_limit_key {
-        default $binary_remote_addr;
-        include /etc/nginx/unlimited-rate-api-keys/*.conf;
-      }
-      limit_req_zone $my_helium_rate_limit_key zone=my_helium_limit:10m rate=1r/s;
+    # Rate limiting with API key bypass
+    # The map and limit_req_zone are defined in ingress-nginx ConfigMap (http-snippet)
+    # API keys loaded from /etc/nginx/unlimited-rate-api-keys/*.conf (mounted from sealed secret)
     nginx.ingress.kubernetes.io/configuration-snippet: |
       limit_req zone=my_helium_limit burst=10 nodelay;
 spec:
