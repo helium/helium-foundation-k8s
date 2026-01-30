@@ -162,7 +162,7 @@ metadata:
     # The map and limit_req_zone are defined in ingress-nginx ConfigMap (http-snippet)
     # API keys loaded from /etc/nginx/unlimited-rate-api-keys/*.conf (mounted from sealed secret)
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      limit_req zone=my_helium_limit burst=100 nodelay;
+      limit_req zone=blockchain_api_limit burst=100 nodelay;
 spec:
   ingressClassName: nginx
   rules:
