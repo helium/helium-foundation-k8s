@@ -164,7 +164,7 @@ metadata:
     nginx.ingress.kubernetes.io/http-snippet: |
       map $http_x_api_key $my_helium_rate_limit_key {
         default $binary_remote_addr;
-        include /etc/nginx/unlimited-rate-api-keys/unlimited-rate-api-keys.conf;
+        include /etc/nginx/unlimited-rate-api-keys/*.conf;
       }
       limit_req_zone $my_helium_rate_limit_key zone=my_helium_limit:10m rate=1r/s;
     nginx.ingress.kubernetes.io/configuration-snippet: |
