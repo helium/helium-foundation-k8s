@@ -43,3 +43,5 @@ spec:
     - name: "*"
       namespace: "ingress-nginx"
       server: "*"
+  sourceRepos:
+    - "*"
