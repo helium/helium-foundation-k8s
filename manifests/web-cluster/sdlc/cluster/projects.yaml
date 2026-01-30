@@ -5,14 +5,14 @@ metadata:
   namespace: argocd
 spec:
   clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
+    - group: "*"
+      kind: "*"
   destinations:
-    - name: '*'
-      namespace: 'helium'
-      server: '*'
+    - name: "*"
+      namespace: "helium"
+      server: "*"
   sourceRepos:
-    - '*'
+    - "*"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
@@ -21,11 +21,27 @@ metadata:
   namespace: argocd
 spec:
   clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
+    - group: "*"
+      kind: "*"
   destinations:
-    - name: '*'
-      namespace: 'slack-tools'
-      server: '*'
+    - name: "*"
+      namespace: "slack-tools"
+      server: "*"
   sourceRepos:
-    - '*'
+    - "*"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  destinations:
+    - name: "*"
+      namespace: "ingress-nginx"
+      server: "*"
+  sourceRepos:
+    - "*"
