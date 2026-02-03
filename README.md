@@ -3,10 +3,9 @@
 This repo is managed by GitOps via [ArgoCd](https://argo-cd.readthedocs.io/en/stable/)
 
 What this means is that any code that reaches `master` in this repo is automatically deployed
-to the various k8s clusters. 
+to the various k8s clusters.
 
 The Helium k8s infrastructure is provisioned by terraform from helium/helium-foundation-terraform
-
 
 ## Structure
 
@@ -26,10 +25,9 @@ manifests/
 
 You should generally follow the path of `<cluster>/<env>/<namespace>/<name>
 
-
 # Case Study: Ecc Verifier Service
 
-This is a stream of consciousness of deploying the ECC Verifier service, for th sake of anyone that wants to figure out devops flow. 
+This is a stream of consciousness of deploying the ECC Verifier service, for th sake of anyone that wants to figure out devops flow.
 
 ## Building The Service
 
@@ -40,11 +38,11 @@ Notably, the service has a Dockerfile. This allows us to run the service in kube
 ### Creating the ECR Repo
 
 To push a container, you first need to create a repository in ECR for it. Go to your dewi gmail, then click apps, then click AWS SSO. We use the SDLC ECR for BOTH prod and sdlc. The reason is that all flows should be tested in sdlc
-first. This allows us to just use the tested sdlc containers on prod, without a separate push. 
+first. This allows us to just use the tested sdlc containers on prod, without a separate push.
 
-Once authenticated, log in to one of the sdlc  aws accounts.
+Once authenticated, log in to one of the sdlc aws accounts.
 
-Navigate to ECR. Click "Create Repository". 
+Navigate to ECR. Click "Create Repository".
 
 Come up with a reasonable name, and make it public. For this, I created `public.ecr.aws/v0j6k5v6/ecc-verifier`
 
@@ -60,13 +58,13 @@ aws sso login --profile web-sdlc
 
 I tend to set the profile names as something memorable. `web-prod`, `oracle-sdlc`, etc.
 
-Next, login to ECR. 
+Next, login to ECR.
 
 ```
 aws ecr-public get-login-password --region us-east-1 --profile web-sdlc | docker login --username AWS --password-stdin public.ecr.aws
 ```
 
-Note that you will need to change the region to `us-west-2` for any prod cluster. 
+Note that you will need to change the region to `us-west-2` for any prod cluster.
 
 Next, build the container and push:
 
@@ -109,19 +107,61 @@ Make a PR into this repo to add the service. For ECC Verifier, you can see this 
 
 https://github.com/helium/helium-foundation-k8s/pull/4
 
+#### Unlimited Rate Limit API Keys
+
+Some ingresses support API key-based rate limit bypass. This allows specific clients to bypass the normal rate limiting by passing an `X-API-Key` header.
+
+The rate limiting logic is defined in the `http-snippet` of the ingress-nginx ConfigMap in the [helium-terraform](https://github.com/helium/helium-terraform) repo (`modules/k8s/lb/ingress-nginx.yaml`). The API keys themselves are stored as a sealed secret in this repo.
+
+To add a new API key:
+
+1. Create a file with nginx map entries (one key per line):
+
+```
+echo '"your-api-key-here" "";' > /tmp/unlimited-rate-api-keys.conf
+```
+
+2. Connect to the appropriate cluster:
+
+```
+aws eks --region us-east-1 update-kubeconfig --name web-cluster-sdlc --profile web-sdlc
+```
+
+3. Create the sealed secret:
+
+```
+kubectl create secret generic unlimited-rate-api-keys \
+  --from-file=unlimited-rate-api-keys.conf=/tmp/unlimited-rate-api-keys.conf \
+  --namespace ingress-nginx \
+  --dry-run=client -o yaml | kubeseal --controller-namespace kube-system -o yaml
+```
+
+4. Save the output to `manifests/web-cluster/<env>/ingress-nginx/sealed-unlimited-rate-api-keys.yaml`
+
+5. Clean up the plaintext file:
+
+```
+rm /tmp/unlimited-rate-api-keys.conf
+```
+
+Clients can then bypass rate limiting by including the header:
+
+```
+curl -H "X-API-Key: your-api-key-here" https://my-helium.web.test-helium.com/api/v1/health
+```
+
 ### Merge and Deploy
 
 Once the PR is merged into master, Argo should pick it up. This can take up to 5 minutes,
 but you can accelerate by clicking the "Refresh" button in argo. To log into argo, first visit the cluster-specific
-argo. 
+argo.
 
-| Url | Cluster |
-|-----|---------|
-|https://argo.oracle.test-helium.com/| oracle-sdlc |
-|https://argo.web.test-helium.com/ | web-sdlc |
-|https://argo.oracle.helium.io/| oracle-prod |
-|https://argo.web.helium.io/ | web-prod |
-
+| Url                                  | Cluster     |
+| ------------------------------------ | ----------- |
+| https://argo.oracle.test-helium.com/ | oracle-sdlc |
+| https://argo.web.test-helium.com/    | web-sdlc    |
+| https://argo.oracle.helium.io/       | oracle-prod |
+| https://argo.web.helium.io/          | web-prod    |
 
 The argo username is admin, the password can be acquired by running:
 
@@ -135,17 +175,15 @@ Make sure you're connected to the right cluster with kubectl.:
 aws eks --region us-east-1 update-kubeconfig  --name web-cluster-sdlc --profile web-sdlc
 ```
 
-You'll usually want to check the argo interface to see if your changes deployed succesfully. 
+You'll usually want to check the argo interface to see if your changes deployed succesfully.
 
 ### Debugging
 
 You can view logs inside of Argo. Alternatively, you can use kubectl to debug. Set your kubeconfig to the cluster:
 
-
 ```
 aws eks --region us-east-1 update-kubeconfig  --name web-cluster-sdlc --profile web-sdlc
 ```
-
 
 Now get pods:
 
@@ -166,16 +204,14 @@ vsr-metadata-68875c69f6-8zmwx        1/1     Running   0                38d
 
 You can then get logs from the pod:
 
-
 ```
 kubectl logs -f -n helium ecc-verifier-79c6645fcc-sfbft
 ```
 
-
 ## Connecting to Postgres
 
 Postgres is heavily locked down. You'll need to follow several steps to connect to postgres. The postgres is isolated
-within our VPC, and is only accessible through a bastion server. Further, the postgres uses rotating credentials. 
+within our VPC, and is only accessible through a bastion server. Further, the postgres uses rotating credentials.
 
 ### 1. Acquire the SSH Key
 
@@ -186,7 +222,6 @@ Log into the appropriate AWS account. Navigate to the Parameter Store. You can d
 Navigate to security groups. Find the `ec2-bastion-security-group`
 
 Click Inbound Rules, then edit inbound rules to add your IP
-
 
 ### 3. Get the postgres URL
 

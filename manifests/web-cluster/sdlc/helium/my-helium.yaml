@@ -18,13 +18,15 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.1.4
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.21
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
               name: http
               protocol: TCP
           env:
+            - name: NEXT_RUNTIME
+              value: "nodejs"
             - name: NODE_ENV
               value: "production"
             - name: SOLANA_RPC_URL
@@ -53,6 +55,11 @@ spec:
               value: H39gEszvsi6AT4rYBiJTuZHJSF5hMHy6CKGTd7wzhsg7
             - name: FEE_PAYER_WALLET_PATH
               value: /usr/src/app/keys/keypair.json
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: sentry-dsn
+                  key: secret
             - name: ACCOUNT_INDEXER_URL
               value: "https://account-sink.web.test-helium.com"
             - name: ASSET_OWNER_INDEXER_URL
@@ -90,6 +97,8 @@ spec:
                 secretKeyRef:
                   name: jupiter-api-key
                   key: jupiter-api-key
+            - name: ONBOARDING_ENDPOINT
+              value: "https://onboarding.web.test-helium.com/api/v3"
 
           readinessProbe:
             failureThreshold: 3
@@ -149,12 +158,25 @@ metadata:
   name: my-helium
   namespace: helium
   annotations:
-    nginx.ingress.kubernetes.io/limit-rps: "10"
-    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+    # Rate limiting with API key bypass
+    # The map and limit_req_zone are defined in ingress-nginx ConfigMap (http-snippet)
+    # API keys loaded from /etc/nginx/unlimited-rate-api-keys/*.conf (mounted from sealed secret)
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      limit_req zone=blockchain_api_limit burst=100 nodelay;
 spec:
   ingressClassName: nginx
   rules:
     - host: my-helium.web.test-helium.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-helium
+                port:
+                  number: 3000
+    - host: blockchain-api.web.test-helium.com
       http:
         paths:
           - path: /
