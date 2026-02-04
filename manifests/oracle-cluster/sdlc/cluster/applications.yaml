@@ -34,7 +34,7 @@ spec:
   source:
     repoURL: https://github.com/helium/helium-foundation-k8s
     path: manifests/web-cluster/prod/ingress-nginx
-    targetRevision: HEAD
+    targetRevision: develop
     directory:
       recurse: true
   syncPolicy:
