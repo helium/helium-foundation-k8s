@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: unlimited-rate-api-key
+  namespace: helium
+spec:
+  encryptedData:
+    secret: AgAX+EJrNs1dRiJLmOUNXgKwVhC5Gu5BPTygEEwX064m4l4ZQmzjCKCo67VSlvxNSrkmTx2R/sIEFYsI9pAEtIcsVk9PcvNpYGkUQMZP4c1P2mVpEBghrkhYK3/dO620qfKaFidJpm4xlFuSNFaFG8CT0HWigs7p+eET8LEESPTFQzJ+Ru+wmIwCrvCuB1//UR/vZqrdm2/vHfbBBTI4UoTaiz1do40nVNVMmulywmGPF8APdYgo22hlkD4M0YBD69K98vD70MaV3NNelRcPDPjnESI7NnKsfZFgiME3WsgS6nwC7mfP6SdyXRC79GPaP3C8IUjcYq9Hq1EFwXZWy5F+cpaSYRWDyY15555tmT7L263h/iYrIO4Szl3kAm+/CjJ55djal1xgsmbSBS29KYF0yrCGCY5O74alJSW3XUvH7arZDBSrXAcVjitovY2lKA19nctjMsWcUbU4zUlbe7l4MRcmNRrBRjMV7zOhwTUFLBF4o/DmwIzcO6Kxcx02u4yM/RfWBhMLuBn74Ti4/C3kxolVnhlwE4b1uJeeUGVgA2Gr1eQSut0VQMC/jHpLCo5CCHrV/UPaZAEjEJa9CLT3VZ8tYrhURq8Syb6EsFCipZJUEVciLGlV8SxbNOjppJYmzKpcgW6iex/Xqhost1k17Q/x1cZTz5foCGXqZfLH68KKexf+mxokTPQpIsa0SPQspEW+zwf5zqRDd1ViZVeT719ZH8hj+8A=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: unlimited-rate-api-key
+      namespace: helium

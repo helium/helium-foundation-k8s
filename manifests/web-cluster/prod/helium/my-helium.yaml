@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.21
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.24
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -94,6 +94,11 @@ spec:
                 secretKeyRef:
                   name: jupiter-api-key
                   key: jupiter-api-key
+            - name: ORACLE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: unlimited-rate-api-key
+                  key: secret
             - name: ONBOARDING_ENDPOINT
               value: "https://onboarding.dewi.org/api/v3"
 
