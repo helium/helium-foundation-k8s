@@ -100,7 +100,7 @@ spec:
             - name: ORACLE_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: oracle-api-key
+                  name: unlimited-rate-api-key
                   key: secret
             - name: ONBOARDING_ENDPOINT
               value: "https://onboarding.web.test-helium.com/api/v3"
