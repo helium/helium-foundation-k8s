@@ -33,7 +33,7 @@ spec:
   project: ingress-nginx
   source:
     repoURL: https://github.com/helium/helium-foundation-k8s
-    path: manifests/web-cluster/prod/ingress-nginx
+    path: manifests/oracle-cluster/sdlc/ingress-nginx
     targetRevision: develop
     directory:
       recurse: true
