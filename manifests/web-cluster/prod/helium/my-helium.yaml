@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadatal:
+metadata:
   labels:
     app: my-helium
   name: my-helium
