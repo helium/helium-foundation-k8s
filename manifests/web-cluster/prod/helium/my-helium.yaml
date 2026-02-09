@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata:
+metadatal:
   labels:
     app: my-helium
   name: my-helium
@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.30
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.31
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
