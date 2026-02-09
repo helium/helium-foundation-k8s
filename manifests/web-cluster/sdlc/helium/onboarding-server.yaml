@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-web-user-access
       containers:
         - name: onboarding-server
-          image: public.ecr.aws/v0j6k5v6/onboarding-server:0.0.62
+          image: public.ecr.aws/v0j6k5v6/onboarding-server:0.0.63
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3002
@@ -105,16 +105,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: onboarding.web.test-helium.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: onboarding-server
-            port:
-              number: 3002
+    - host: onboarding.web.test-helium.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: onboarding-server
+                port:
+                  number: 3002
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
