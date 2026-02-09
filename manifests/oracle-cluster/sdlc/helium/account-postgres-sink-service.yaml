@@ -128,6 +128,17 @@ spec:
               name: http
               protocol: TCP
           env:
+            - name: USE_SUBSTREAM
+              value: "true"
+            - name: SUBSTREAM_URL
+              value: "https://accounts.devnet.sol.streamingfast.io"
+            - name: SUBSTREAM
+              value: "https://spkg.io/v1/packages/solana_accounts_foundational/v0.1.1"
+            - name: SUBSTREAM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: substream-api-key
+                  key: secret
             - name: RUN_JOBS_AT_STARTUP
               value: "true"
             - name: PG_HOST

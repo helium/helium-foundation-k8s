@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: substream-api-key
+  namespace: helium
+spec:
+  encryptedData:
+    secret: AgBJ4BKeesRlfvtu2nGsYQ46V8vbeL9rurvr4F0emrxy+fHOXXspa8YE0c73QgLgUsyCJRhXv+XG4LtOVOThyoMLPhq9Sr4Gb66ASkPfYAD9R1nmcxe3AhDQ4Exx9RvEeYTsgQzsc48MthtfOwyEbNwVhmWJ4quiOFYjS7sENdLdCIE0iWzxUX4XfxUIp1VFZpvUT+T7RcTRJJxLLv8SW0cO1gmf+017wMp6hkTpc9sLA3BBC58Ns5zflLYKyw6JKNa94iOvFIULuw2CFt6Ku0w6p09mQF/iSElb2fOeSVTEapjTyaibju3O6xiiUQDwnAClfF++5dxp03eGS6x2JnKyq3lfEMcBRwiztR4hyeqgwWcCHDFFiKKm2noBYAsGu3IyrlExKRJdh2659UTq4crx6sqBTePR9m8/yWYjFCsXHXvtNONF4cNO7tb5ZzrnuHuaNH6u4L0QbuZ4bf25m8A3TYqXQONZgk8JjVGJPq7WV9goMATvuXwnykjg2YUPVQJBB4SuEBc62tlhe5w07KgFTBFiX0l1uKdjGPmElgykuCn0GVuwCdYwmogRvB2Efb52Z9T4XcDBXmEn4PEaIFLXC+y05cKoM3Hy8gbtpcZWIr8g1L/VyAmltShgFpGIhFEeKQaRDWnvz8nD/IWimXkxlnB2uMFafvyBKcM/IVLNLBwUp7R3Kod7O6ARTq1YnoJ83sVdDT8JwXZ8zr+jm57wcf6dC+wfoLHGjO8+XZMtObASs4XNFdk=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: substream-api-key
+      namespace: helium
