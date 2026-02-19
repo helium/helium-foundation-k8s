@@ -26,7 +26,7 @@ spec:
             - name: SOLANA_URL
               valueFrom:
                 secretKeyRef:
-                  name: triton-rpc-url
+                  name: helius-rpc-url
                   key: secret
           readinessProbe:
             failureThreshold: 3
