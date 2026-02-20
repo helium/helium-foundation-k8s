@@ -26,8 +26,6 @@ spec:
               name: http
               protocol: TCP
           env:
-            - name: NODE_ENV
-              value: "production"
             - name: PG_HOST
               value: oracle-rds.cf49lv1xslmw.us-east-1.rds.amazonaws.com
             - name: PG_PORT
