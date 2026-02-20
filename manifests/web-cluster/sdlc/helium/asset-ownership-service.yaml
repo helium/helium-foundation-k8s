@@ -19,15 +19,13 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: asset-ownership-service
-          image: public.ecr.aws/v0j6k5v6/asset-ownership-service:0.2.8
+          image: public.ecr.aws/v0j6k5v6/asset-ownership-service:0.2.10
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
               name: http
               protocol: TCP
           env:
-            - name: NODE_ENV
-              value: "production"
             - name: PG_HOST
               value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PG_PORT
