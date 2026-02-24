@@ -1,3 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-helium-migration-allowlist
+  namespace: helium
+data:
+  migration-allowlist.json: |
+    [
+      "72szxs4Q2JNuM4MQAo79xZNdb9qtBEjTqxZTsRwt8bFn",
+      "GJt52GomRP2Pgq2VWfJqzZNqXp4ftMDQrYQEgLAMMwii",
+      "8WuocZAvCgpadFQfm5h5AFDa6r1gmZ5NxQwJSKPfcEHp",
+      "3ps3QbPpuKejd2CQ9JZswMgWxGJUjKA5Qk7ySnuV9ohq",
+      "H8FeC5b7PgvgF9wn68UoZ6PzdP8xvyw9X7YkxEbL2GTc",
+      "HEAMdqhgF4Aa1GpX4rvUQwxHJsZ9hoLTRuxXuky1DCmj",
+      "7UgyZGe9TotgZXTvGrxKXVcHCq5tYKVsAjcgCWFzxJ2N",
+      "2Sau22sktTHAyfh8H5MgyPmvXAcLsoQWo9A2GsT2mFua",
+      "ssh2hBCEQZSGtwc88EcdpZb93vvxxs3WWFKKTAV1QYx",
+      "ndevHHDjRYxdon4JwXyiJkCN3rp4CjXaRqX2KRjXg3N",
+      "4VWwa7BvHcGFsfnQPCMhg5gMWD3QVxta6PLAXQjY4CQA",
+      "9i4EtVHuwzfFvGZcZxDx3CnLw8D25Q1nPFtkus6XBzgV",
+      "GyMWiV6BgwYaVjvDfXYuo916g9HQvJWVToqmFQphTreN",
+      "AkezKWDqWAwCHBmtUP3BHu9Q48gmHmqsmX1vsYjv217n",
+      "AX3Aid7kQpZt7iNPTYHrF7Toxuh44p3ppu7uu76gbwXF",
+      "BRVmquuY1SiSsrd9DLxsRrbYeURTpHnqFByfK1DU9AvB",
+      "57CGCHWgr7cxLDnKoWNiZtnnRmr6XF1v17Jk4LxTTrej",
+      "8T7MbcpasrbJUqUqPVVsYpKioDGRddNxqhtuySXP427E",
+      "2TDbskV5VF5pdeAr8STRBa8QQdJ1G2afUsgTyyeXS4h6",
+      "exmrL4U6vk6VFoh3Q7fkrPbjpNLHPYFf1J8bqGypuiK",
+      "6TcViaoZjYu1B5dhcj28TKMFLaagqikZhepBnkLMS1Du"
+    ]
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,7 +49,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.34
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.37
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -104,6 +135,8 @@ spec:
                   key: secret
             - name: ONBOARDING_ENDPOINT
               value: "https://onboarding.web.test-helium.com/api/v3"
+            - name: MIGRATION_ALLOWLIST_PATH
+              value: /usr/src/app/config/migration-allowlist.json
 
           readinessProbe:
             failureThreshold: 3
@@ -127,6 +160,9 @@ spec:
             - name: my-helium-keypair
               mountPath: /usr/src/app/keys
               readOnly: true
+            - name: my-helium-migration-allowlist
+              mountPath: /usr/src/app/config
+              readOnly: true
           resources:
             requests:
               cpu: 500m
@@ -141,6 +177,12 @@ spec:
             items:
               - key: keypair.json
                 path: keypair.json
+        - name: my-helium-migration-allowlist
+          configMap:
+            name: my-helium-migration-allowlist
+            items:
+              - key: migration-allowlist.json
+                path: migration-allowlist.json
 ---
 apiVersion: v1
 kind: Service
