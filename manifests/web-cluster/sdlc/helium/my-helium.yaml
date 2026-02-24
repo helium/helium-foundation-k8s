@@ -75,6 +75,8 @@ spec:
               value: us-east-1
             - name: PG_NAME
               value: monitoring
+            - name: NEXT_PUBLIC_WORLD_HELIUM_URL
+              value: https://world-beta.helium.com
             - name: NEXT_PUBLIC_PRIVY_APP_ID
               valueFrom:
                 secretKeyRef:
