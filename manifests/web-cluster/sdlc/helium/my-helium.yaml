@@ -65,6 +65,11 @@ spec:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
+            - name: MIGRATION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: migration-whitelist-bypass-password
+                  key: secret
             - name: PG_HOST
               value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PG_PORT

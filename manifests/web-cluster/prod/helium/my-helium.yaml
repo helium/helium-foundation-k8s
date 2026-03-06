@@ -65,7 +65,11 @@ spec:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
-
+            - name: MIGRATION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: migration-whitelist-bypass-password
+                  key: secret
             - name: NEXT_PUBLIC_SOLANA_URL
               valueFrom:
                 secretKeyRef:
