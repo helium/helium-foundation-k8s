@@ -49,7 +49,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.52
+          image: public.ecr.aws/v0j6k5v6/my-helium:0.2.53
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -64,6 +64,11 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: helius-rpc-url
+                  key: secret
+            - name: MIGRATION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: migration-whitelist-bypass-password
                   key: secret
             - name: PG_HOST
               value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
