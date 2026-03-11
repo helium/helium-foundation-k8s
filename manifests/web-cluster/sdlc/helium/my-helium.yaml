@@ -173,10 +173,10 @@ spec:
           resources:
             requests:
               cpu: 500m
-              memory: 1200Mi
+              memory: 2000Mi
             limits:
               cpu: 1000m
-              memory: 2000Mi
+              memory: 3000Mi
       volumes:
         - name: my-helium-keypair
           secret:
@@ -259,7 +259,7 @@ spec:
         name: memory
         target:
           type: Utilization
-          averageUtilization: 75
+          averageUtilization: 90
     - type: Resource
       resource:
         name: cpu
