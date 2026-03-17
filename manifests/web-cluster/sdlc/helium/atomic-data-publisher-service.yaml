@@ -43,6 +43,16 @@ data:
     name = "entity_reward_destination_changes"
     query_name = "construct_entity_reward_destination_changes"
     parameters = { change_type = "entity_reward_destination" }
+
+    [[service.polling_jobs]]
+    name = "welcome_pack_ownership"
+    query_name = "construct_welcome_pack_ownership"
+    parameters = { change_type = "entity_ownership" }
+
+    [[service.polling_jobs]]
+    name = "welcome_pack_reward_destination"
+    query_name = "construct_welcome_pack_reward_destination"
+    parameters = { change_type = "entity_reward_destination" }
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -65,7 +75,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: atomic-data-publisher-service
-          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.57
+          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.58
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
