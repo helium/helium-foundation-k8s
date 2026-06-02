@@ -248,7 +248,7 @@ spec:
     kind: Deployment
     name: my-helium
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: 5
   metrics:
     - type: Resource
       resource:
