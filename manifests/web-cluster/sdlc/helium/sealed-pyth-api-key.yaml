@@ -1,13 +1,8 @@
-# TODO(pyth-upgrade/07): This is a PLACEHOLDER. The Pyth data-plan API key does
-# not exist yet. Once the key is procured, seal it against the SDLC web-cluster
-# sealed-secrets controller and replace encryptedData.secret below, e.g.:
+# Sealed against the SDLC web-cluster sealed-secrets controller. To rotate:
 #
 #   echo -n "$PYTH_API_KEY" | kubeseal --raw \
 #     --namespace helium --name pyth-api-key \
-#     --controller-namespace kube-system --controller-name sealed-secrets \
-#     > sealed.txt
-#
-# Do NOT deploy this file with the placeholder value.
+#     --controller-namespace kube-system --controller-name sealed-secrets-controller
 ---
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
@@ -17,7 +12,7 @@ metadata:
   namespace: helium
 spec:
   encryptedData:
-    secret: REPLACE_ME_WITH_SEALED_PYTH_API_KEY
+    secret: AgDAFwGRwGbqQKpqq4WbBTw+YCoHEmdYEmWvGt5l9Cv6ypYuDbFl7kQlfx8jJdn83aGauYcuK3WLgscg6f+3l6tyDyPdiY4S65jdyjWB4WEQTCUtvhXcFUBBrMWczJFDdlvGTRLg5GbjSdgtqz2QMBZ7fFI861DebpX0pfqJBqeu9Ghw5DQvToet7AkiRXrtuZdzWlVa2KyoIm2NX0Y+AyR5PYcCR4V8b7l7xV4aEXGbcJLE0Q39vEIyretD7tGMrSG9E+pK5/IOGmN2Pb7oqoQCLXhAc+Qd+nycA/j44HuqnxQ3GFYV1iEATGHrfRxdnMpcYQ19aw0Oede3H7le+cMLm0UeLQXIis4LruyxccUADY3xgGBCYJ/Z+F/NEZnm6+ZUUcJJdnPavHCf5w4o4/1PRgMg4VR9Pu7VgvwvIRvaVyhgocwR/KWDuu4pPxaq+cFOHjQJR+H/0DRUPy0DMjYYE53jqQNpns43Cx26jWdFk/Ic4yiTe/lSLsO+FrP9SBYTlc+5glSrMuG0OqNGuQiCiSboOOt8YEa9rdFxBx4GN7pivOr0MUStltYjxfqySERYJdulJKpkInwc8GimPgThBa8Ya+JXTRF2RHiwybSunaolcnshQTW6M+uP3JtX+s9hVLcSsOns5EkZYSua+amy6/qrAexIfko7/W3W6NNYo7sGUf9no6zGLq0JHiw0wxDq7HOXjJDUGYeGlxEgHSw34OeRgBa/tIGna1siliIaZlDivaACHzj9KcFNgg==
   template:
     metadata:
       creationTimestamp: null
