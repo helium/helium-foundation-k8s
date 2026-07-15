@@ -1,0 +1,163 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tuktuk-pyth-v2
+  name: tuktuk-pyth-v2
+  namespace: helium
+spec:
+  selector:
+    matchLabels:
+      app: tuktuk-pyth-v2
+  template:
+    metadata:
+      labels:
+        app: tuktuk-pyth-v2
+        security-group: public-rds-access
+    spec:
+      serviceAccountName: public-monitoring-rds-monitoring-user-access
+      containers:
+        # TODO(pyth-upgrade/02): pin to the parameterized crank build that
+        # supports the PYTH_* env vars below. 0.0.6 predates parameterization.
+        - name: tuktuk-pyth-v2
+          image: public.ecr.aws/v0j6k5v6/tuktuk-pyth-service:TODO-PARAMETERIZED-BUILD
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+              name: http
+              protocol: TCP
+          env:
+            - name: SOLANA_URL
+              valueFrom:
+                secretKeyRef:
+                  name: helius-rpc-url
+                  key: secret
+            - name: PGHOST
+              value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
+            - name: PGPORT
+              value: "5432"
+            - name: PGUSER
+              value: monitoring
+            - name: AWS_REGION
+              value: us-west-2
+            - name: PGDATABASE
+              value: monitoring
+            - name: PGSSLMODE
+              value: no-verify
+            - name: KEYPAIR_PATH
+              value: /usr/src/app/keys/keypair.json
+            - name: ORIGIN
+              value: https://tuktuk-pyth-v2.web.helium.io
+            - name: PYTH_HERMES_URL
+              value: https://pyth.dourolabs.app/hermes/
+            - name: PYTH_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pyth-api-key
+                  key: secret
+            - name: PYTH_RECEIVER_PROGRAM_ID
+              value: rec2HHDDnjLfj4kE7VyEtFA1HPGQLK33259532cRyHp
+            - name: PYTH_PUSH_ORACLE_PROGRAM_ID
+              value: pyt2F414BA6dPttK6RddPZUdHfapoBN24GL5wbrPCou
+            - name: WORMHOLE_PROGRAM_ID
+              value: HDw2E7P8X1SkCyjvoGsfBGAVUutKcj874bXjHrpVYrVL
+
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8081
+            timeoutSeconds: 1
+          volumeMounts:
+            - name: tuktuk-pyth-keypair
+              mountPath: /usr/src/app/keys
+              readOnly: true
+          resources:
+            requests:
+              cpu: 200m
+              memory: 300Mi
+            limits:
+              cpu: 400m
+              memory: 400Mi
+      volumes:
+        - name: tuktuk-pyth-keypair
+          secret:
+            secretName: tuktuk-pyth-keypair
+            items:
+              - key: keypair.json
+                path: keypair.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tuktuk-pyth-v2
+  namespace: helium
+spec:
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: tuktuk-pyth-v2
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tuktuk-pyth-v2
+  namespace: helium
+  annotations:
+    nginx.ingress.kubernetes.io/limit-rps: "10"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: tuktuk-pyth-v2.web.helium.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tuktuk-pyth-v2
+                port:
+                  number: 8081
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: tuktuk-pyth-v2
+  namespace: helium
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: tuktuk-pyth-v2
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
