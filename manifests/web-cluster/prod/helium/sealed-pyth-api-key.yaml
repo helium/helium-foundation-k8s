@@ -1,0 +1,20 @@
+# Sealed against the PROD web-cluster sealed-secrets controller. To rotate:
+#
+#   echo -n "$PYTH_API_KEY" | kubeseal --raw \
+#     --namespace helium --name pyth-api-key \
+#     --controller-namespace kube-system --controller-name sealed-secrets-controller
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: pyth-api-key
+  namespace: helium
+spec:
+  encryptedData:
+    secret: AgBAib5dvMARzy6zs9O3UDpCCz1JcLD8zbOQKjde7OBDEtQE1Tvv7YpFHaT3+b+5aUv4TaMFaiDGHJkpI//HcXdrKQ2dJR41EzRMEI6iMj7m3lJgmDUz61zqe6bZdKIXUe04fyGYDe1IHXEF17BsRXQK/Ggh31vF88NAsbxqzmwG8akCkCc0++OaOz84exWMAqNkMGdlvSlL6MNTRm186Y8D3Bh3oQsUN/Qrb6/2UBdC6nvOlrqTUzFeMnsgQiodejWjOZPOCryhsuZgCCfWcNEJW7QJVGpMXpwidt81u0DS1eMzp7/SS9Y80LmPJbXfEewK5y5gk+oGWKL6HVWAc7ipOoi1AqQkzoXM+mkgwVq72OgLx/BtOsV9s2Qs1vhL4YCz74fRfikmPo/ITU8aw0xMHxs2hlJ9d7AiqyVph8zM7ZPCTOviOxJpM6BeYLHFMFrL+Fbo64Y5cLvpBApnYZyy4Z0r2YNzTU9KWbK8WDn+mf6peFjniD65C7FgA+cQBojFSlC2FmUyAQOFI0HU2Gn5r7BTpvnba8nniGKAm4paq8PvGaX4JMdmO1vzGqIG0G7iOKBlozM5SbEZo6PgGSX1faoxUZ2EpRHqER2KAyxX/jG08L80+xB4jVMUySom1VrE5pEQaLq/aU1zdGnVWri4IQCjcwo8deSFkzGuMRURz3IhiWOQso+b5cAop1DVMV7sC3x0hTESj1usfPKUKRm2OVaL/0onqoR5S0IwkxVtrtUeVcvSfszoTRx6hQ==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: pyth-api-key
+      namespace: helium
