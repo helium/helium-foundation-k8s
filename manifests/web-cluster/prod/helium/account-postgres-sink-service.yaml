@@ -249,7 +249,8 @@ data:
         "CREATE INDEX IF NOT EXISTS idx_mobile_hotspot_infos_asset_block ON mobile_hotspot_infos(asset, last_block);",
         "CREATE INDEX IF NOT EXISTS idx_iot_hotspot_infos_asset_block ON iot_hotspot_infos(asset, last_block);",
         "CREATE INDEX IF NOT EXISTS idx_welcome_packs_asset_block ON welcome_packs(asset, last_block);",
-        "CREATE INDEX IF NOT EXISTS idx_key_to_assets_encoded_entity_key ON key_to_assets(encoded_entity_key);"
+        "CREATE INDEX IF NOT EXISTS idx_key_to_assets_encoded_entity_key ON key_to_assets(encoded_entity_key);",
+        "CREATE INDEX IF NOT EXISTS idx_proxy_assignments_asset_index ON proxy_assignments(asset, index);"
       ]
     }
 ---
