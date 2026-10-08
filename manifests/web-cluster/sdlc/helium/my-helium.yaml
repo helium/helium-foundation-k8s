@@ -144,6 +144,9 @@ spec:
               value: "https://onboarding.web.test-helium.com/api/v3"
             - name: MIGRATION_ALLOWLIST_PATH
               value: /usr/src/app/config/migration-allowlist.json
+            # Set HPL_TX_VERSION=v0 and redeploy to force v0 transactions.
+            # - name: HPL_TX_VERSION
+            #   value: v0
 
           readinessProbe:
             failureThreshold: 3
