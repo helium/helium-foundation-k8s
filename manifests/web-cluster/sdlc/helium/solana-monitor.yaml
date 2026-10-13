@@ -19,7 +19,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: solana-monitor
-          image: public.ecr.aws/v0j6k5v6/solana-monitor:0.1.20
+          image: public.ecr.aws/v0j6k5v6/solana-monitor:0.1.21
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
@@ -46,6 +46,8 @@ spec:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
+            - name: TUKTUK_DCA_PROGRAM_ID
+              value: tdcaoktKw6bDQ5ukLq5fLtje2kCkmHX7Sj9G77jY5dh
             - name: PGHOST
               value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
             - name: PGPORT
