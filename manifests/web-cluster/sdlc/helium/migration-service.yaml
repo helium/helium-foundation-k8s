@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rds-web-user-access
       containers:
         - name: migration-service
-          image: public.ecr.aws/v0j6k5v6/migration-service:0.1.5
+          image: public.ecr.aws/v0j6k5v6/migration-service:0.1.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -53,6 +53,9 @@ spec:
                   key: secret
             - name: ANCHOR_WALLET
               value: /usr/src/app/keys/keypair.json
+            # Set HPL_TX_VERSION=v0 and redeploy to force v0 transactions.
+            # - name: HPL_TX_VERSION
+            #   value: v0
           volumeMounts:
             - name: migration-service-keypair
               mountPath: /usr/src/app/keys

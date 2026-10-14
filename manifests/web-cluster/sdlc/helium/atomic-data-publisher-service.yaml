@@ -75,7 +75,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: atomic-data-publisher-service
-          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.58
+          image: public.ecr.aws/v0j6k5v6/atomic-data-publisher-service:0.1.59
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -96,6 +96,9 @@ spec:
               value: require
             - name: INGESTOR__ENDPOINT
               value: https://alb.mobile.devnet.helium.wtf:9091
+            # The devnet mobile ingestor is gone, so sdlc runs dry-run.
+            - name: SERVICE__DRY_RUN
+              value: "true"
             - name: SIGNING__KEYPAIR_PATH
               value: /usr/src/app/keypair.bin
           volumeMounts:
