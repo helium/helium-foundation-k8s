@@ -92,7 +92,7 @@ spec:
                 secretKeyRef:
                   name: privy-app-id
                   key: app-id
-            - name: NEXT_PUBLIC_SOLANA_CLUSTER
+            - name: SOLANA_CLUSTER
               value: mainnet-beta
             - name: HPL_CRONS_TASK_QUEUE
               value: H39gEszvsi6AT4rYBiJTuZHJSF5hMHy6CKGTd7wzhsg7
