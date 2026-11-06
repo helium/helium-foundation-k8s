@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/blockchain-api:0.3.11
+          image: public.ecr.aws/v0j6k5v6/blockchain-api:0.3.16
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -42,11 +42,6 @@ spec:
               value: us-west-2
             - name: PG_NAME
               value: monitoring
-            - name: PRIVY_APP_ID
-              valueFrom:
-                secretKeyRef:
-                  name: privy-app-id
-                  key: app-id
             - name: SOLANA_CLUSTER
               value: mainnet-beta
             - name: PUBLIC_URL
@@ -64,11 +59,6 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: jito-api-key
-                  key: secret
-            - name: PRIVY_APP_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: privy-app-secret
                   key: secret
             - name: ORACLE_SIGNER
               value: orc1TYY5L4B4ZWDEMayTqu99ikPM9bQo9fqzoaCPP5Q
@@ -88,6 +78,9 @@ spec:
                   key: secret
             - name: ONBOARDING_ENDPOINT
               value: "https://onboarding.dewi.org/api/v3"
+            # Set HPL_TX_VERSION=v0 and redeploy to force v0 transactions.
+            # - name: HPL_TX_VERSION
+            #   value: v0
 
           readinessProbe:
             failureThreshold: 3

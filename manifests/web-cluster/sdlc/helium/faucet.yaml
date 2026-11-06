@@ -45,6 +45,9 @@ spec:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
+            # Set HPL_TX_VERSION=v0 and redeploy to force v0 transactions.
+            # - name: HPL_TX_VERSION
+            #   value: v0
           volumeMounts:
             - name: faucet-keypair
               mountPath: /usr/src/app/keys
