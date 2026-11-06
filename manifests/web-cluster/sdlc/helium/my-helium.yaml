@@ -44,6 +44,8 @@ spec:
               value: monitoring
             - name: SOLANA_CLUSTER
               value: devnet
+            - name: PUBLIC_URL
+              value: https://blockchain-api.web.test-helium.com
             - name: HPL_CRONS_TASK_QUEUE
               value: H39gEszvsi6AT4rYBiJTuZHJSF5hMHy6CKGTd7wzhsg7
             - name: FEE_PAYER_WALLET_PATH
