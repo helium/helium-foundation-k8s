@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tokens-to-rent
-          image: public.ecr.aws/v0j6k5v6/tokens-to-rent-service:0.0.15
+          image: public.ecr.aws/v0j6k5v6/tokens-to-rent-service:0.0.16
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
@@ -30,6 +30,13 @@ spec:
                 secretKeyRef:
                   name: helius-rpc-url
                   key: secret
+            - name: JUPITER_API_URL
+              value: "https://api.jup.ag"
+            - name: JUPITER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jupiter-api-key
+                  key: jupiter-api-key
           readinessProbe:
             failureThreshold: 3
             httpGet:
