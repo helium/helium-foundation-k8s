@@ -87,11 +87,6 @@ spec:
                   key: secret
             - name: ONBOARDING_ENDPOINT
               value: "https://onboarding.web.test-helium.com/api/v3"
-            - name: DUNE_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: dune-api-key
-                  key: dune-api-key
             # Set HPL_TX_VERSION=v0 and redeploy to force v0 transactions.
             # - name: HPL_TX_VERSION
             #   value: v0
