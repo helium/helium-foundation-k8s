@@ -87,6 +87,24 @@ spec:
                   key: secret
             - name: ONBOARDING_ENDPOINT
               value: "https://onboarding.web.test-helium.com/api/v3"
+            - name: PROPOSAL_CONTENT_ALLOWED_HOSTS
+              value: "gist.githubusercontent.com,api.github.com"
+            - name: PROXY_DIRECTORY_REPO
+              value: "helium/helium-vote-proxies"
+            - name: PROXY_DIRECTORY_REF
+              value: "main"
+            - name: GET_WALLET_POSITIONS_RATE_LIMIT_PER_IP
+              value: "60"
+            - name: GET_PROXIED_POSITIONS_RATE_LIMIT_PER_IP
+              value: "60"
+            - name: GET_WALLET_VOTE_STATUS_RATE_LIMIT_PER_IP
+              value: "120"
+            - name: GET_PROPOSAL_VOTES_RATE_LIMIT_PER_IP
+              value: "120"
+            - name: GET_WALLET_VOTES_RATE_LIMIT_PER_IP
+              value: "120"
+            - name: GET_PROXY_RATE_LIMIT_PER_IP
+              value: "120"
             # Set HPL_TX_VERSION=v0 and redeploy to force v0 transactions.
             # - name: HPL_TX_VERSION
             #   value: v0
