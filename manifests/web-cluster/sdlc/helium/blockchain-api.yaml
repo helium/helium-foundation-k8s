@@ -146,7 +146,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: my-helium
+  name: blockchain-api
   namespace: helium
   annotations:
     # Rate limiting with API key bypass
