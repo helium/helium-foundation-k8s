@@ -160,7 +160,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: my-helium
+                name: blockchain-api
                 port:
                   number: 3000
     - host: blockchain-api.web.helium.io
@@ -170,7 +170,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: my-helium
+                name: blockchain-api
                 port:
                   number: 3000
 ---
