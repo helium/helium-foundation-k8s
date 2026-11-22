@@ -18,7 +18,7 @@ spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
         - name: blockchain-api
-          image: public.ecr.aws/v0j6k5v6/blockchain-api:0.3.19
+          image: public.ecr.aws/v0j6k5v6/blockchain-api:0.3.20
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
