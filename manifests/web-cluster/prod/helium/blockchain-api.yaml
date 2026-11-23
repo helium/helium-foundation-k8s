@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: my-helium
-  name: my-helium
+    app: blockchain-api
+  name: blockchain-api
   namespace: helium
 spec:
   selector:
     matchLabels:
-      app: my-helium
+      app: blockchain-api
   template:
     metadata:
       labels:
-        app: my-helium
+        app: blockchain-api
         security-group: public-rds-access
     spec:
       serviceAccountName: public-monitoring-rds-monitoring-user-access
       containers:
-        - name: my-helium
-          image: public.ecr.aws/v0j6k5v6/blockchain-api:0.3.19
+        - name: blockchain-api
+          image: public.ecr.aws/v0j6k5v6/blockchain-api:0.3.20
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -33,19 +33,19 @@ spec:
                   name: helius-rpc-url
                   key: secret
             - name: PG_HOST
-              value: monitoring-rds.cnigyps3bpgz.us-east-1.rds.amazonaws.com
+              value: monitoring-rds.cbhihwhsofyu.us-west-2.rds.amazonaws.com
             - name: PG_PORT
               value: "5432"
             - name: PG_USER
               value: monitoring
             - name: AWS_REGION
-              value: us-east-1
+              value: us-west-2
             - name: PG_NAME
               value: monitoring
             - name: SOLANA_CLUSTER
-              value: devnet
+              value: mainnet-beta
             - name: PUBLIC_URL
-              value: https://blockchain-api.web.test-helium.com
+              value: https://blockchain-api.web.helium.io
             - name: HPL_CRONS_TASK_QUEUE
               value: H39gEszvsi6AT4rYBiJTuZHJSF5hMHy6CKGTd7wzhsg7
             - name: FEE_PAYER_WALLET_PATH
@@ -55,24 +55,15 @@ spec:
                 secretKeyRef:
                   name: sentry-dsn
                   key: secret
-            - name: ACCOUNT_INDEXER_URL
-              value: "https://account-sink.web.test-helium.com"
-            - name: ASSET_OWNER_INDEXER_URL
-              value: "https://asset-ownership.web.test-helium.com"
-            - name: ACCOUNT_INDEXER_PASSWORD
+            - name: JITO_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: refresh-password
-                  key: password
-            - name: ASSET_OWNER_INDEXER_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: refresh-password
-                  key: password
+                  name: jito-api-key
+                  key: secret
             - name: ORACLE_SIGNER
-              value: dor5y9KAG6mVGFquXr8ipmm7GVLZefiNiCjvER58kPB
+              value: orc1TYY5L4B4ZWDEMayTqu99ikPM9bQo9fqzoaCPP5Q
             - name: ORACLE_URL
-              value: https://hnt-rewards.oracle.test-helium.com
+              value: https://hnt-rewards.oracle.helium.io
             - name: JUPITER_API_URL
               value: "https://api.jup.ag"
             - name: JUPITER_API_KEY
@@ -86,7 +77,25 @@ spec:
                   name: unlimited-rate-api-key
                   key: secret
             - name: ONBOARDING_ENDPOINT
-              value: "https://onboarding.web.test-helium.com/api/v3"
+              value: "https://onboarding.dewi.org/api/v3"
+            - name: PROPOSAL_CONTENT_ALLOWED_HOSTS
+              value: "gist.githubusercontent.com,api.github.com"
+            - name: PROXY_DIRECTORY_REPO
+              value: "helium/helium-vote-proxies"
+            - name: PROXY_DIRECTORY_REF
+              value: "main"
+            - name: GET_WALLET_POSITIONS_RATE_LIMIT_PER_IP
+              value: "60"
+            - name: GET_PROXIED_POSITIONS_RATE_LIMIT_PER_IP
+              value: "60"
+            - name: GET_WALLET_VOTE_STATUS_RATE_LIMIT_PER_IP
+              value: "120"
+            - name: GET_PROPOSAL_VOTES_RATE_LIMIT_PER_IP
+              value: "120"
+            - name: GET_WALLET_VOTES_RATE_LIMIT_PER_IP
+              value: "120"
+            - name: GET_PROXY_RATE_LIMIT_PER_IP
+              value: "120"
             # Set HPL_TX_VERSION=v0 and redeploy to force v0 transactions.
             # - name: HPL_TX_VERSION
             #   value: v0
@@ -102,15 +111,15 @@ spec:
             successThreshold: 1
             timeoutSeconds: 2
           livenessProbe:
-            failureThreshold: 3
-            initialDelaySeconds: 30
+            failureThreshold: 5
+            initialDelaySeconds: 40
             periodSeconds: 10
             successThreshold: 1
             tcpSocket:
               port: 3000
             timeoutSeconds: 1
           volumeMounts:
-            - name: my-helium-keypair
+            - name: keypair
               mountPath: /usr/src/app/keys
               readOnly: true
           resources:
@@ -121,7 +130,7 @@ spec:
               cpu: 1000m
               memory: 3000Mi
       volumes:
-        - name: my-helium-keypair
+        - name: keypair
           secret:
             secretName: my-helium-keypair
             items:
@@ -131,7 +140,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-helium
+  name: blockchain-api
   namespace: helium
 spec:
   ports:
@@ -139,14 +148,14 @@ spec:
       protocol: TCP
       targetPort: http
   selector:
-    app: my-helium
+    app: blockchain-api
   sessionAffinity: None
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: my-helium
+  name: blockchain-api
   namespace: helium
   annotations:
     # Rate limiting with API key bypass
@@ -157,39 +166,39 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: my-helium.web.test-helium.com
+    - host: my-helium.web.helium.io
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: my-helium
+                name: blockchain-api
                 port:
                   number: 3000
-    - host: blockchain-api.web.test-helium.com
+    - host: blockchain-api.web.helium.io
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: my-helium
+                name: blockchain-api
                 port:
                   number: 3000
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: my-helium
+  name: blockchain-api
   namespace: helium
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: my-helium
+    name: blockchain-api
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: 5
   metrics:
     - type: Resource
       resource:
